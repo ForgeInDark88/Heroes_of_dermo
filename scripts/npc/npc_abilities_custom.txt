@@ -1,0 +1,1295 @@
+
+// Dota Abilities Override File
+"DOTAAbilities"
+{
+  "Version"   "1"
+
+  "containers_lua_targeting"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_BOTH"
+    //"AbilityUnitTargetType"     "DOTA_UNIT_TARGET_ALL"
+    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_ALL"
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL" 
+    "BaseClass"         "ability_lua"
+    "AbilityTextureName"        "rubick_empty1"
+    "ScriptFile"          "libraries/abilities/containers_lua_targeting"
+    "MaxLevel"            "1"
+    "IsCastableWhileHidden" "1"
+    
+    // Casting
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastRange"        "0"
+    "AbilityCastPoint"        "0.0"
+
+    // Time   
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCooldown"       "0"
+
+    // Cost
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "0 0 0 0"
+  }
+
+  "containers_lua_targeting_tree"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_HIDDEN"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_BOTH"
+    //"AbilityUnitTargetType"     "DOTA_UNIT_TARGET_ALL"
+    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_ALL | DOTA_UNIT_TARGET_TREE"
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL" 
+    "BaseClass"         "ability_lua"
+    "AbilityTextureName"        "rubick_empty1"
+    "ScriptFile"          "libraries/abilities/containers_lua_targeting_tree"
+    "MaxLevel"            "1"
+    "IsCastableWhileHidden" "1"
+    
+    // Casting
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCastRange"        "0"
+    "AbilityCastPoint"        "0.0"
+
+    // Time   
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityCooldown"       "0"
+
+    // Cost
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityManaCost"       "0 0 0 0"
+  }
+  
+  
+  "ZLOY"
+  {
+    "BaseClass"   "ability_lua"
+    "ScriptFile"  "abilities/zloy"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+    "AbilityTextureName" "zloy"
+    "AbilityType"   "DOTA_ABILITY_TYPE_BASIC"
+    "AbilityUnitTargetType"   "DOTA_UNIT_TARGET_NONE"
+    "SpellDispellableType"    "DOTA_ToolTip_Dispellable_Yes_Soft"
+    "MaxLevel"    "4"
+    "AbilityCastAnimation"    "ACT_DOTA_DIE"
+    "AbilityCastPoint"    "0.2"
+    "AbilityManaCost"   "55 65 75 85"
+    "AbilityProcsMagicStick"    "1"
+    "DisplayAdditionalHeroes"   "1"
+
+    "AbilityValues"
+    {
+      "dmg"
+      {
+        "value" "50 75 100 125"
+        "special_bonus_unique_tugarchik_zloy_damage" "+15"
+      }
+      "dur"
+      {
+        "value" "6 8 10 12"
+        "special_bonus_unique_tugarchik_zloy_duration" "+2"
+      }
+      "AbilityCooldown"
+      {
+        "value" "50 46 42 38"
+        "special_bonus_unique_tugarchik_zloy_cooldown" "-4"
+      }
+    }
+  }
+  "sam"
+  {
+  "BaseClass"                       "ability_datadriven"
+  "AbilityBehavior"                 "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+  "AbilityType"                     "DOTA_ABILITY_TYPE_BASIC"
+  "MaxLevel"                        "4"
+  "Innate"                          "1"
+  "ShouldBeAutomaticallyUpgraded"   "1"
+
+  "AbilityValues"
+    {
+    "armor"                         "2 5 10 15"
+    }
+
+  "Modifiers"
+    {
+    "aura"
+      {
+      "Passive"                     "1"
+      "IsHidden"                    "0"
+      
+      -- Запускаем проверку каждые 0.5 сек
+      "ThinkInterval"               "0.5"
+      "OnIntervalThink"
+        {
+        "RunScript"
+          {
+          "ScriptFile"              "abilities/innate_auto_level.lua"
+          "Function"                "UpdateInnateLevel"
+          }
+        }
+
+      "Properties"
+        {
+        "MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS"    "%armor"
+        }
+      }
+    }
+  }
+  "titan"
+  {
+    "BaseClass"   "ability_lua"
+    "ScriptFile"  "abilities/titan"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_CHANNELLED | DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityTextureName" "titan"
+    "AbilityType"   "DOTA_ABILITY_TYPE_BASIC"
+    "AbilityUnitTargetType"   "DOTA_UNIT_TARGET_HERO"
+    "AbilityUnitTargetTeam"   "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityCastAnimation"    "ACT_DOTA_CAST_ABILITY_1"
+    "AbilityChannelTime"      "%channel_time"
+    "AbilityCooldown"   "30 32 34 36"
+    "AbilityManaCost"   "25 35 45 55"
+    "AbilityCastRange"   "600"
+
+    "AbilityValues"
+    {
+      "sped"       "20 30 40 50"
+      "unsped"     "-25"
+      "atcsped"
+      {
+        "value" "30 45 60 75"
+        "special_bonus_unique_tugarchik_titan_attack_speed" "+15"
+      }
+      "modl"       "2 3 4 5"
+      "atksped"    "-25"
+      "channel_time"
+      {
+        "value" "1.0"
+        "special_bonus_unique_tugarchik_titan_cast_time" "-0.85"
+      }
+    }
+  }
+"custom_pudge_fall"
+{
+    "BaseClass"                 "ability_lua"
+    "ScriptFile"                "abilities/custom_pudge_fall"
+    "AbilityType"               "DOTA_ABILITY_TYPE_BASIC"
+    "AbilityTextureName"        "bivshiya"
+    "MaxLevel"                  "4"
+    "HasShardUpgrade"           "1"
+
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL"
+    "SpellImmunityType"         "SPELL_IMMUNITY_ENEMIES_NO"
+
+    "AbilityCastRange"          "800"
+    "AbilityCastPoint"          "0.3"
+    "AbilityCooldown"           "24"
+    "AbilityManaCost"           "70"
+
+    "precache"
+    {
+        "model"                 "models/heroes/pudge/pudge.vmdl"
+        "particle"              "particles/units/heroes/hero_centaur/centaur_hoof_stomp.vpcf"
+        "particle"              "particles/units/heroes/hero_pudge/pudge_rot.vpcf"
+        "particle"              "particles/econ/items/pudge/hungry_clown/hungry_clown_rot_body.vpcf"
+    }
+
+    "AbilityValues"
+    {
+        "radius"                "350"
+        "damage"                "160 220 280 340"
+        "stun_duration"         "0.9 1.1 1.3 1.5"
+        "fall_speed"            "1800"
+        "spawn_height"          "1200"
+
+        "shard_rot_duration"    "8.0"
+        "shard_rot_radius"      "800"
+        "shard_slow_pct"        "-10"
+        "shard_heal_reduce_pct" "-10"
+    }
+}
+
+  "whip_electric_strike"
+  {
+    "BaseClass"                     "ability_lua"
+    "ScriptFile"                    "abilities/whip_electric_strike"
+    "AbilityTextureName"            "kuzya"
+    "RequiredLevel"                 "6"
+    "LevelsBetweenUpgrades"         "6"
+    "AbilityType"                   "DOTA_ABILITY_TYPE_ULTIMATE"
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+    "AbilityUnitDamageType"         "DOTA_DAMAGE_TYPE_MAGICAL"
+    "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_NO"
+    "MaxLevel"                      "3"
+    
+    "AbilityCastRange"              "600"
+    "AbilityCastPoint"              "0.3"
+    "AbilityCooldown"               "100 95 90"
+    "AbilityManaCost"               "125 175 225"
+
+    "AbilityValues"
+    {
+        "stun_duration"             "3.5"
+        "damage"                    "350 500 650"
+    }
+  }
+  "custom_aghanim_ability"
+  {
+    "BaseClass"                     "ability_lua"
+    "ScriptFile"                    "abilities/custom_aghanim_ability"
+    "AbilityTextureName"            "drochun"
+    
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+    "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+    
+    "MaxLevel"                      "1"
+    "FightRecapLevel"               "1"
+    "IsGrantedByScepter"      "1"
+    
+    "AbilityCastRange"              "700"
+    "AbilityChannelTime"            "0.1"
+    "AbilityCooldown"               "15.0"
+    "AbilityManaCost"               "100"
+
+    // Современный формат параметров
+    "AbilityValues"
+    {
+        "armor_reduction"           "-10.0"
+        "movespeed_slow"            "-20"
+        "duration"                  "4.0"
+        "projectile_speed"          "1200"
+    }
+  }
+  "popchik_hair_run"
+  {
+    "BaseClass"                     "ability_lua"
+    "ScriptFile"                    "abilities/popchik_hair_run"
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityTextureName"            "anime"
+
+    "AbilityCastPoint"              "0.0"
+    "AbilityCooldown"               "14.0 13.0 12.0 11.0"
+    "AbilityManaCost"               "75 80 85 90"
+
+    "AbilityValues"
+    {
+        "duration"
+        {
+            "value"                                      "2.0 3.0 4.0 5.0"
+            "special_bonus_unique_popchik_hair_duration" "+1"
+        }
+        "bonus_movement_speed"      "30 40 50 60"
+        "evasion_chance"            "100"
+        "mana_regen_bonus"
+        {
+            "value"                                      "0"
+            "special_bonus_unique_popchik_mana_regen"   "+2.5"
+        }
+    }
+  }
+  "creeper_explode"
+  {
+    "BaseClass"                     "ability_lua"
+    "ScriptFile"                    "abilities/creeper_explode"
+    "MaxLevel"                      "4"
+    "Behavior"                      "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    
+    "AbilityValues"
+    {
+        "radius"                    "350"
+        "damage"                    "250 325 375 425"
+    }
+  }
+  "chmoshnik"
+  {
+    "BaseClass"                     "ability_lua"
+    "ScriptFile"                    "abilities/chmoshnik"
+    "MaxLevel"                      "4"
+    "AbilityTextureName"            "chmoshnik"
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_HERO"
+    "AbilityUnitDamageType"         "DAMAGE_TYPE_MAGICAL"
+    "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_NO"
+    
+    "AbilityCastRange"              "600"
+    "AbilityCastPoint"              "0.2"
+
+    "AbilityManaCost"               "100 110 120 130"
+
+    "AbilityValues"
+    {
+        "damage"
+        {
+            "value"                                      "150 200 250 300"
+            "special_bonus_unique_popchik_chmoshnik_damage" "+190"
+        }
+        "duration"          "3.0"
+        "root_duration"
+        {
+            "value"                                      "0.5 0.7 0.9 1.1"
+            "special_bonus_unique_popchik_chmoshnik_root" "+0.9"
+        }
+        "AbilityCooldown" 
+        {
+            "value"                                      "20.0 18.0 16.0 14.0"
+            "special_bonus_unique_popchik_chmoshnik_cd"  "-4"
+        }
+    }
+  }
+  "throw_creeper"
+  {
+    "BaseClass"                     "ability_lua"
+    "ScriptFile"                    "abilities/throw_creeper"
+    "AbilityTextureName"            "brat" // Замените на имя вашей иконки
+    "MaxLevel"                      "4"
+    
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+    "AbilityUnitDamageType"         "DOTA_DAMAGE_TYPE_MAGICAL"
+    
+    "AbilityCastRange"              "800"
+    "AbilityCastPoint"              "0.3"
+    "AbilityManaCost"               "100 110 120 130"
+
+    "AbilityValues"
+    {
+        "projectile_speed"          "1200"
+        "stun_duration"             "1.0 1.4 1.8 2.2"
+        "damage"                    "75 100 125 150"
+        "bonus_health"
+        {
+            "value"                                      "0"
+            "special_bonus_unique_popchik_hp"            "+200"
+        }
+        "AbilityCooldown" 
+        {
+            "value"                                      "15 13 11 9"
+            "special_bonus_unique_popchik_throw_creeper_cd" "-2"
+        }
+    }
+  }
+"custom_doom_aura"
+  {
+    "BaseClass"                     "ability_lua"
+    "ScriptFile"                    "abilities/custom_doom_aura"
+    "AbilityTextureName"            "midas"
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+    "AbilityType"                   "DOTA_ABILITY_TYPE_ULTIMATE"
+    "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_NO"
+    "RequiredLevel"                 "6"
+    "LevelsBetweenUpgrades"         "6"
+    "MaxLevel"                      "3"
+    
+    "AbilityManaCost"               "150 200 250"
+    
+    "HasScepterUpgrade"             "1"
+
+    "AbilityValues"
+    {
+        "duration"                  "16"
+        "radius"                    "600"
+        "move_speed_slow"           "-15 -20 -25"
+        "spell_resist_reduction"    "-15 -20 -25"
+        "gold_steal_per_tick_scepter" "20"
+        "tick_interval"             "1.0"
+        "AbilityCooldown" 
+        {
+            "value"                                      "120 110 100"
+            "special_bonus_unique_popchik_midas_cd"     "-20"
+        }
+    }
+  }
+"turbo_warrior"
+  {
+    "BaseClass"                     "ability_lua"
+    "ScriptFile"                    "abilities/turbo_warrior"
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityTextureName"            "turbo"
+    "MaxLevel"                      "1"
+    "Innate"                        "1"
+
+    "HasShardUpgrade"               "1"
+    "AbilityCooldown"               "60.0"
+
+    "AbilityValues"
+    {
+        "respawn_time_pct"          "-50"
+        "shard_duration"            "10.0"
+        "shard_courier_speed"       "1100"
+    }
+  }
+  "hypnosis_target"
+  {
+    "BaseClass"                     "ability_lua"
+    "ScriptFile"                    "abilities/hypnosis_target"
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+    "AbilityUnitDamageType"         "DAMAGE_TYPE_MAGICAL"
+    "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_NO"
+    "AbilityTextureName"            "musor"
+    
+    "AbilityCastRange"              "600"
+    "AbilityCastPoint"              "0.3"
+
+    "AbilityManaCost"               "100 110 120 130"
+
+    "AbilityValues"
+    {
+        "duration"                  "2 2.5 3 3.5"
+        "damage_per_sec"
+        {
+            "value"                 "60 80 100 120"
+            "special_bonus_unique_suprunov_hypnosis_dps" "+30"
+        }
+        "AbilityCharges"
+        {
+            "value"                 "1"
+            "special_bonus_unique_suprunov_hypnosis_charges" "+1"
+        }
+        "AbilityChargeRestoreTime" "15 14 13 12"
+        "move_speed_slow_pct"       "50" // Процент замедления во время гипноза
+    }
+  }
+"custom_earthquake_bounce"
+  {
+    "BaseClass"                     "ability_lua"
+    "ScriptFile"                    "abilities/custom_earthquake_bounce"
+    "HasScepterUpgrade"              "1"
+    "AbilityTextureName"            "centaur_hoof_stomp"
+    "AbilityType"                   "DOTA_ABILITY_TYPE_ULTIMATE"
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+    "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_NO"
+    "RequiredLevel"                 "6"
+    "LevelsBetweenUpgrades"         "6"
+    "MaxLevel"                      "3"
+    "AbilityTextureName"            "333"
+    
+    "AbilityCastPoint"              "0.3"
+    "AbilityCooldown"               "120 110 100"
+    "AbilityManaCost"               "150 250 350"
+
+    HasScepterUpgrade "1"
+    
+    "AbilityValues"
+    {
+      "aura_duration"           "7"
+      "radius"                  "600 650 700"
+      "interval"                "1.6 1.3 1.0"
+      "delay"                   "1.0"
+      "damage"                  "80 140 180"
+      "stun_duration"           "0.1"
+      "scepter_item_cooldown"   "3.0"
+      "scepter_sound"           "Custom_Suprunov_Scepter"
+      "scepter_glow_particle"   "particles/units/heroes/hero_phoenix/phoenix_supernova_rebirth.vpcf"
+      "bounce_height"           "250"
+      "bounce_duration"         "0.4"
+    }
+  }
+  "Dota_Ability_Reincarnation_Passive"
+  {
+    "BaseClass"                         "ability_lua"
+    "ScriptFile"                        "abilities/dota_ability_reincarnation_passive"
+    "AbilityType"                       "DOTA_ABILITY_TYPE_BASIC"
+    "AbilityBehavior"                   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "MaxLevel"                        "1"
+    "Innate"                          "1"
+    "AbilityCooldown"                   "300"
+    
+    "AbilityValues"
+    {
+        "reincarnate_delay"             "3.0"
+    }
+  }
+"innate_tp_ability"
+  {
+    "BaseClass"                     "ability_lua"
+    "ScriptFile"                    "abilities/innate_tp_ability"
+
+    "AbilityTextureName"            "alan"
+    "AbilityType"                   "DOTA_ABILITY_TYPE_BASIC"
+
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET | DOTA_ABILITY_BEHAVIOR_CHANNELLED"
+    "AbilityTargetTeam"             "DOTA_UNIT_TARGET_TEAM_FRIENDLY"
+    "AbilityTargetType"             "DOTA_UNIT_TARGET_CREEP | DOTA_UNIT_TARGET_BASIC"
+    "AbilityUnitTargetFlags"        "DOTA_UNIT_TARGET_FLAG_INVULNERABLE"
+
+    "MaxLevel"                      "1"
+    "Innate"                        "1"
+    "IsGrantedByAPoint"             "0"
+
+    "HasShardUpgrade"               "1"
+
+    "AbilityManaCost"               "75"
+    "AbilityCastPoint"              "1.0"
+    "AbilityChannelTime"            "3.0"
+
+    "AbilityValues"
+    {
+        "cast_range"
+        {
+            "value" "3000"
+            "special_bonus_unique_suprunov_tp_range" "+15000"
+        }
+
+        "AbilityCooldown"
+        {
+            "value" "120"
+            "special_bonus_unique_suprunov_tp_cooldown" "-90"
+        }
+
+        "vision_radius" "300"
+
+        "shard_barrier" "300"
+    }
+  }
+  "golda"
+  {
+  // Основные параметры
+  "BaseClass"           "ability_lua"
+  "ScriptFile"          "abilities/golda"
+  "AbilityTextureName"      "tinker_laser"
+  "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+  "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+  "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+  "AbilityUnitDamageType"     "DAMAGE_TYPE_PURE"
+  "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_NO"
+  "AbilityTextureName"            "golda"
+  
+  // Каст и перезарядка
+  "AbilityCastPoint"        "0.2"
+  "AbilityCastRange"        "600"
+  "AbilityCooldown"       "17 16 15 14"
+  "AbilityManaCost"       "100 115 130 145"
+
+  // Анимация каста Тинкера (кидок лазера)
+  "AbilityCastAnimation"      "ACT_DOTA_CAST_ABILITY_1"
+
+  // Числовые значения через AbilityValues
+  "AbilityValues"
+    {
+    "damage"      "150 250 350 450"
+    "root_duration"
+      {
+        "value"                  "1.0"
+        "special_bonus_unique_suprunov_golda_root" "+0.5"
+      }
+    "knockback_distance"  "300"
+    "knockback_duration"  "0.3"
+    }
+  }
+"ability_summon_cat"
+  {
+    "BaseClass"                     "ability_lua"
+    "ScriptFile"                    "abilities/ability_summon_cat"
+    "AbilityTextureName"            "alchemist_chemical_rage"
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+    "MaxLevel"                      "4"
+    "AbilityTextureName"            "kotik"
+    
+    "AbilityCooldown"               "30.0 26.0 22.0 18.0"
+    "AbilityManaCost"               "80 100 120 140"
+
+    "AbilityValues"
+    {
+        "cat_duration"              "20.0"
+        "scream_radius"
+        {
+            "value"                 "350 400 450 500"
+            "special_bonus_unique_suprunov_cat_radius" "+100"
+        }
+        "damage_reduction_pct"      "-15 -25 -35 -45"
+        "debuff_duration"           "3.0 3.5 4.0 4.5"
+        "scream_cooldown"           "1.0"
+        
+        // Здоровье и урон котика по уровням
+        "cat_hp"
+        {
+            "value"                 "300 400 500 600"
+        }
+        "cat_damage"                "45 65 85 105"
+    }
+  }
+
+
+  // =====================================================================
+  // Popchik talents
+  // =====================================================================
+
+  "special_bonus_unique_popchik_hp"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+
+  "special_bonus_unique_popchik_mana_regen"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+
+  "special_bonus_unique_popchik_chmoshnik_root"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+
+  "special_bonus_unique_popchik_throw_creeper_cd"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+
+  "special_bonus_unique_popchik_chmoshnik_cd"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+
+  "special_bonus_unique_popchik_hair_duration"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+
+  "special_bonus_unique_popchik_chmoshnik_damage"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+
+  "special_bonus_unique_popchik_midas_cd"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+    "special_bonus_mana_reduction_11"
+  {
+    // General
+    //-------------------------------------------------------------------------------------------------------------
+    "AbilityType"         "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityValues"
+    {
+      "value"
+      {
+        "value" "2.5"
+      }
+    }
+  }
+    // =====================================================================
+  // Suprunov talents
+  // =====================================================================
+
+
+  "special_bonus_unique_suprunov_golda_root"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+
+  "special_bonus_unique_suprunov_cat_radius"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+
+
+  "special_bonus_unique_suprunov_tp_range"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+
+  "special_bonus_unique_suprunov_hypnosis_dps"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+
+  "special_bonus_unique_suprunov_tp_cooldown"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+
+  "special_bonus_unique_suprunov_hypnosis_charges"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+
+   "shemelis"
+    {
+        "BaseClass"                 "ability_lua"
+        "ScriptName"                "shemelis"
+
+        "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+        "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+        "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+
+        "AbilityCastRange"          "600"
+        "AbilityCastPoint"          "0.0"
+
+        "AbilityCooldown"           "12"
+        "AbilityManaCost"           "75"
+
+        "AbilityTextureName"        "item_blink"
+
+        "AbilityValues"
+        {
+            "blink_range"           "600"
+            "slow_percent"          "50"
+            "slow_duration"         "1.0"
+
+            "bonus_strength"        "5"
+            "bonus_agility"         "35"
+            "bonus_intellect"       "5"
+            "bonus_attack_speed"    "15"
+            "bonus_movespeed_pct"   "10"
+        }
+    }
+    "special_bonus_unique_tugarchik_zloy_duration"
+  {
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+  }
+
+  "special_bonus_unique_tugarchik_mana_regen"
+  {
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+  }
+
+  "special_bonus_unique_tugarchik_zloy_cooldown"
+  {
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+  }
+
+  "special_bonus_unique_tugarchik_titan_attack_speed"
+  {
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+  }
+
+  "special_bonus_unique_tugarchik_zloy_damage"
+  {
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+  }
+
+  "special_bonus_unique_tugarchik_titan_cast_time"
+  {
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+  }
+
+  "special_bonus_unique_tugarchik_zloy_dispel"
+  {
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+  }
+
+  "special_bonus_unique_tugarchik_titan_reset_on_kill"
+  {
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+  }
+
+   // ========================================================================
+// Артём — Снюсик
+// ========================================================================
+
+"artem_snyusik"
+  {
+    "BaseClass"             "ability_lua"
+    "ScriptFile"            "lua_abilities/artem/artem_snyusik"
+
+    "AbilityTextureName"    "tusk_tag_team"
+    "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+
+    "MaxLevel"              "4"
+    "RequiredLevel"         "1"
+
+    "AbilityCastPoint"      "0.1"
+    "AbilityCooldown"       "16 14 12 10"
+    "AbilityManaCost"       "60 65 70 75"
+
+    "AbilityValues"
+    {
+        "bonus_magic_damage"
+        {
+            "value" "20 30 40 50"
+            "special_bonus_artem_snyusik_damage" "+50"
+        }
+
+        "duration" "10"
+    }
+  }
+
+
+// ========================================================================
+// Артём — Пиво с водкой
+// ========================================================================
+
+"artem_pivo_vodka"
+  {
+    "BaseClass"             "ability_lua"
+    "ScriptFile"            "lua_abilities/artem/artem_pivo_vodka"
+
+    "AbilityTextureName"    "brewmaster_drunken_haze"
+    "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+    "HasShardUpgrade"           "1"
+
+    "MaxLevel"              "4"
+    "RequiredLevel"         "1"
+
+    "AbilityCastPoint"      "0.1"
+    "AbilityCooldown"       "25 22 19 16"
+    "AbilityManaCost"       "70 80 90 100"
+
+    "AbilityValues"
+    {
+        "bonus_armor"
+        {
+            "value" "5 10 15 20"
+            "special_bonus_artem_pivo_vodka_armor" "+20"
+        }
+
+        "magic_resistance_loss" "15"
+        "duration"              "10"
+    }
+  }
+
+
+// ========================================================================
+// Артём — На зоне
+// ========================================================================
+
+"artem_na_zone"
+  {
+    "BaseClass"                 "ability_lua"
+    "ScriptFile"                "lua_abilities/artem/artem_na_zone"
+
+    "AbilityTextureName"        "mars_arena_of_blood"
+    "AbilityType"               "DOTA_ABILITY_TYPE_BASIC"
+
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL"
+    "HasScepterUpgrade"             "1"
+
+    "MaxLevel"                  "4"
+    "RequiredLevel"             "1"
+
+    "AbilityCastRange"          "700"
+    "AbilityCastPoint"          "0.2"
+
+    "AbilityCooldown"           "22 20 18 16"
+    "AbilityManaCost"           "100 115 130 145"
+
+    "AbilityValues"
+    {
+        "damage"
+        {
+            "value" "150 200 250 300"
+            "special_bonus_artem_na_zone_damage" "+140"
+        }
+
+        "duration"    "3"
+        "cage_radius" "180"
+    }
+  }
+
+
+// ========================================================================
+// Артём — Водка, кальян и шлюхи
+// ========================================================================
+
+"artem_vodka_kalyan_shlyuhi"
+  {
+    "BaseClass"             "ability_lua"
+    "ScriptFile"            "lua_abilities/artem/artem_vodka_kalyan_shlyuhi"
+
+    "AbilityTextureName"    "alchemist_acid_spray"
+    "AbilityType"           "DOTA_ABILITY_TYPE_ULTIMATE"
+
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+
+    "MaxLevel"              "3"
+    "RequiredLevel"         "6"
+    "LevelsBetweenUpgrades" "6"
+
+    "AbilityCastPoint"      "0.1"
+    "AbilityCooldown"       "90 80 70"
+    "AbilityManaCost"       "150 175 200"
+
+    "AbilityValues"
+    {
+        "radius"        "500"
+        "duration"      "8"
+        "slow"          "30 40 50"
+        "slow_duration" "0.6"
+        "think_interval" "0.3"
+    }
+  }
+
+
+// ========================================================================
+// Артём — Мукбанг
+// ========================================================================
+
+"artem_mukbang"
+  {
+    "BaseClass"             "ability_lua"
+    "ScriptFile"            "lua_abilities/artem/artem_mukbang"
+
+    "AbilityTextureName"    "alchemist_greevils_greed"
+
+    "AbilityBehavior"
+        "DOTA_ABILITY_BEHAVIOR_PASSIVE | DOTA_ABILITY_BEHAVIOR_INNATE_UI"
+
+    "AbilityType"           "DOTA_ABILITY_TYPE_BASIC"
+
+    "MaxLevel"              "4"
+    "Innate"                "1"
+
+    "AbilityValues"
+    {
+        "heal" "5 10 15 20"
+    }
+  }
+
+
+// ========================================================================
+// Таланты Артёма
+// ========================================================================
+
+"special_bonus_artem_na_zone_damage"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+
+    "AbilityValues"
+    {
+        "value" "140"
+    }
+  }
+
+"special_bonus_artem_snyusik_damage"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+
+    "AbilityValues"
+    {
+        "value" "50"
+    }
+  }
+
+"special_bonus_artem_pivo_vodka_armor"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+
+    "AbilityValues"
+    {
+        "value" "20"
+    }
+  }
+    qop_steal_intellect
+  {
+    BaseClass                   "ability_lua"
+    ScriptFile                  "abilities/qop_steal_intellect.lua"
+
+    AbilityBehavior             "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    AbilityUnitTargetTeam       "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    AbilityUnitTargetType       "DOTA_UNIT_TARGET_HERO"
+    AbilityUnitTargetFlags      "DOTA_UNIT_TARGET_FLAG_NONE"
+
+    AbilityCastRange            "900"
+    AbilityCastPoint            "0.1"
+    AbilityCooldown              "10"
+
+    AbilityManaCost             "0"
+
+    AbilityValues
+    {
+        steal_duration          "6"
+    }
+  }
+"suprunov_ender_vasya"
+  {
+    "BaseClass"             "ability_lua"
+    "ScriptFile"            "abilities/suprunov_ender_vasya.lua"
+
+    "AbilityTextureName"    "vasya"
+
+    "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+
+    "AbilityCooldown"       "20"
+    "AbilityManaCost"       "100"
+
+    "MaxLevel"              "1"
+
+    "IsGrantedByShard"      "1"
+
+    "AbilityValues"
+    {
+        "spawn_count"        "1"
+        "eidolon_damage"     "120"
+        "eidolon_duration"   "30"
+    }
+  }
+      // ============================================================
+    // Рюмка 1 - Разобьем?
+    // ============================================================
+    "rumka_razobem"
+{
+    "BaseClass" "ability_lua"
+    "ScriptFile" "abilities/rumka_razobem"
+
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
+    "AbilityType" "DOTA_ABILITY_TYPE_BASIC"
+
+    "MaxLevel" "4"
+
+    "AbilityCooldown" "20 18 16 14"
+    "AbilityManaCost" "90 100 110 120"
+
+    "AbilityValues"
+    {
+        "damage"
+        {
+            "value" "150 200 250 300"
+        }
+
+        "radius"
+        {
+            "value" "300"
+        }
+
+        "silence_duration"
+        {
+            "value" "1.5 1.75 2.0 2.25"
+        }
+
+        "effect_duration"
+        {
+            "value" "1.5"
+        }
+    }
+}
+
+"rumka_vkusnost"
+  {
+    "BaseClass" "ability_lua"
+    "ScriptFile" "abilities/rumka_vkusnost"
+    "AbilityTextureName" "pudge_meat_hook"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetTeam" "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+    "AbilityType" "DOTA_ABILITY_TYPE_BASIC"
+    "MaxLevel" "4"
+    "AbilityCastRange" "600"
+    "AbilityCastPoint" "0.1"
+    "AbilityCooldown" "14 12 10 8"
+    "AbilityManaCost" "100 110 120 130"
+
+    "AbilityValues"
+    {
+        "damage" { "value" "160 240 320 400" }
+        "slow_percent" { "value" "35 40 45 50" }
+        "slow_duration" { "value" "2.0" }
+        "pull_distance" { "value" "100" }
+        "pull_duration" { "value" "0.35" }
+    }
+  }
+
+"rumka_tolstyy"
+  {
+    "BaseClass" "ability_lua"
+    "ScriptFile" "abilities/rumka_tolstyy"
+    "AbilityTextureName" "pudge_flesh_heap"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType" "DOTA_ABILITY_TYPE_BASIC"
+    "MaxLevel" "4"
+
+    "AbilityValues"
+    {
+        "block_chance" { "value" "25 35 45 55" }
+        "damage_block" { "value" "40" }
+    }
+  }
+
+"rumka_trezvennik"
+  {
+    "BaseClass" "ability_lua"
+    "ScriptFile" "abilities/rumka_trezvennik"
+    "AbilityTextureName" "pudge_dismember"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+    "AbilityType" "DOTA_ABILITY_TYPE_ULTIMATE"
+    "MaxLevel" "3"
+    "AbilityCastPoint" "0.1"
+    "AbilityCooldown" "80 70 60"
+    "AbilityManaCost" "150 200 250"
+    "RequiredLevel"                 "6"
+    "LevelsBetweenUpgrades"         "6"
+
+    "AbilityValues"
+    {
+        "duration" { "value" "3.0" }
+        "magic_resistance" { "value" "100" }
+    }
+  }
+
+"rumka_tankchiki"
+  {
+    "BaseClass" "ability_lua"
+    "ScriptFile" "abilities/rumka_tankchiki"
+    "AbilityTextureName" "pudge_flesh_heap"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType" "DOTA_ABILITY_TYPE_BASIC"
+    "MaxLevel" "1"
+    "Innate" "1"
+
+    "AbilityValues"
+    {
+        "slow_percent" { "value" "25" }
+        "slow_duration" { "value" "1.0" }
+    }
+  }
+"dildo_blanket_fight"
+    {
+        "BaseClass"               "ability_lua"
+        "ScriptFile"              "abilities/dildochka_1_blanket_fight.lua"
+        "AbilityTextureName"      "marci_rebound"
+        "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+        "AbilityType"             "DOTA_ABILITY_TYPE_BASIC"
+        "AbilityCastPoint"        "0.15"
+        "AbilityCooldown"         "16 14 12 10"
+        "AbilityManaCost"         "75 85 95 105"
+        "AbilityValues"
+        {
+            "bonus_damage_per_hit" "2 4 6 8"
+            "hits_to_trigger"      "5"
+            "ministun_duration"    "0.15"
+            "duration"             "8"
+        }
+    }
+
+    "dildo_rotten_finger"
+    {
+        "BaseClass"               "ability_lua"
+        "ScriptFile"              "abilities/dildochka_2_rotten_finger.lua"
+        "AbilityTextureName"      "marci_sidekick"
+        "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+        "AbilityUnitTargetTeam"   "DOTA_UNIT_TARGET_TEAM_ENEMY"
+        "AbilityUnitTargetType"   "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+        "AbilityUnitTargetFlags"  "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+        "AbilityCastRange"        "700"
+        "AbilityCastPoint"        "0.2"
+        "AbilityCooldown"         "18 16 14 12"
+        "AbilityManaCost"         "100 110 120 130"
+        "AbilityValues"
+        {
+            "damage_per_second"          "20 30 40 50"
+            "duration"                   "6"
+            "magic_resistance_reduction" "10"
+            "spread_radius"              "300"
+            "spread_interval"            "1"
+        }
+    }
+
+"dildo_horse_teeth"
+{
+    "BaseClass"                  "ability_lua"
+    "ScriptFile"                 "abilities/dildochka_3_horse_teeth"
+    "AbilityBehavior"            "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+    "AbilityType"                "DOTA_ABILITY_TYPE_BASIC"
+
+    "AbilityCooldown"            "20 18 16 14"
+    "AbilityManaCost"             "60 70 80 90"
+
+    "AbilityValues"
+    {
+        "duration"                "2 4 6 8"
+    }
+}
+
+    "dildo_who_the_fuck_is_he"
+    {
+        "BaseClass"               "ability_lua"
+        "ScriptFile"              "abilities/dildochka_4_who_the_fuck_is_he.lua"
+        "AbilityTextureName"      "marci_unleash"
+        "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_TOGGLE"
+        "AbilityType"             "DOTA_ABILITY_TYPE_ULTIMATE"
+        "MaxLevel" "3"
+        "AbilityCooldown"         "3 3 3"
+        "AbilityManaCost"         "50 50 50"
+        "AbilityCastPoint"        "0.1"
+        "RequiredLevel"                 "6"
+        "LevelsBetweenUpgrades"         "6"
+        "AbilityValues"
+        {
+            "bonus_attack_damage" "50"
+            "crit_chance"         "33"
+            "crit_multiplier"     "165"
+            "spell_amplify"       "15 25 35"
+            "on_hit_infection"    "0 0 1"
+        }
+    }
+
+    "dildo_pirozhechek"
+    {
+        "BaseClass"               "ability_lua"
+        "ScriptFile"              "abilities/dildochka_innate_pirozhechek.lua"
+        "AbilityTextureName"      "marci_companion_run"
+        "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+        "AbilityType"             "DOTA_ABILITY_TYPE_INNATE"
+            "MaxLevel" "1"
+            "Innate" "1"
+        "AbilityValues"
+        {
+            "evasion_chance" "10"
+        }
+    }
+}
+
