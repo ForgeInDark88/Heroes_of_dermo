@@ -50,6 +50,16 @@ end
 function GameMode:OnGameInProgress()
     print('[GAME] Game in progress started! Starting wave timers...')
 
+        local avanpost = Entities:FindByName(nil, "avan1")
+
+    if avanpost then
+        avanpost:SetTeam(DOTA_TEAM_GOODGUYS)
+
+        print("[OUTPOST] avan1 -> RADIANT / GOODGUYS")
+    else
+        print("[OUTPOST] ERROR: avan1 not found!")
+    end
+
     if self._waveTimerStarted then
         print('[GAME] Wave timer already started; skipping duplicate')
         return
@@ -58,6 +68,7 @@ function GameMode:OnGameInProgress()
     self._waveTimerStarted = true
 
     GameMode:QopBoss()
+    
 
     Timers:CreateTimer(5, function()
         print('[GAME] Spawning wave...')
@@ -65,6 +76,19 @@ function GameMode:OnGameInProgress()
         return 40
     end)
 end
+
+Timers:CreateTimer(1, function()
+    for playerID = 0, DOTA_MAX_PLAYERS - 1 do
+        if PlayerResource:IsValidPlayerID(playerID) then
+            local hero = PlayerResource:GetSelectedHeroEntity(playerID)
+            if hero and not hero:IsNull() and hero:IsAlive()
+                and not hero:HasModifier("modifier_truesight") then
+                hero:AddNewModifier(hero, nil, "modifier_truesight", {})
+            end
+        end
+    end
+    return 0.5
+end)
 
 function GameMode:QopBoss()
     local point = Entities:FindByName(nil, "bosses_point")
@@ -243,26 +267,26 @@ function GameMode:WaveMobs()
 
     if self.TeamDefeated[DOTA_TEAM_BADGUYS] then
         print('[WAVE] BADGUYS defeated - skipping rz1')
-    elseif bad_point1 then
+    elseif bad_point2 then
         local ranged = CreateUnitByName(
             'npc_dota_creep_badguys_ranged',
-            bad_point1:GetAbsOrigin(),
+            bad_point2:GetAbsOrigin(),
             true, nil, nil, DOTA_TEAM_BADGUYS
         )
 
         if ranged then
-            ranged:SetInitialGoalEntity(bad_point1)
+            ranged:SetInitialGoalEntity(bad_point2)
         end
 
         for i = 1, 3 do
             local unit = CreateUnitByName(
                 'npc_dota_creep_badguys_melee',
-                bad_point1:GetAbsOrigin(),
+                bad_point2:GetAbsOrigin(),
                 true, nil, nil, DOTA_TEAM_BADGUYS
             )
 
             if unit then
-                unit:SetInitialGoalEntity(bad_point1)
+                unit:SetInitialGoalEntity(bad_point2)
             end
         end
     else
@@ -277,26 +301,26 @@ function GameMode:WaveMobs()
 
     if self.TeamDefeated[DOTA_TEAM_GOODGUYS] then
         print('[WAVE] GOODGUYS defeated - skipping rr1')
-    elseif good_point1 then
+    elseif good_point2 then
         local ranged = CreateUnitByName(
             'npc_dota_creep_goodguys_ranged',
-            good_point1:GetAbsOrigin(),
+            good_point2:GetAbsOrigin(),
             true, nil, nil, DOTA_TEAM_GOODGUYS
         )
 
         if ranged then
-            ranged:SetInitialGoalEntity(good_point1)
+            ranged:SetInitialGoalEntity(good_point2)
         end
 
         for i = 1, 3 do
             local unit = CreateUnitByName(
                 'npc_dota_creep_goodguys_melee',
-                good_point1:GetAbsOrigin(),
+                good_point2:GetAbsOrigin(),
                 true, nil, nil, DOTA_TEAM_GOODGUYS
             )
 
             if unit then
-                unit:SetInitialGoalEntity(good_point1)
+                unit:SetInitialGoalEntity(good_point2)
             end
         end
     else

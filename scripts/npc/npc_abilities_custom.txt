@@ -222,7 +222,7 @@
     "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
     "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_ENEMY"
     "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-    "AbilityUnitDamageType"         "DOTA_DAMAGE_TYPE_MAGICAL"
+    "AbilityUnitDamageType"         "DAMAGE_TYPE_MAGICAL"
     "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_NO"
     "MaxLevel"                      "3"
     
@@ -298,6 +298,7 @@
     "ScriptFile"                    "abilities/creeper_explode"
     "MaxLevel"                      "4"
     "Behavior"                      "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL"
     
     "AbilityValues"
     {
@@ -352,7 +353,7 @@
     "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
     "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_ENEMY"
     "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-    "AbilityUnitDamageType"         "DOTA_DAMAGE_TYPE_MAGICAL"
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL"
     
     "AbilityCastRange"              "800"
     "AbilityCastPoint"              "0.3"
@@ -471,6 +472,7 @@
     "LevelsBetweenUpgrades"         "6"
     "MaxLevel"                      "3"
     "AbilityTextureName"            "333"
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL"
     
     "AbilityCastPoint"              "0.3"
     "AbilityCooldown"               "120 110 100"
@@ -1081,17 +1083,17 @@
       // ============================================================
     // Рюмка 1 - Разобьем?
     // ============================================================
-    "rumka_razobem"
+"rumka_razobem"
 {
     "BaseClass" "ability_lua"
     "ScriptFile" "abilities/rumka_razobem"
 
     "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
     "AbilityType" "DOTA_ABILITY_TYPE_BASIC"
-
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL"
     "MaxLevel" "4"
+    "HasScepterUpgrade" "1"
 
-    "AbilityCooldown" "20 18 16 14"
     "AbilityManaCost" "90 100 110 120"
 
     "AbilityValues"
@@ -1099,22 +1101,40 @@
         "damage"
         {
             "value" "150 200 250 300"
+            "special_bonus_unique_rumka_razobem_damage" "+120"
         }
-
-        "radius"
+        "AbilityCooldown"
         {
-            "value" "300"
+            "value" "20 18 16 14"
+            "special_bonus_unique_rumka_razobem_cd" "-1.5"
         }
+        "radius" { "value" "300" }
+        "silence_duration" { "value" "1.5 1.75 2.0 2.25" }
+        "effect_duration" { "value" "1.5" }
 
-        "silence_duration"
-        {
-            "value" "1.5 1.75 2.0 2.25"
-        }
+            // ==========================================
+    // AGHANIM SCEPTER
+    // ==========================================
 
-        "effect_duration"
-        {
-            "value" "1.5"
-        }
+      "scepter_damage_threshold"
+      {
+        "value" "475"
+      }
+
+      "scepter_damage_percent"
+      {
+        "value" "50"
+      }
+
+      "scepter_duration_percent"
+      {
+        "value" "60"
+      }
+
+      "scepter_cooldown"
+      {
+        "value" "0.3"
+      }
     }
 }
 
@@ -1127,15 +1147,16 @@
     "AbilityUnitTargetTeam" "DOTA_UNIT_TARGET_TEAM_ENEMY"
     "AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
     "AbilityType" "DOTA_ABILITY_TYPE_BASIC"
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_PURE"
     "MaxLevel" "4"
     "AbilityCastRange" "600"
     "AbilityCastPoint" "0.1"
-    "AbilityCooldown" "14 12 10 8"
+    "AbilityCooldown" "16 14 12 10"
     "AbilityManaCost" "100 110 120 130"
 
     "AbilityValues"
     {
-        "damage" { "value" "160 240 320 400" }
+        "damage" { "value" "140 220 300 380" }
         "slow_percent" { "value" "35 40 45 50" }
         "slow_duration" { "value" "2.0" }
         "pull_distance" { "value" "100" }
@@ -1150,12 +1171,22 @@
     "AbilityTextureName" "pudge_flesh_heap"
     "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
     "AbilityType" "DOTA_ABILITY_TYPE_BASIC"
+    "AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
+    "SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
+    "HasShardUpgrade" "1"
     "MaxLevel" "4"
+    "AbilityCastPoint" "0.1"
 
     "AbilityValues"
     {
-        "block_chance" { "value" "25 35 45 55" }
+        "block_chance" { "value" "30 40 50 60" }
         "damage_block" { "value" "40" }
+
+        "shard_duration" "6"
+        "shard_reflect_pct" "25"
+        "shard_reflect_str_mult" "0.5"
+        "shard_cooldown" "18"
+        "shard_mana" "55"
     }
   }
 
@@ -1169,14 +1200,13 @@
     "MaxLevel" "3"
     "AbilityCastPoint" "0.1"
     "AbilityCooldown" "80 70 60"
-    "AbilityManaCost" "150 200 250"
+    "AbilityManaCost" "100 150 200"
     "RequiredLevel"                 "6"
     "LevelsBetweenUpgrades"         "6"
 
     "AbilityValues"
     {
         "duration" { "value" "3.0" }
-        "magic_resistance" { "value" "100" }
     }
   }
 
@@ -1208,7 +1238,7 @@
         "AbilityManaCost"         "75 85 95 105"
         "AbilityValues"
         {
-            "bonus_damage_per_hit" "2 4 6 8"
+            "bonus_damage_per_hit" "10 20 30 40"
             "hits_to_trigger"      "5"
             "ministun_duration"    "0.15"
             "duration"             "8"
@@ -1228,6 +1258,7 @@
         "AbilityCastPoint"        "0.2"
         "AbilityCooldown"         "18 16 14 12"
         "AbilityManaCost"         "100 110 120 130"
+        "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL"
         "AbilityValues"
         {
             "damage_per_second"          "20 30 40 50"
@@ -1291,5 +1322,51 @@
             "evasion_chance" "10"
         }
     }
+
+    "custom_true_sight"
+    { 
+    "BaseClass"              "ability_lua"
+    "ScriptFile"             "abilities/custom_true_sight.lua"
+    "AbilityBehavior"        "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"            "DOTA_ABILITY_TYPE_UTILITY"
+    "AbilityTextureName"     "gem"
+    }
+
+    "special_bonus_unique_rumka_razobem_cd"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+"special_bonus_unique_rumka_razobem_damage"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+"special_bonus_unique_rumka_razobem_nodispel"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+"special_bonus_unique_rumka_tolstyy_chance"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+"special_bonus_unique_rumka_tolstyy_block"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+"special_bonus_unique_rumka_trezvennik_dispel"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
 }
 

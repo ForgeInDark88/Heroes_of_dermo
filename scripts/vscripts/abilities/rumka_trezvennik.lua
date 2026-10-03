@@ -26,6 +26,12 @@ function rumka_trezvennik:OnSpellStart()
     local caster = self:GetCaster()
     local duration = self:GetSpecialValueFor("duration")
 
+    local talent = caster:FindAbilityByName("special_bonus_unique_rumka_trezvennik_dispel")
+    if talent and talent:GetLevel() > 0 then
+        -- сильный диспел: только дебаффы, со станами
+        caster:Purge(false, true, false, true, true)
+    end
+
     --------------------------------------------------
     -- МОДИФИКАТОР
     --------------------------------------------------
@@ -56,35 +62,20 @@ end
 
 modifier_rumka_trezvennik = class({})
 
-function modifier_rumka_trezvennik:IsHidden()
-    return false
-end
-
-function modifier_rumka_trezvennik:IsPurgable()
-    return true
-end
+function modifier_rumka_trezvennik:IsHidden() return false end
+function modifier_rumka_trezvennik:IsPurgable() return false end
 
 function modifier_rumka_trezvennik:DeclareFunctions()
     return {
-        MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
-        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL
+        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL,
+        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL,
+        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PURE,
     }
 end
 
-function modifier_rumka_trezvennik:GetModifierMagicalResistanceBonus()
-
-    local ability = self:GetAbility()
-
-    if not ability then
-        return 0
-    end
-
-    return ability:GetSpecialValueFor("magic_resistance")
-end
-
-function modifier_rumka_trezvennik:GetAbsoluteNoDamageMagical()
-    return 1
-end
+function modifier_rumka_trezvennik:GetAbsoluteNoDamageMagical() return 1 end
+function modifier_rumka_trezvennik:GetAbsoluteNoDamagePhysical() return 1 end
+function modifier_rumka_trezvennik:GetAbsoluteNoDamagePure() return 1 end
 
 
 --------------------------------------------------

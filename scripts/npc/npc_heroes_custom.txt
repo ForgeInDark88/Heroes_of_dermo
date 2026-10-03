@@ -237,6 +237,14 @@
         "Ability3" "rumka_tolstyy"
         "Ability4"  ""
         "Ability6" "rumka_trezvennik"
+        "Ability10" "special_bonus_unique_rumka_razobem_cd"
+        "Ability11" "special_bonus_strength_10"
+        "Ability12" "special_bonus_attack_damage_40"
+        "Ability13" "special_bonus_unique_rumka_tolstyy_chance"
+        "Ability14" "special_bonus_unique_rumka_tolstyy_block"
+        "Ability15" "special_bonus_unique_rumka_razobem_damage"
+        "Ability16" "special_bonus_unique_rumka_razobem_nodispel"
+        "Ability17" "special_bonus_unique_rumka_trezvennik_dispel"
 
 
         // Врожденная
@@ -251,8 +259,8 @@
         "AttributeBaseAgility" "14"
         "AttributeAgilityGain" "1.5"
 
-        "AttributeBaseIntelligence" "16"
-        "AttributeIntelligenceGain" "1.5"
+        "AttributeBaseIntelligence" "18"
+        "AttributeIntelligenceGain" "1.9"
 
         // Базовые параметры
         "AttackCapabilities" "DOTA_UNIT_CAP_MELEE_ATTACK"

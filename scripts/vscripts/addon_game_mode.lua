@@ -44,7 +44,7 @@ function Precache(context)
     
     PrecacheResource("particle", "particles/units/heroes/hero_enigma/enigma_base_attack.vpcf", context)
 
-    PrecacheResource("particle", "particles/world_environmental_fx/water_splash_rocks_generic.vpcf", context)
+    PrecacheResource("particle", "particles/units/heroes/hero_tidehunter/tidehunter_anchor_hero_mid.vpcf", context)
     
     PrecacheResource("particle", "particles/units/heroes/hero_life_stealer/life_stealer_rage_bkb01.vpcf", context)
 
