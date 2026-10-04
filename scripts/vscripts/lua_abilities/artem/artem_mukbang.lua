@@ -30,7 +30,8 @@ function modifier_artem_mukbang:OnDeath(params)
         ability:SetLevel(mukbang_level)
     end
 
-    local heal = ability:GetSpecialValueFor("heal")
+    -- Лечение в процентах от максимального здоровья
+    local heal = hero:GetMaxHealth() * ability:GetSpecialValueFor("heal_pct") / 100
     hero:Heal(heal, ability)
 
     local pfx = ParticleManager:CreateParticle(

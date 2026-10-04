@@ -845,18 +845,18 @@
     "RequiredLevel"         "1"
 
     "AbilityCastPoint"      "0.1"
-    "AbilityCooldown"       "16 14 12 10"
+    "AbilityCooldown"       "20.5 17 13.5 10"
     "AbilityManaCost"       "60 65 70 75"
 
     "AbilityValues"
     {
         "bonus_magic_damage"
         {
-            "value" "20 30 40 50"
+            "value" "10 20 30 40"
             "special_bonus_artem_snyusik_damage" "+50"
         }
 
-        "duration" "10"
+        "duration" "6"
     }
   }
 
@@ -880,17 +880,17 @@
 
     "AbilityCastPoint"      "0.1"
     "AbilityCooldown"       "25 22 19 16"
-    "AbilityManaCost"       "70 80 90 100"
+    "AbilityManaCost"       "80"
 
     "AbilityValues"
     {
         "bonus_armor"
         {
-            "value" "5 10 15 20"
+            "value" "5 8 12 15"
             "special_bonus_artem_pivo_vodka_armor" "+20"
         }
 
-        "magic_resistance_loss" "15"
+        "magic_resistance_loss" "20"
         "duration"              "10"
     }
   }
@@ -913,7 +913,6 @@
     "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
 
     "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL"
-    "HasScepterUpgrade"             "1"
 
     "MaxLevel"                  "4"
     "RequiredLevel"             "1"
@@ -928,11 +927,11 @@
     {
         "damage"
         {
-            "value" "150 200 250 300"
+            "value" "100 165 230 300"
             "special_bonus_artem_na_zone_damage" "+140"
         }
 
-        "duration"    "3"
+        "duration"    "1.1 1.4 1.7 2"
         "cage_radius" "180"
     }
   }
@@ -951,6 +950,7 @@
     "AbilityType"           "DOTA_ABILITY_TYPE_ULTIMATE"
 
     "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+    "HasScepterUpgrade"     "1"
 
     "MaxLevel"              "3"
     "RequiredLevel"         "6"
@@ -967,6 +967,11 @@
         "slow"          "30 40 50"
         "slow_duration" "0.6"
         "think_interval" "0.3"
+
+        // Аганим: дебафф "водяра"
+        "scepter_vodyara_damage_pct"    "0.3"
+        "scepter_vodyara_status_resist" "15"
+        "scepter_vodyara_tick"          "0.5"
     }
   }
 
@@ -992,7 +997,7 @@
 
     "AbilityValues"
     {
-        "heal" "5 10 15 20"
+        "heal_pct" "0.7 1.5 2.3 3"
     }
   }
 
