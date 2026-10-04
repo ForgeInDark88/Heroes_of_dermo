@@ -13,6 +13,20 @@ if Stray228Boss == nil then
     Stray228Boss = {}
 end
 
+LinkLuaModifier(
+    "modifier_shadow_portal_thinker",
+    "units/stray228_boss.lua",
+    LUA_MODIFIER_MOTION_NONE
+)
+
+-- Пустой модификатор для невидимого thinker-а портала: на нём играет звук,
+-- чтобы его можно было остановить при закрытии портала
+modifier_shadow_portal_thinker = class({})
+
+function modifier_shadow_portal_thinker:IsHidden()
+    return true
+end
+
 STRAY228_BOSS_NAME = "npc_stray228_boss"
 
 -- Точка спавна босса. Если на карте нет такой энтити - спавним в центре карты.
@@ -35,6 +49,12 @@ SHADOW_PORTAL_MAX_ALIVE = 40     -- лимит живых мобов, чтобы
 SHADOW_PORTAL_TEAM = DOTA_TEAM_CUSTOM_1 -- "Теневое Правительство"
 
 SHADOW_PORTAL_PARTICLE = "particles/units/heroes/hero_enigma/enigma_blackhole.vpcf"
+SHADOW_PORTAL_SOUND = "Hero_Enigma.Black_Hole"
+SHADOW_PORTAL_SOUND_STOP = "Hero_Enigma.Black_Hole.Stop"
+
+-- Шмотка с Главы Теневого правительства
+SHADOW_GOV_HEAD_NAME = "npc_shadow_gov_head"
+SHADOW_GOV_HEAD_DROP = "item_shadow_gov_mantle"
 
 --------------------------------------------------------------------------------
 -- Утилиты
@@ -266,7 +286,19 @@ function Stray228Boss:StartShadowPortalEvent()
     )
     ParticleManager:SetParticleControl(self.PortalParticle, 0, position + Vector(0, 0, 64))
 
-    EmitSoundOnLocationWithCaster(position, "Hero_Enigma.Black_Hole", nil)
+    self.PortalSoundSource = CreateModifierThinker(
+        nil,
+        nil,
+        "modifier_shadow_portal_thinker",
+        {},
+        position,
+        SHADOW_PORTAL_TEAM,
+        false
+    )
+
+    if self.PortalSoundSource then
+        EmitSoundOn(SHADOW_PORTAL_SOUND, self.PortalSoundSource)
+    end
 
     -- Портал виден всем
     for _, team in pairs({ DOTA_TEAM_GOODGUYS, DOTA_TEAM_BADGUYS }) do
@@ -324,7 +356,7 @@ function Stray228Boss:SpawnPortalWave(wave)
 
     if wave == SHADOW_PORTAL_WAVES then
         Announce("Из портала выходит ГЛАВА ТЕНЕВОГО ПРАВИТЕЛЬСТВА!")
-        self:SpawnPortalMob("npc_shadow_gov_head", power)
+        self:SpawnPortalMob(SHADOW_GOV_HEAD_NAME, power)
     else
         Announce("Теневое правительство: волна " .. wave .. "/" .. SHADOW_PORTAL_WAVES)
     end
@@ -430,7 +462,39 @@ function Stray228Boss:ClosePortal()
         self.PortalParticle = nil
     end
 
+    local soundSource = self.PortalSoundSource
+    self.PortalSoundSource = nil
+
+    if soundSource and not soundSource:IsNull() then
+        StopSoundOn(SHADOW_PORTAL_SOUND, soundSource)
+        EmitSoundOnLocationWithCaster(soundSource:GetAbsOrigin(), SHADOW_PORTAL_SOUND_STOP, nil)
+        UTIL_Remove(soundSource)
+    end
+
     Announce("Портал Теневого правительства закрылся. Добейте оставшихся агентов!")
 
     print("[SHADOW PORTAL] Portal closed")
+end
+
+--------------------------------------------------------------------------------
+-- СМЕРТЬ ГЛАВЫ ТЕНЕВОГО ПРАВИТЕЛЬСТВА: дроп мантии
+--------------------------------------------------------------------------------
+
+function Stray228Boss:OnShadowHeadDeath(head)
+    -- entity_killed в этом проекте приходит в OnEntityKilled дважды
+    if head.ShadowHeadDeathHandled then
+        return
+    end
+
+    head.ShadowHeadDeathHandled = true
+
+    local item = CreateItem(SHADOW_GOV_HEAD_DROP, nil, nil)
+
+    if item then
+        CreateItemOnPositionSync(head:GetAbsOrigin(), item)
+        item:LaunchLoot(false, 300, 0.75, head:GetAbsOrigin() + RandomVector(100))
+        Announce("Глава Теневого правительства повержен и оставил после себя Мантию Теневого правительства!")
+    else
+        print("[SHADOW PORTAL] ERROR: failed to create " .. SHADOW_GOV_HEAD_DROP)
+    end
 end

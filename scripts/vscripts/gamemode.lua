@@ -381,6 +381,10 @@ function GameMode:OnEntityKilled(keys)
         Stray228Boss:OnDeath(killed, killer)
     end
 
+    if killed:GetUnitName() == SHADOW_GOV_HEAD_NAME then
+        Stray228Boss:OnShadowHeadDeath(killed)
+    end
+
 
     ----------------------------------------------------------------
     -- ТВОЯ СУЩЕСТВУЮЩАЯ ЛОГИКА ТРОНОВ
