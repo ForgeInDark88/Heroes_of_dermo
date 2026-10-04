@@ -473,4 +473,172 @@
     "Ability3"                  ""
     "Ability4"                  ""
   }
+  //=================================================================================
+  // БОСС STRAY228
+  //=================================================================================
+  "npc_stray228_boss"
+  {
+    "BaseClass"                 "npc_dota_creature"
+    "Model"                     "models/heroes/sniper/sniper.vmdl"
+    "ModelScale"                "2.0"
+    "SoundSet"                  "Hero_Sniper"
+    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_sniper.vsndevts"
+    "Level"                     "15"
+    "UnitLabel"                 "stray228_boss"
+
+    "Ability1"                  "stray228_voroval"
+    "Ability2"                  "stray228_snaiping"
+    "Ability3"                  ""
+    "Ability4"                  ""
+
+    "StatusHealth"              "7000"
+    "StatusHealthRegen"         "25"
+    "StatusMana"                "2000"
+    "StatusManaRegen"           "20"
+
+    "ArmorPhysical"             "12"
+    "MagicalResistance"         "30"
+
+    "AttackCapabilities"        "DOTA_UNIT_CAP_RANGED_ATTACK"
+    "AttackDamageMin"           "120"
+    "AttackDamageMax"           "160"
+    "AttackRate"                "1.3"
+    "AttackAnimationPoint"      "0.17"
+    "AttackAcquisitionRange"    "800"
+    "AttackRange"               "700"
+    "ProjectileModel"           "particles/units/heroes/hero_sniper/sniper_base_attack.vpcf"
+    "ProjectileSpeed"           "3000"
+
+    "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
+    "MovementSpeed"             "320"
+
+    "VisionDaytimeRange"        "1400"
+    "VisionNighttimeRange"      "1000"
+
+    "BountyGoldMin"             "500"
+    "BountyGoldMax"             "600"
+    "BountyXP"                  "1000"
+
+    "HealthBarOffset"           "350"
+    "IsAncient"                 "1"
+    "CanBeDominated"            "0"
+  }
+
+  //=================================================================================
+  // ТЕНЕВОЕ ПРАВИТЕЛЬСТВО (мобы из портала)
+  //=================================================================================
+  "npc_shadow_gov_agent"
+  {
+    "BaseClass"                 "npc_dota_creature"
+    "Model"                     "models/creeps/lane_creeps/creep_bad_melee/creep_bad_melee.vmdl"
+    "ModelScale"                "1.1"
+    "SoundSet"                  "Creep_Bad_Melee"
+    "Level"                     "5"
+    "UnitLabel"                 "shadow_gov_agent"
+
+    "StatusHealth"              "900"
+    "StatusHealthRegen"         "2"
+    "StatusMana"                "0"
+
+    "ArmorPhysical"             "4"
+    "MagicalResistance"         "10"
+
+    "AttackCapabilities"        "DOTA_UNIT_CAP_MELEE_ATTACK"
+    "AttackDamageMin"           "45"
+    "AttackDamageMax"           "55"
+    "AttackRate"                "1.0"
+    "AttackAnimationPoint"      "0.467"
+    "AttackAcquisitionRange"    "800"
+    "AttackRange"               "100"
+
+    "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
+    "MovementSpeed"             "340"
+
+    "VisionDaytimeRange"        "800"
+    "VisionNighttimeRange"      "800"
+
+    "BountyGoldMin"             "40"
+    "BountyGoldMax"             "50"
+    "BountyXP"                  "60"
+
+    "CanBeDominated"            "0"
+  }
+
+  "npc_shadow_gov_sniper"
+  {
+    "BaseClass"                 "npc_dota_creature"
+    "Model"                     "models/creeps/lane_creeps/creep_bad_ranged/lane_dire_ranged.vmdl"
+    "ModelScale"                "1.1"
+    "SoundSet"                  "Creep_Bad_Range"
+    "Level"                     "5"
+    "UnitLabel"                 "shadow_gov_sniper"
+
+    "StatusHealth"              "550"
+    "StatusHealthRegen"         "2"
+    "StatusMana"                "0"
+
+    "ArmorPhysical"             "1"
+    "MagicalResistance"         "10"
+
+    "AttackCapabilities"        "DOTA_UNIT_CAP_RANGED_ATTACK"
+    "AttackDamageMin"           "55"
+    "AttackDamageMax"           "65"
+    "AttackRate"                "1.0"
+    "AttackAnimationPoint"      "0.5"
+    "AttackAcquisitionRange"    "800"
+    "AttackRange"               "600"
+    "ProjectileModel"           "particles/base_attacks/ranged_badguy.vpcf"
+    "ProjectileSpeed"           "900"
+
+    "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
+    "MovementSpeed"             "320"
+
+    "VisionDaytimeRange"        "800"
+    "VisionNighttimeRange"      "800"
+
+    "BountyGoldMin"             "45"
+    "BountyGoldMax"             "55"
+    "BountyXP"                  "60"
+
+    "CanBeDominated"            "0"
+  }
+
+  "npc_shadow_gov_head"
+  {
+    "BaseClass"                 "npc_dota_creature"
+    "Model"                     "models/heroes/nightstalker/nightstalker.vmdl"
+    "ModelScale"                "1.4"
+    "SoundSet"                  "Hero_Nightstalker"
+    "Level"                     "12"
+    "UnitLabel"                 "shadow_gov_head"
+
+    "StatusHealth"              "4000"
+    "StatusHealthRegen"         "10"
+    "StatusMana"                "0"
+
+    "ArmorPhysical"             "10"
+    "MagicalResistance"         "25"
+
+    "AttackCapabilities"        "DOTA_UNIT_CAP_MELEE_ATTACK"
+    "AttackDamageMin"           "120"
+    "AttackDamageMax"           "150"
+    "AttackRate"                "1.2"
+    "AttackAnimationPoint"      "0.3"
+    "AttackAcquisitionRange"    "900"
+    "AttackRange"               "150"
+
+    "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
+    "MovementSpeed"             "350"
+
+    "VisionDaytimeRange"        "1000"
+    "VisionNighttimeRange"      "1000"
+
+    "BountyGoldMin"             "300"
+    "BountyGoldMax"             "350"
+    "BountyXP"                  "500"
+
+    "HealthBarOffset"           "250"
+    "IsAncient"                 "1"
+    "CanBeDominated"            "0"
+  }
 }

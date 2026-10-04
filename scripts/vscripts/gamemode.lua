@@ -33,6 +33,9 @@ print('[CUSTOM_GAME] require events')
 require('events')
 print('[CUSTOM_GAME] events loaded')
 
+require('units/stray228_boss')
+print('[STRAY228] boss module loaded')
+
 function GameMode:OnFirstPlayerLoaded()
     DebugPrint('[BAREBONES] First Player has loaded')
 end
@@ -68,7 +71,8 @@ function GameMode:OnGameInProgress()
     self._waveTimerStarted = true
 
     GameMode:QopBoss()
-    
+    Stray228Boss:Spawn()
+
 
     Timers:CreateTimer(5, function()
         print('[GAME] Spawning wave...')
@@ -363,6 +367,20 @@ function GameMode:OnEntityKilled(keys)
         -- потому что ниже находится существующая логика тронов.
     end
 
+    ----------------------------------------------------------------
+    -- STRAY228 BOSS -> ивент портала Теневого правительства
+    ----------------------------------------------------------------
+
+    if killed:GetUnitName() == STRAY228_BOSS_NAME then
+        local killer = nil
+
+        if keys.entindex_attacker then
+            killer = EntIndexToHScript(keys.entindex_attacker)
+        end
+
+        Stray228Boss:OnDeath(killed, killer)
+    end
+
 
     ----------------------------------------------------------------
     -- ТВОЯ СУЩЕСТВУЮЩАЯ ЛОГИКА ТРОНОВ
@@ -389,6 +407,11 @@ function GameMode:OnNPCSpawned(keys)
     local unit = EntIndexToHScript(keys.entindex)
 
     if not unit or unit:IsNull() then
+        return
+    end
+
+    if unit:GetUnitName() == STRAY228_BOSS_NAME then
+        Stray228Boss:Init(unit)
         return
     end
 
@@ -675,6 +698,24 @@ function GameMode:InitGameMode()
     end,
     "Spawn QOP at z1",
     FCVAR_CHEAT
+    )
+
+    Convars:RegisterCommand(
+        "spawn_stray228",
+        function()
+            Stray228Boss:Spawn()
+        end,
+        "Spawn Stray228 boss",
+        FCVAR_CHEAT
+    )
+
+    Convars:RegisterCommand(
+        "shadow_portal",
+        function()
+            Stray228Boss:StartShadowPortalEvent()
+        end,
+        "Start Shadow Government portal event",
+        FCVAR_CHEAT
     )
 
     

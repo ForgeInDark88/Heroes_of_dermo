@@ -70,6 +70,18 @@ function Precache(context)
     context
     )
 
+    -- STRAY228 + ивент Теневого правительства
+    PrecacheUnitByNameSync("npc_stray228_boss", context)
+    PrecacheUnitByNameSync("npc_shadow_gov_agent", context)
+    PrecacheUnitByNameSync("npc_shadow_gov_sniper", context)
+    PrecacheUnitByNameSync("npc_shadow_gov_head", context)
+    PrecacheResource("particle", "particles/units/heroes/hero_enigma/enigma_blackhole.vpcf", context)
+    PrecacheResource("particle", "particles/units/heroes/hero_bounty_hunter/bounty_hunter_track_shield.vpcf", context)
+    PrecacheResource("particle", "particles/units/heroes/hero_slardar/slardar_amp_damage.vpcf", context)
+    PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_enigma.vsndevts", context)
+    PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_bounty_hunter.vsndevts", context)
+    PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_slardar.vsndevts", context)
+
 end
 
 function Activate()

@@ -1523,5 +1523,60 @@
     "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
     "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
 }
+  //=================================================================================
+  // STRAY228: ВОРОВАЛ
+  //=================================================================================
+  "stray228_voroval"
+  {
+    "BaseClass"                 "ability_lua"
+    "ScriptFile"                "abilities/stray228_voroval.lua"
+    "AbilityTextureName"        "slardar_amplify_damage"
+
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO"
+    "SpellImmunityType"         "SPELL_IMMUNITY_ENEMIES_NO"
+
+    "MaxLevel"                  "1"
+    "AbilityCastRange"          "700"
+    "AbilityCastPoint"          "0.3"
+    "AbilityCooldown"           "18"
+    "AbilityManaCost"           "0"
+
+    "AbilityValues"
+    {
+        "steal_duration"        "8"
+    }
+  }
+
+  //=================================================================================
+  // STRAY228: СНАЙПИНГ
+  //=================================================================================
+  "stray228_snaiping"
+  {
+    "BaseClass"                 "ability_lua"
+    "ScriptFile"                "abilities/stray228_snaiping.lua"
+    "AbilityTextureName"        "bounty_hunter_track"
+
+    "AbilityBehavior"           "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetTeam"     "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"     "DOTA_UNIT_TARGET_HERO"
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL"
+    "SpellImmunityType"         "SPELL_IMMUNITY_ENEMIES_NO"
+
+    "MaxLevel"                  "1"
+    "AbilityCastRange"          "1500"
+    "AbilityCastPoint"          "0.3"
+    "AbilityCooldown"           "25"
+    "AbilityManaCost"           "0"
+
+    "AbilityValues"
+    {
+        "track_duration"        "20"
+        "vision_radius"         "400"
+        "ping_interval"         "3"
+        "damage"                "150"
+    }
+  }
 }
 
