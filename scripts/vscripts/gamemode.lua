@@ -33,6 +33,8 @@ print('[CUSTOM_GAME] require events')
 require('events')
 print('[CUSTOM_GAME] events loaded')
 
+LinkLuaModifier("modifier_always_visible", "modifiers/modifier_always_visible", LUA_MODIFIER_MOTION_NONE)
+
 require('units/stray228_boss')
 print('[STRAY228] boss module loaded')
 
@@ -81,14 +83,19 @@ function GameMode:OnGameInProgress()
     end)
 end
 
+-- Невидимость отключена для всех: каждый юнит получает modifier_always_visible
+-- (на спавне в OnNPCSpawned + страховочный таймер для героев)
+function GameMode:ApplyAlwaysVisible(unit)
+    if unit and not unit:IsNull() and unit.HasModifier
+        and not unit:HasModifier("modifier_always_visible") then
+        unit:AddNewModifier(unit, nil, "modifier_always_visible", {})
+    end
+end
+
 Timers:CreateTimer(1, function()
     for playerID = 0, DOTA_MAX_PLAYERS - 1 do
         if PlayerResource:IsValidPlayerID(playerID) then
-            local hero = PlayerResource:GetSelectedHeroEntity(playerID)
-            if hero and not hero:IsNull() and hero:IsAlive()
-                and not hero:HasModifier("modifier_truesight") then
-                hero:AddNewModifier(hero, nil, "modifier_truesight", {})
-            end
+            GameMode:ApplyAlwaysVisible(PlayerResource:GetSelectedHeroEntity(playerID))
         end
     end
     return 0.5
