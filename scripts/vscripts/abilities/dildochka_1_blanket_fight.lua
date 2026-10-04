@@ -15,7 +15,7 @@ function dildo_blanket_fight:OnSpellStart()
     caster:EmitSound("Hero_Marci.Rebound")
 
     local p = ParticleManager:CreateParticle(
-        "particles/units/heroes/hero_marci/marci_rebound.vpcf",
+        "particles/econ/items/tuskarr/tusk_ti9_immortal/tusk_ti9_walruspunch_start_fishes.vpcf",
         PATTACH_ABSORIGIN_FOLLOW,
         caster
     )
@@ -81,7 +81,7 @@ function modifier_dildo_blanket_fight:OnAttackLanded(params)
         counter:SetStackCount(counter:GetStackCount() + 1)
 
         local stack_particle = ParticleManager:CreateParticle(
-            "particles/units/heroes/hero_marci/marci_rebound.vpcf",
+            "particles/econ/items/tuskarr/tusk_ti9_immortal/tusk_ti9_walruspunch_start_fishes.vpcf",
             PATTACH_ABSORIGIN_FOLLOW,
             params.target
         )

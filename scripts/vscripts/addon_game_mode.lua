@@ -42,9 +42,14 @@ function Precache(context)
     
     PrecacheResource("particle", "particles/units/heroes/hero_sandking/sandking_epicenter_ambient.vpcf", context)
     
+    PrecacheResource("particle", "particles/econ/items/tuskarr/tusk_ti9_immortal/tusk_ti9_walruspunch_start_fishes.vpcf", context)
+    
     PrecacheResource("particle", "particles/units/heroes/hero_enigma/enigma_base_attack.vpcf", context)
 
     PrecacheResource("particle", "particles/units/heroes/hero_tidehunter/tidehunter_anchor_hero_mid.vpcf", context)
+
+    PrecacheResource("particle", "particles/items_fx/ogre_seal_totem_smash_flash.vpcf", context)
+    PrecacheResource("particle", "particles/units/heroes/hero_venomancer/venomancer_venomous_gale_mouth.vpcf", context)
     
     PrecacheResource("particle", "particles/units/heroes/hero_life_stealer/life_stealer_rage_bkb01.vpcf", context)
 

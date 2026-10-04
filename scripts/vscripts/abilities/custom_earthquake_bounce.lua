@@ -105,24 +105,14 @@ function modifier_custom_earthquake_aura:OnCreated()
 
     local interval = ability:GetSpecialValueFor("interval")
 
-    self.pfx = ParticleManager:CreateParticle(
-        "particles/units/heroes/hero_sandking/sandking_epicenter_ambient.vpcf",
-        PATTACH_ABSORIGIN_FOLLOW,
-        caster
-    )
 
-    ParticleManager:SetParticleControl(
-        self.pfx,
-        1,
-        Vector(radius, radius, radius)
-    )
 
     if ability:HasScepter() then
         caster:EmitSound("terra")
 
         -- Постоянное свечение самого героя на время ульты.
         self.glow_pfx = ParticleManager:CreateParticle(
-            "particles/econ/items/dark_seer/dark_seer_imperious/dark_seer_imperious_back_flashes_glow_b.vpcf",
+            "particles/items_fx/ogre_seal_totem_smash_flash.vpcf",
             PATTACH_ABSORIGIN_FOLLOW,
             caster
         )

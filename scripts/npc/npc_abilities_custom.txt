@@ -1227,47 +1227,70 @@
     }
   }
 "dildo_blanket_fight"
-    {
-        "BaseClass"               "ability_lua"
-        "ScriptFile"              "abilities/dildochka_1_blanket_fight.lua"
-        "AbilityTextureName"      "marci_rebound"
-        "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
-        "AbilityType"             "DOTA_ABILITY_TYPE_BASIC"
-        "AbilityCastPoint"        "0.15"
-        "AbilityCooldown"         "16 14 12 10"
-        "AbilityManaCost"         "75 85 95 105"
-        "AbilityValues"
-        {
-            "bonus_damage_per_hit" "10 20 30 40"
-            "hits_to_trigger"      "5"
-            "ministun_duration"    "0.15"
-            "duration"             "8"
-        }
-    }
+{
+    "BaseClass"               "ability_lua"
+    "ScriptFile"              "abilities/dildochka_1_blanket_fight.lua"
+    "AbilityTextureName"      "marci_rebound"
+    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+    "AbilityType"             "DOTA_ABILITY_TYPE_BASIC"
+    "AbilityCastPoint"        "0.15"
+    "AbilityCooldown"         "16 14 12 10"
+    "AbilityManaCost"         "75 85 95 105"
 
-    "dildo_rotten_finger"
+    "AbilityValues"
     {
-        "BaseClass"               "ability_lua"
-        "ScriptFile"              "abilities/dildochka_2_rotten_finger.lua"
-        "AbilityTextureName"      "marci_sidekick"
-        "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
-        "AbilityUnitTargetTeam"   "DOTA_UNIT_TARGET_TEAM_ENEMY"
-        "AbilityUnitTargetType"   "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
-        "AbilityUnitTargetFlags"  "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
-        "AbilityCastRange"        "700"
-        "AbilityCastPoint"        "0.2"
-        "AbilityCooldown"         "18 16 14 12"
-        "AbilityManaCost"         "100 110 120 130"
-        "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL"
-        "AbilityValues"
+        "bonus_damage_per_hit"
         {
-            "damage_per_second"          "20 30 40 50"
-            "duration"                   "6"
-            "magic_resistance_reduction" "10"
-            "spread_radius"              "300"
-            "spread_interval"            "1"
+            "value" "10 20 30 40"
+            "special_bonus_unique_dildochka_blanket_damage" "+15"
+        }
+
+        "hits_to_trigger"
+        {
+            "value" "5"
+            "special_bonus_unique_dildochka_blanket_hits" "-1"
+        }
+
+        "ministun_duration"    "0.15"
+        "duration"             "8"
+    }
+}
+
+"dildo_rotten_finger"
+{
+    "BaseClass"               "ability_lua"
+    "ScriptFile"              "abilities/dildochka_2_rotten_finger.lua"
+    "AbilityTextureName"      "marci_sidekick"
+    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityUnitTargetTeam"   "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"   "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+    "AbilityUnitTargetFlags"  "DOTA_UNIT_TARGET_FLAG_MAGIC_IMMUNE_ENEMIES"
+    "AbilityCastRange"        "700"
+    "AbilityCastPoint"        "0.2"
+    "AbilityCooldown"         "18 16 14 12"
+    "AbilityManaCost"         "100 110 120 130"
+    "AbilityUnitDamageType"   "DAMAGE_TYPE_MAGICAL"
+
+    "AbilityValues"
+    {
+        "damage_per_second"
+        {
+            "value" "20 30 40 50"
+            "special_bonus_unique_dildochka_rotten_damage" "+15"
+        }
+
+        "duration"                   "6"
+        "magic_resistance_reduction" "10"
+        "spread_radius"              "300"
+        "spread_interval"            "1"
+
+        "damage_percent_bonus"
+        {
+            "value" "0"
+            "special_bonus_unique_dildochka_rotten_damage_percent" "+100"
         }
     }
+}
 
 "dildo_horse_teeth"
 {
@@ -1276,52 +1299,124 @@
     "AbilityBehavior"            "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
     "AbilityType"                "DOTA_ABILITY_TYPE_BASIC"
 
-    "AbilityCooldown"            "20 18 16 14"
-    "AbilityManaCost"             "60 70 80 90"
+    "HasShardUpgrade"            "1"
+    "HasScepterUpgrade"          "1"
+
+    "AbilityManaCost"            "60 70 80 90"
+
+    "AbilityCooldown"
+    {
+        "value" "20 18 16 14"
+        "special_bonus_unique_dildochka_horse_cooldown" "-2"
+    }
+
+  "AbilityValues"
+  {
+    "duration"
+    {
+        "value" "2 4 6 8"
+        "special_bonus_unique_dildochka_horse_duration" "+1"
+    }
+
+    "bonus_movespeed_pct"
+    {
+        "value" "20"
+    }
+
+    "bonus_magic_damage"
+    {
+        "value" "75 100 125 150"
+    }
+
+    "rotten_extend"
+    {
+        "value" "2"
+    }
+
+    // Шард
+    "shard_attack_count"
+    "3"
+
+    "shard_damage"
+    "75 100 125 150"
+  }
+}
+
+"dildo_who_the_fuck_is_he"
+{
+    "BaseClass"         "ability_lua"
+    "ScriptFile"        "abilities/dildochka_4_who_the_fuck_is_he.lua"
+    "AbilityTextureName" "marci_unleash"
+
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_TOGGLE"
+    "AbilityType"       "DOTA_ABILITY_TYPE_ULTIMATE"
+    "MaxLevel"          "3"
+
+    "HasScepterUpgrade" "1"
+
+    "AbilityCooldown"   "3 3 3"
+    "AbilityManaCost"   "50 50 50"
+    "AbilityCastPoint"  "0.1"
+
+    "RequiredLevel"     "6"
+    "LevelsBetweenUpgrades" "6"
 
     "AbilityValues"
     {
-        "duration"                "2 4 6 8"
+        "bonus_attack_damage" "50"
+
+        "crit_chance"         "33"
+        "crit_multiplier"     "165"
+
+        "spell_amplify"       "15 25 35"
+
+        "on_hit_infection"    "0 0 1"
+
+        // ==========================================
+        // AGHANIM SCEPTER
+        // ==========================================
+
+        "scepter_duration"
+        {
+            "value" "5"
+        }
+
+        "scepter_attack_speed"
+        {
+            "value" "50"
+        }
+
+        "scepter_lifesteal"
+        {
+            "value" "20"
+        }
+
+        "scepter_cast_speed"
+        {
+            "value" "20"
+        }
     }
 }
 
-    "dildo_who_the_fuck_is_he"
-    {
-        "BaseClass"               "ability_lua"
-        "ScriptFile"              "abilities/dildochka_4_who_the_fuck_is_he.lua"
-        "AbilityTextureName"      "marci_unleash"
-        "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_TOGGLE"
-        "AbilityType"             "DOTA_ABILITY_TYPE_ULTIMATE"
-        "MaxLevel" "3"
-        "AbilityCooldown"         "3 3 3"
-        "AbilityManaCost"         "50 50 50"
-        "AbilityCastPoint"        "0.1"
-        "RequiredLevel"                 "6"
-        "LevelsBetweenUpgrades"         "6"
-        "AbilityValues"
-        {
-            "bonus_attack_damage" "50"
-            "crit_chance"         "33"
-            "crit_multiplier"     "165"
-            "spell_amplify"       "15 25 35"
-            "on_hit_infection"    "0 0 1"
-        }
-    }
+"dildo_pirozhechek"
+{
+    "BaseClass"               "ability_lua"
+    "ScriptFile"              "abilities/dildochka_innate_pirozhechek.lua"
+    "AbilityTextureName"      "marci_companion_run"
+    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"             "DOTA_ABILITY_TYPE_INNATE"
+    "MaxLevel"                "1"
+    "Innate"                  "1"
 
-    "dildo_pirozhechek"
+    "AbilityValues"
     {
-        "BaseClass"               "ability_lua"
-        "ScriptFile"              "abilities/dildochka_innate_pirozhechek.lua"
-        "AbilityTextureName"      "marci_companion_run"
-        "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_PASSIVE"
-        "AbilityType"             "DOTA_ABILITY_TYPE_INNATE"
-            "MaxLevel" "1"
-            "Innate" "1"
-        "AbilityValues"
+        "evasion_chance"
         {
-            "evasion_chance" "10"
+            "value" "10"
+            "special_bonus_unique_dildochka_pirozhechek_evasion" "+10"
         }
     }
+}
 
     "custom_true_sight"
     { 
@@ -1363,6 +1458,61 @@
     "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
 }
 "special_bonus_unique_rumka_trezvennik_dispel"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+"special_bonus_unique_dildochka_blanket_damage"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_dildochka_pirozhechek_evasion"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_dildochka_horse_duration"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_dildochka_rotten_damage"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_dildochka_horse_cooldown"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_dildochka_blanket_hits"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_dildochka_rotten_damage_percent"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_dildochka_horse_min_speed"
 {
     "BaseClass" "special_bonus_base"
     "AbilityType" "ABILITY_TYPE_ATTRIBUTES"

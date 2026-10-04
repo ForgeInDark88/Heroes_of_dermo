@@ -320,13 +320,16 @@
         "Ability6" "dildo_who_the_fuck_is_he"
 
         // Empty talent slots for now.
-        "Ability10" ""
-        "Ability11" ""
-        "Ability12" ""
-        "Ability13" ""
-        "Ability14" ""
-        "Ability15" ""
-        "Ability16" ""
-        "Ability17" ""
+"Ability10" "special_bonus_unique_dildochka_blanket_damage"
+"Ability11" "special_bonus_unique_dildochka_pirozhechek_evasion"
+
+"Ability12" "special_bonus_unique_dildochka_horse_duration"
+"Ability13" "special_bonus_unique_dildochka_rotten_damage"
+
+"Ability14" "special_bonus_unique_dildochka_horse_cooldown"
+"Ability15" "special_bonus_unique_dildochka_blanket_hits"
+
+"Ability16" "special_bonus_unique_dildochka_rotten_damage_percent"
+"Ability17" "special_bonus_unique_dildochka_horse_min_speed"
     }
 }
