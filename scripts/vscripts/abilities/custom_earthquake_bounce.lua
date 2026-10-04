@@ -31,7 +31,7 @@ function custom_earthquake_bounce:IsScepterItemCooldownExcluded(item)
 
     local item_name = item:GetAbilityName()
 
-    -- Рефрешер полностью исключён из механики 3-секундного КД.
+    -- Рефрешер полностью исключён из механики ограничения КД предметов.
     -- Также исключаем Refresher Shard, если он используется в вашей кастомке.
     return item_name == "item_refresher"
         or item_name == "item_refresher_shard"
@@ -48,9 +48,9 @@ function custom_earthquake_bounce:ApplyScepterItemCooldown()
     for slot = 0, 8 do
         local item = caster:GetItemInSlot(slot)
         if item and not item:IsNull() and not self:IsScepterItemCooldownExcluded(item) then
-            -- У каждого предмета во время ульты максимальный текущий КД = 3 сек.
+            -- У каждого предмета во время ульты максимальный текущий КД = scepter_item_cooldown (5 сек).
             -- Готовые предметы не блокируем. Если предмет только что использован
-            -- и его обычный КД больше 3 сек, уменьшаем его до 3 сек.
+            -- и его обычный КД больше лимита, уменьшаем его до лимита.
             if item:GetCooldownTimeRemaining() > cooldown then
                 item:EndCooldown()
                 item:StartCooldown(cooldown)

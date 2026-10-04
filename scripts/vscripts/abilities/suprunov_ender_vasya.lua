@@ -4,6 +4,12 @@ LinkLuaModifier(
     LUA_MODIFIER_MOTION_NONE
 )
 
+LinkLuaModifier(
+    "modifier_suprunov_ender_vasya_armor_reduction",
+    "abilities/suprunov_ender_vasya.lua",
+    LUA_MODIFIER_MOTION_NONE
+)
+
 suprunov_ender_vasya = class({})
 
 function suprunov_ender_vasya:OnSpellStart()
@@ -107,4 +113,79 @@ function modifier_suprunov_ender_vasya_eidolon:OnDestroy()
             parent:ForceKill(false)
         end
     end
+end
+
+-- Шард: каждая атака Эндер Васи снижает броню цели на 1 (стакается)
+function modifier_suprunov_ender_vasya_eidolon:DeclareFunctions()
+    return {
+        MODIFIER_EVENT_ON_ATTACK_LANDED,
+    }
+end
+
+function modifier_suprunov_ender_vasya_eidolon:OnAttackLanded(params)
+    if not IsServer() then
+        return
+    end
+
+    local parent = self:GetParent()
+    if params.attacker ~= parent then
+        return
+    end
+
+    local target = params.target
+    if not target or target:IsNull() or target:IsBuilding() then
+        return
+    end
+
+    if target:GetTeamNumber() == parent:GetTeamNumber() then
+        return
+    end
+
+    local ability = self:GetAbility()
+    if not ability or ability:IsNull() then
+        return
+    end
+
+    local modifier = target:AddNewModifier(
+        self:GetCaster(),
+        ability,
+        "modifier_suprunov_ender_vasya_armor_reduction",
+        {
+            duration = ability:GetSpecialValueFor("armor_reduction_duration")
+        }
+    )
+
+    if modifier then
+        modifier:IncrementStackCount()
+    end
+end
+
+
+modifier_suprunov_ender_vasya_armor_reduction = class({})
+
+function modifier_suprunov_ender_vasya_armor_reduction:IsHidden()
+    return false
+end
+
+function modifier_suprunov_ender_vasya_armor_reduction:IsDebuff()
+    return true
+end
+
+function modifier_suprunov_ender_vasya_armor_reduction:IsPurgable()
+    return true
+end
+
+function modifier_suprunov_ender_vasya_armor_reduction:OnCreated()
+    local ability = self:GetAbility()
+    self.armor_per_stack = ability and ability:GetSpecialValueFor("armor_reduction_per_hit") or 1
+end
+
+function modifier_suprunov_ender_vasya_armor_reduction:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_PHYSICAL_ARMOR_BONUS,
+    }
+end
+
+function modifier_suprunov_ender_vasya_armor_reduction:GetModifierPhysicalArmorBonus()
+    return -self.armor_per_stack * self:GetStackCount()
 end

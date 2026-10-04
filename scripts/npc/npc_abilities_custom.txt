@@ -470,26 +470,26 @@
     "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_NO"
     "AbilityTextureName"            "musor"
     
-    "AbilityCastRange"              "600"
+    "AbilityCastRange"              "500"
     "AbilityCastPoint"              "0.3"
 
     "AbilityManaCost"               "100 110 120 130"
 
     "AbilityValues"
     {
-        "duration"                  "2 2.5 3 3.5"
+        "duration"                  "1.3 1.6 1.9 2.2"
         "damage_per_sec"
         {
-            "value"                 "60 80 100 120"
-            "special_bonus_unique_suprunov_hypnosis_dps" "+30"
+            "value"                 "110 135 160 185"
+            "special_bonus_unique_suprunov_hypnosis_dps" "+40"
         }
         "AbilityCharges"
         {
             "value"                 "1"
             "special_bonus_unique_suprunov_hypnosis_charges" "+1"
         }
-        "AbilityChargeRestoreTime" "15 14 13 12"
-        "move_speed_slow_pct"       "50" // Процент замедления во время гипноза
+        "AbilityChargeRestoreTime" "18 16 14 12"
+        "move_speed_slow_pct"       "40" // Процент замедления во время гипноза
     }
   }
 "custom_earthquake_bounce"
@@ -515,13 +515,13 @@
     
     "AbilityValues"
     {
-      "aura_duration"           "7"
+      "aura_duration"           "6 7 8"
       "radius"                  "600 650 700"
       "interval"                "1.6 1.3 1.0"
       "delay"                   "1.0"
       "damage"                  "80 140 180"
       "stun_duration"           "0.1"
-      "scepter_item_cooldown"   "3.0"
+      "scepter_item_cooldown"   "5.0"
       "scepter_sound"           "Custom_Suprunov_Scepter"
       "scepter_glow_particle"   "particles/units/heroes/hero_phoenix/phoenix_supernova_rebirth.vpcf"
       "bounce_height"           "250"
@@ -570,14 +570,14 @@
     {
         "cast_range"
         {
-            "value" "3000"
+            "value" "7000"
             "special_bonus_unique_suprunov_tp_range" "+15000"
         }
 
         "AbilityCooldown"
         {
             "value" "120"
-            "special_bonus_unique_suprunov_tp_cooldown" "-90"
+            "special_bonus_unique_suprunov_tp_cooldown" "-95"
         }
 
         "vision_radius" "300"
@@ -600,7 +600,7 @@
   
   // Каст и перезарядка
   "AbilityCastPoint"        "0.2"
-  "AbilityCastRange"        "600"
+  "AbilityCastRange"        "675"
   "AbilityCooldown"       "17 16 15 14"
   "AbilityManaCost"       "100 115 130 145"
 
@@ -610,12 +610,12 @@
   // Числовые значения через AbilityValues
   "AbilityValues"
     {
-    "damage"      "150 250 350 450"
-    "root_duration"
+    "damage"
       {
-        "value"                  "1.0"
-        "special_bonus_unique_suprunov_golda_root" "+0.5"
+        "value"                  "130 220 310 400"
+        "special_bonus_unique_suprunov_golda_damage" "+120"
       }
+    "root_duration"           "0.4"
     "knockback_distance"  "300"
     "knockback_duration"  "0.3"
     }
@@ -635,12 +635,13 @@
     "AbilityValues"
     {
         "cat_duration"              "20.0"
-        "scream_radius"
+        "shard_cat_duration"        "30.0"
+        "scream_radius"             "350 400 450 500"
+        "damage_reduction_pct"
         {
-            "value"                 "350 400 450 500"
-            "special_bonus_unique_suprunov_cat_radius" "+100"
+            "value"                 "-15 -25 -35 -45"
+            "special_bonus_unique_suprunov_cat_reduction" "-10"
         }
-        "damage_reduction_pct"      "-15 -25 -35 -45"
         "debuff_duration"           "3.0 3.5 4.0 4.5"
         "scream_cooldown"           "1.0"
         
@@ -781,6 +782,20 @@
   }
 
   "special_bonus_unique_suprunov_hypnosis_charges"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+
+  "special_bonus_unique_suprunov_golda_damage"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+
+  "special_bonus_unique_suprunov_cat_reduction"
   {
     "BaseClass"         "special_bonus_base"
     "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
@@ -1136,6 +1151,8 @@
         "spawn_count"        "1"
         "eidolon_damage"     "120"
         "eidolon_duration"   "30"
+        "armor_reduction_per_hit" "1"
+        "armor_reduction_duration" "5"
     }
   }
       // ============================================================
