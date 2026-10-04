@@ -70,6 +70,40 @@ function Precache(context)
     context
     )
 
+    -- Эффекты и звуки способностей героев (балансные изменения)
+    local hero_particles = {
+        "particles/generic_gameplay/generic_break.vpcf",
+        "particles/generic_gameplay/generic_disarm.vpcf",
+        "particles/generic_gameplay/generic_hit_blood.vpcf",
+        "particles/generic_gameplay/generic_silence.vpcf",
+        "particles/generic_gameplay/generic_stunned.vpcf",
+        "particles/items2_fx/teleport_end.vpcf",
+        "particles/items_fx/black_king_bar_avatar.vpcf",
+        "particles/units/heroes/hero_brewmaster/brewmaster_cinder_brew_debuff.vpcf",
+        "particles/units/heroes/hero_phoenix/phoenix_supernova_rebirth.vpcf",
+        "particles/units/heroes/hero_pudge/pudge_meathook_impact.vpcf",
+        "particles/units/heroes/hero_razor/razor_rain_storm.vpcf",
+        "particles/units/heroes/hero_siren/siren_net.vpcf",
+    }
+    for _, particle in ipairs(hero_particles) do
+        PrecacheResource("particle", particle, context)
+    end
+
+    local hero_sounds = {
+        "soundevents/game_sounds_heroes/game_sounds_windrunner.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_brewmaster.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_leshrac.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_mars.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_queenofpain.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_tiny.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_venomancer.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_marci.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_pudge.vsndevts",
+    }
+    for _, sound in ipairs(hero_sounds) do
+        PrecacheResource("soundfile", sound, context)
+    end
+
     -- STRAY228 + ивент Теневого правительства
     PrecacheUnitByNameSync("npc_stray228_boss", context)
     PrecacheUnitByNameSync("npc_shadow_gov_agent", context)

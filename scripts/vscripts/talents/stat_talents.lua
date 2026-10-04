@@ -1,9 +1,11 @@
--- Общие таланты на статы (здоровье, дальность атаки, сила, ловкость, урон, реген маны).
--- Каждый талант из списка ниже — ability_lua с этим ScriptFile. Значение берётся
--- из AbilityValues таланта (bonus_health, bonus_attack_range, bonus_strength,
--- bonus_agility, bonus_damage, bonus_mana_regen) и действует, только когда талант изучен.
+-- Таланты на статы (здоровье, дальность атаки, сила, ловкость, урон, реген маны).
+--
+-- Сами таланты — обычные special_bonus_base (как все остальные таланты),
+-- иначе движок не даёт доизучать вторую сторону дерева на 27-30 уровнях.
+-- Бонусы даёт скрытый модификатор, который вешается на каждого героя
+-- при спавне (events.lua, OnNPCSpawned). Значения берутся из AbilityValues таланта.
 
-LinkLuaModifier("modifier_stat_talent", "talents/stat_talents", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_stat_talents", "talents/stat_talents", LUA_MODIFIER_MOTION_NONE)
 
 local STAT_TALENTS = {
     "special_bonus_unique_artem_hp_150",
@@ -14,34 +16,30 @@ local STAT_TALENTS = {
     "special_bonus_unique_dildochka_agility",
 }
 
-for _, name in ipairs(STAT_TALENTS) do
-    local talent = class({})
-
-    function talent:GetIntrinsicModifierName()
-        return "modifier_stat_talent"
-    end
-
-    _G[name] = talent
-end
-
 --------------------------------------------------------------------------------
 
-modifier_stat_talent = class({})
+modifier_stat_talents = class({})
 
-function modifier_stat_talent:IsHidden() return true end
-function modifier_stat_talent:IsPurgable() return false end
-function modifier_stat_talent:RemoveOnDeath() return false end
-function modifier_stat_talent:GetAttributes() return MODIFIER_ATTRIBUTE_MULTIPLE end
+function modifier_stat_talents:IsHidden() return true end
+function modifier_stat_talents:IsPurgable() return false end
+function modifier_stat_talents:RemoveOnDeath() return false end
+function modifier_stat_talents:IsPermanent() return true end
 
-function modifier_stat_talent:Value(key)
-    local ability = self:GetAbility()
-    if not ability or ability:IsNull() or ability:GetLevel() <= 0 then
-        return 0
+function modifier_stat_talents:Value(key)
+    local parent = self:GetParent()
+    local total = 0
+
+    for _, name in ipairs(STAT_TALENTS) do
+        local talent = parent:FindAbilityByName(name)
+        if talent and talent:GetLevel() > 0 then
+            total = total + talent:GetSpecialValueFor(key)
+        end
     end
-    return ability:GetSpecialValueFor(key)
+
+    return total
 end
 
-function modifier_stat_talent:DeclareFunctions()
+function modifier_stat_talents:DeclareFunctions()
     return {
         MODIFIER_PROPERTY_HEALTH_BONUS,
         MODIFIER_PROPERTY_ATTACK_RANGE_BONUS,
@@ -52,26 +50,26 @@ function modifier_stat_talent:DeclareFunctions()
     }
 end
 
-function modifier_stat_talent:GetModifierHealthBonus()
+function modifier_stat_talents:GetModifierHealthBonus()
     return self:Value("bonus_health")
 end
 
-function modifier_stat_talent:GetModifierAttackRangeBonus()
+function modifier_stat_talents:GetModifierAttackRangeBonus()
     return self:Value("bonus_attack_range")
 end
 
-function modifier_stat_talent:GetModifierBonusStats_Strength()
+function modifier_stat_talents:GetModifierBonusStats_Strength()
     return self:Value("bonus_strength")
 end
 
-function modifier_stat_talent:GetModifierBonusStats_Agility()
+function modifier_stat_talents:GetModifierBonusStats_Agility()
     return self:Value("bonus_agility")
 end
 
-function modifier_stat_talent:GetModifierPreAttack_BonusDamage()
+function modifier_stat_talents:GetModifierPreAttack_BonusDamage()
     return self:Value("bonus_damage")
 end
 
-function modifier_stat_talent:GetModifierConstantManaRegen()
+function modifier_stat_talents:GetModifierConstantManaRegen()
     return self:Value("bonus_mana_regen")
 end

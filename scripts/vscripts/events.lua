@@ -1,3 +1,4 @@
+require("talents/stat_talents")
 -- This file contains all barebones-registered events and has already set up the passed-in parameters for your use.
 
 -- Cleanup a player when they leave
@@ -36,6 +37,14 @@ function GameMode:OnNPCSpawned(keys)
 
     -- Невидимость в кастомке отключена: всех видно
     GameMode:ApplyAlwaysVisible(npc)
+
+    ---------------------------------------------------------
+    -- ТАЛАНТЫ НА СТАТЫ (talents/stat_talents.lua)
+    ---------------------------------------------------------
+
+    if npc:IsRealHero() and not npc:HasModifier("modifier_stat_talents") then
+        npc:AddNewModifier(npc, nil, "modifier_stat_talents", {})
+    end
 
     ---------------------------------------------------------
     -- НАША БОЛЬШАЯ КВОПА

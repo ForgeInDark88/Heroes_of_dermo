@@ -893,8 +893,7 @@
 
   "special_bonus_unique_tugarchik_mana_regen_175"
   {
-    "BaseClass"         "ability_lua"
-    "ScriptFile"        "talents/stat_talents"
+    "BaseClass"         "special_bonus_base"
     "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
     "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
 
@@ -1136,8 +1135,7 @@
 
 "special_bonus_unique_artem_hp_150"
   {
-    "BaseClass"         "ability_lua"
-    "ScriptFile"        "talents/stat_talents"
+    "BaseClass"         "special_bonus_base"
     "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
     "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
 
@@ -1149,8 +1147,7 @@
 
 "special_bonus_unique_artem_attack_range"
   {
-    "BaseClass"         "ability_lua"
-    "ScriptFile"        "talents/stat_talents"
+    "BaseClass"         "special_bonus_base"
     "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
     "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
 
@@ -1615,8 +1612,7 @@
 
 "special_bonus_unique_rumka_strength"
 {
-    "BaseClass" "ability_lua"
-    "ScriptFile" "talents/stat_talents"
+    "BaseClass" "special_bonus_base"
     "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
     "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
@@ -1627,8 +1623,7 @@
 }
 "special_bonus_unique_rumka_attack_damage"
 {
-    "BaseClass" "ability_lua"
-    "ScriptFile" "talents/stat_talents"
+    "BaseClass" "special_bonus_base"
     "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
     "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
@@ -1723,8 +1718,7 @@
 
 "special_bonus_unique_dildochka_agility"
 {
-    "BaseClass" "ability_lua"
-    "ScriptFile" "talents/stat_talents"
+    "BaseClass" "special_bonus_base"
     "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
     "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
 
