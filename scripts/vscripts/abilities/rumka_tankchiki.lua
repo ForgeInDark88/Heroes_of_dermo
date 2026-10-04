@@ -7,6 +7,17 @@ function rumka_tankchiki:GetIntrinsicModifierName()
     return "modifier_rumka_tankchiki"
 end
 
+-- Уровень врождёнки: 1 до ульты, далее 2/3/4 с каждым уровнем Трезвенника.
+function rumka_tankchiki:SyncLevelWithUltimate()
+    local ultimate = self:GetCaster():FindAbilityByName("rumka_trezvennik")
+    local ultimate_level = ultimate and ultimate:GetLevel() or 0
+    local level = math.max(1, math.min(4, ultimate_level + 1))
+
+    if self:GetLevel() ~= level then
+        self:SetLevel(level)
+    end
+end
+
 modifier_rumka_tankchiki = class({})
 
 function modifier_rumka_tankchiki:IsHidden() return true end
@@ -27,6 +38,8 @@ function modifier_rumka_tankchiki:OnAttackLanded(params)
 
     local ability = self:GetAbility()
     if not ability then return end
+
+    ability:SyncLevelWithUltimate()
 
     target:AddNewModifier(self:GetParent(), ability, "modifier_rumka_tankchiki_slow", {
         duration = ability:GetSpecialValueFor("slow_duration")

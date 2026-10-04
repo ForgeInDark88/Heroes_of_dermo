@@ -49,6 +49,19 @@ end
 
 
 --------------------------------------------------
+-- УРОН: база + % от урона атаки Рюмки
+--------------------------------------------------
+
+function rumka_razobem:GetTotalDamage()
+    local caster = self:GetCaster()
+    local attack_damage = caster:GetAverageTrueAttackDamage(nil)
+    local pct = self:GetSpecialValueFor("attack_damage_pct") / 100
+
+    return self:GetSpecialValueFor("damage") + attack_damage * pct
+end
+
+
+--------------------------------------------------
 -- ОБЫЧНЫЙ КАСТ
 --------------------------------------------------
 
@@ -58,7 +71,7 @@ function rumka_razobem:OnSpellStart()
     local origin = caster:GetAbsOrigin()
 
     local radius = self:GetSpecialValueFor("radius")
-    local damage = self:GetSpecialValueFor("damage")
+    local damage = self:GetTotalDamage()
     local silence_duration =
         self:GetSpecialValueFor("silence_duration")
 
@@ -92,7 +105,7 @@ function rumka_razobem:OnSpellStart()
 
     self:ApplyExplosion(
         damage,
-        DAMAGE_TYPE_MAGICAL,
+        DAMAGE_TYPE_PHYSICAL,
         silence_duration
     )
 
@@ -411,7 +424,7 @@ function modifier_rumka_razobem_scepter:TriggerScepterExplosion()
         ability:GetSpecialValueFor("radius")
 
     local base_damage =
-        ability:GetSpecialValueFor("damage")
+        ability:GetTotalDamage()
 
     local base_silence =
         ability:GetSpecialValueFor("silence_duration")

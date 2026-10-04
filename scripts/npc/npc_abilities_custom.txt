@@ -1199,7 +1199,8 @@
 
     "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_AOE"
     "AbilityType" "DOTA_ABILITY_TYPE_BASIC"
-    "AbilityUnitDamageType"     "DAMAGE_TYPE_MAGICAL"
+    "AbilityUnitDamageType"     "DAMAGE_TYPE_PHYSICAL"
+    "SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
     "MaxLevel" "4"
     "HasScepterUpgrade" "1"
 
@@ -1209,12 +1210,16 @@
     {
         "damage"
         {
-            "value" "150 200 250 300"
-            "special_bonus_unique_rumka_razobem_damage" "+120"
+            "value" "80 120 160 200"
+        }
+        "attack_damage_pct"
+        {
+            "value" "60"
+            "special_bonus_unique_rumka_razobem_damage" "+20"
         }
         "AbilityCooldown"
         {
-            "value" "20 18 16 14"
+            "value" "18 16 14 12"
             "special_bonus_unique_rumka_razobem_cd" "-1.5"
         }
         "radius" { "value" "300" }
@@ -1227,7 +1232,7 @@
 
       "scepter_damage_threshold"
       {
-        "value" "475"
+        "value" "450"
       }
 
       "scepter_damage_percent"
@@ -1258,9 +1263,9 @@
     "AbilityType" "DOTA_ABILITY_TYPE_BASIC"
     "AbilityUnitDamageType"     "DAMAGE_TYPE_PURE"
     "MaxLevel" "4"
-    "AbilityCastRange" "600"
+    "AbilityCastRange" "550"
     "AbilityCastPoint" "0.1"
-    "AbilityCooldown" "16 14 12 10"
+    "AbilityCooldown" "22 18 14 10"
     "AbilityManaCost" "100 110 120 130"
 
     "AbilityValues"
@@ -1288,14 +1293,14 @@
 
     "AbilityValues"
     {
-        "block_chance" { "value" "30 40 50 60" }
-        "damage_block" { "value" "40" }
+        "block_chance" { "value" "20 35 50 65" }
+        "damage_block" { "value" "10 20 30 40" }
 
-        "shard_duration" "6"
+        "shard_duration" "5.5"
         "shard_reflect_pct" "25"
-        "shard_reflect_str_mult" "0.5"
+        "shard_reflect_str_mult" "0.4"
         "shard_cooldown" "18"
-        "shard_mana" "55"
+        "shard_mana" "80"
     }
   }
 
@@ -1308,14 +1313,15 @@
     "AbilityType" "DOTA_ABILITY_TYPE_ULTIMATE"
     "MaxLevel" "3"
     "AbilityCastPoint" "0.1"
-    "AbilityCooldown" "80 70 60"
+    "AbilityCooldown" "100 85 70"
     "AbilityManaCost" "100 150 200"
     "RequiredLevel"                 "6"
     "LevelsBetweenUpgrades"         "6"
 
     "AbilityValues"
     {
-        "duration" { "value" "3.0" }
+        "duration" { "value" "2 3 4" }
+        "magic_resistance" { "value" "40 55 70" }
     }
   }
 
@@ -1326,13 +1332,13 @@
     "AbilityTextureName" "pudge_flesh_heap"
     "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
     "AbilityType" "DOTA_ABILITY_TYPE_BASIC"
-    "MaxLevel" "1"
+    "MaxLevel" "4"
     "Innate" "1"
 
     "AbilityValues"
     {
-        "slow_percent" { "value" "25" }
-        "slow_duration" { "value" "1.0" }
+        "slow_percent" { "value" "25 50 75 100" }
+        "slow_duration" { "value" "0.5" }
     }
   }
 "dildo_blanket_fight"
@@ -1571,6 +1577,31 @@
     "BaseClass" "special_bonus_base"
     "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
     "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_rumka_strength"
+{
+    "BaseClass" "ability_lua"
+    "ScriptFile" "talents/stat_talents"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+    "AbilityValues"
+    {
+        "bonus_strength" "15"
+    }
+}
+"special_bonus_unique_rumka_attack_damage"
+{
+    "BaseClass" "ability_lua"
+    "ScriptFile" "talents/stat_talents"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+    "AbilityValues"
+    {
+        "bonus_damage" "65"
+    }
 }
 "special_bonus_unique_dildochka_blanket_damage"
 {
