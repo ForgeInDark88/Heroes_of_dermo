@@ -629,6 +629,7 @@
     "AbilityTextureName"            "alchemist_chemical_rage"
     "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
     "MaxLevel"                      "4"
+    "HasShardUpgrade"               "1"
     "AbilityTextureName"            "kotik"
     
     "AbilityCooldown"               "30.0 26.0 22.0 18.0"
