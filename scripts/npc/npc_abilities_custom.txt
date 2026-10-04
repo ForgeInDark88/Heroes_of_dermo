@@ -969,8 +969,16 @@
         "think_interval" "0.3"
 
         // Аганим: дебафф "водяра"
-        "scepter_vodyara_damage_pct"    "0.3"
-        "scepter_vodyara_status_resist" "15"
+        "scepter_vodyara_damage_pct"
+        {
+            "value"           "0.3"
+            "RequiresScepter" "1"
+        }
+        "scepter_vodyara_status_resist"
+        {
+            "value"           "15"
+            "RequiresScepter" "1"
+        }
         "scepter_vodyara_tick"          "0.5"
     }
   }

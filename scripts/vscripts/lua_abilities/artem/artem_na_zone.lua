@@ -4,6 +4,12 @@ LinkLuaModifier(
     LUA_MODIFIER_MOTION_NONE
 )
 
+LinkLuaModifier(
+    "modifier_artem_na_zone_disarm",
+    "lua_abilities/artem/artem_na_zone",
+    LUA_MODIFIER_MOTION_NONE
+)
+
 artem_na_zone = class({})
 
 function artem_na_zone:OnSpellStart()
@@ -45,7 +51,7 @@ function artem_na_zone:OnSpellStart()
     target:AddNewModifier(
         caster,
         self,
-        "modifier_disarmed",
+        "modifier_artem_na_zone_disarm",
         {
             duration = duration
         }
@@ -160,3 +166,35 @@ function modifier_artem_na_zone_cage:OnDestroy()
     end
 end
 
+
+--------------------------------------------------------------------------------
+-- ДИЗАРМ
+--------------------------------------------------------------------------------
+
+modifier_artem_na_zone_disarm = class({})
+
+function modifier_artem_na_zone_disarm:IsHidden()
+    return false
+end
+
+function modifier_artem_na_zone_disarm:IsDebuff()
+    return true
+end
+
+function modifier_artem_na_zone_disarm:IsPurgable()
+    return true
+end
+
+function modifier_artem_na_zone_disarm:CheckState()
+    return {
+        [MODIFIER_STATE_DISARMED] = true
+    }
+end
+
+function modifier_artem_na_zone_disarm:GetEffectName()
+    return "particles/generic_gameplay/generic_disarm.vpcf"
+end
+
+function modifier_artem_na_zone_disarm:GetEffectAttachType()
+    return PATTACH_OVERHEAD_FOLLOW
+end
