@@ -37,6 +37,15 @@ function creeper_explode:ExplodeCreeper(unit)
     local radius = self:GetSpecialValueFor("radius")
     local damage = self:GetSpecialValueFor("damage")
 
+    -- Талант Попчика: +урон к взрыву Ебанного брата
+    local owner = unit:GetOwner()
+    if owner and not owner:IsNull() and owner.FindAbilityByName then
+        local talent = owner:FindAbilityByName("special_bonus_unique_popchik_creeper_damage")
+        if talent and talent:GetLevel() > 0 then
+            damage = damage + talent:GetSpecialValueFor("value")
+        end
+    end
+
     ----------------------------------------------------------------
     -- ЗВУК
     ----------------------------------------------------------------

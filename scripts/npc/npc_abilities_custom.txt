@@ -273,7 +273,7 @@
     "AbilityTextureName"            "anime"
 
     "AbilityCastPoint"              "0.0"
-    "AbilityCooldown"               "14.0 13.0 12.0 11.0"
+    "AbilityCooldown"               "24 22 20 18"
     "AbilityManaCost"               "75 80 85 90"
 
     "AbilityValues"
@@ -281,7 +281,6 @@
         "duration"
         {
             "value"                                      "2.0 3.0 4.0 5.0"
-            "special_bonus_unique_popchik_hair_duration" "+1"
         }
         "bonus_movement_speed"      "30 40 50 60"
         "evasion_chance"            "100"
@@ -327,14 +326,15 @@
     {
         "damage"
         {
-            "value"                                      "150 200 250 300"
-            "special_bonus_unique_popchik_chmoshnik_damage" "+190"
+            "value"                                      "100 170 240 310"
+            "special_bonus_unique_popchik_chmoshnik_damage" "+150"
         }
         "duration"          "3.0"
+        "bonus_attack_speed" "15 30 45 60"
         "root_duration"
         {
             "value"                                      "0.5 0.7 0.9 1.1"
-            "special_bonus_unique_popchik_chmoshnik_root" "+0.9"
+            "special_bonus_unique_popchik_chmoshnik_root" "+0.5"
         }
         "AbilityCooldown" 
         {
@@ -363,7 +363,11 @@
     {
         "projectile_speed"          "1200"
         "stun_duration"             "1.0 1.4 1.8 2.2"
-        "damage"                    "75 100 125 150"
+        "damage"
+        {
+            "value"                                      "75 100 125 150"
+            "special_bonus_unique_popchik_creeper_damage" "+175"
+        }
         "bonus_health"
         {
             "value"                                      "0"
@@ -372,7 +376,7 @@
         "AbilityCooldown" 
         {
             "value"                                      "15 13 11 9"
-            "special_bonus_unique_popchik_throw_creeper_cd" "-2"
+            "special_bonus_unique_popchik_throw_creeper_cd" "-1"
         }
     }
   }
@@ -383,7 +387,7 @@
     "AbilityTextureName"            "midas"
     "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
     "AbilityType"                   "DOTA_ABILITY_TYPE_ULTIMATE"
-    "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_NO"
+    "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_YES"
     "RequiredLevel"                 "6"
     "LevelsBetweenUpgrades"         "6"
     "MaxLevel"                      "3"
@@ -396,14 +400,18 @@
     {
         "duration"                  "16"
         "radius"                    "600"
-        "move_speed_slow"           "-15 -20 -25"
+        "move_speed_slow"           "-15 -25 -35"
         "spell_resist_reduction"    "-15 -20 -25"
-        "gold_steal_per_tick_scepter" "20"
+        "gold_steal_per_tick_scepter" "30"
+        "scepter_attack_slow"       "30"
+        "scepter_attack_slow_duration" "0.3"
+        "scepter_crit_chance"       "35"
+        "scepter_crit_damage"       "140"
         "tick_interval"             "1.0"
         "AbilityCooldown" 
         {
             "value"                                      "120 110 100"
-            "special_bonus_unique_popchik_midas_cd"     "-20"
+            "special_bonus_unique_popchik_midas_cd"     "-40"
         }
     }
   }
@@ -411,21 +419,46 @@
   {
     "BaseClass"                     "ability_lua"
     "ScriptFile"                    "abilities/turbo_warrior"
-    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_PASSIVE"
     "AbilityTextureName"            "turbo"
     "MaxLevel"                      "1"
     "Innate"                        "1"
 
-    "HasShardUpgrade"               "1"
-    "AbilityCooldown"               "60.0"
-
     "AbilityValues"
     {
         "respawn_time_pct"          "-50"
-        "shard_duration"            "10.0"
-        "shard_courier_speed"       "1100"
     }
   }
+"popchik_milk_rain"
+  {
+    "BaseClass"                     "ability_lua"
+    "ScriptFile"                    "abilities/popchik_milk_rain"
+    "AbilityTextureName"            "brewmaster_thunder_clap"
+
+    "AbilityBehavior"               "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+    "AbilityUnitTargetTeam"         "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"         "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+    "AbilityUnitDamageType"         "DAMAGE_TYPE_MAGICAL"
+    "SpellImmunityType"             "SPELL_IMMUNITY_ENEMIES_NO"
+
+    "MaxLevel"                      "1"
+    "IsGrantedByShard"              "1"
+
+    "AbilityCastRange"              "550"
+    "AbilityCastPoint"              "0.2"
+    "AbilityCooldown"               "32"
+    "AbilityManaCost"               "200"
+
+    "AbilityValues"
+    {
+        "damage_pct_per_sec"        "1.5"
+        "heal_pct_per_sec"          "0.5"
+        "duration"                  "8"
+        "radius"                    "550"
+        "tick_interval"             "0.5"
+    }
+  }
+
   "hypnosis_target"
   {
     "BaseClass"                     "ability_lua"
@@ -679,6 +712,18 @@
     "BaseClass"         "special_bonus_base"
     "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
     "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+
+  "special_bonus_unique_popchik_creeper_damage"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+
+    "AbilityValues"
+    {
+        "value" "175"
+    }
   }
     "special_bonus_mana_reduction_11"
   {
