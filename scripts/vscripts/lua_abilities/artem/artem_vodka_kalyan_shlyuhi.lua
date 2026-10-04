@@ -24,6 +24,16 @@ local function DispelEnemies(caster, radius)
     end
 end
 
+-- Врождёнка Мукбанг прокачивается вместе с ультой
+function artem_vodka_kalyan_shlyuhi:OnUpgrade()
+    if not IsServer() then return end
+
+    local mukbang = self:GetCaster():FindAbilityByName("artem_mukbang")
+    if mukbang and mukbang.SyncLevelWithUltimate then
+        mukbang:SyncLevelWithUltimate()
+    end
+end
+
 function artem_vodka_kalyan_shlyuhi:OnSpellStart()
     local caster = self:GetCaster()
 
