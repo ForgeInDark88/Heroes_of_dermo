@@ -4,12 +4,6 @@ LinkLuaModifier(
     LUA_MODIFIER_MOTION_NONE
 )
 
-LinkLuaModifier(
-    "modifier_artem_na_zone_break",
-    "lua_abilities/artem/artem_na_zone",
-    LUA_MODIFIER_MOTION_NONE
-)
-
 artem_na_zone = class({})
 
 function artem_na_zone:OnSpellStart()
@@ -36,16 +30,6 @@ function artem_na_zone:OnSpellStart()
     if talent and talent:GetLevel() > 0 then
         damage = damage + self:GetSpecialValueFor("talent_damage")
     end
-
-    -- Стан
-    target:AddNewModifier(
-        caster,
-        self,
-        "modifier_stunned",
-        {
-            duration = duration
-        }
-    )
 
     -- Сайленс
     target:AddNewModifier(
@@ -76,19 +60,6 @@ function artem_na_zone:OnSpellStart()
             duration = duration
         }
     )
-
-    -- АГАНИМ:
-    -- Истощение, которое нельзя развеять
-    if caster:HasScepter() then
-        target:AddNewModifier(
-            caster,
-            self,
-            "modifier_artem_na_zone_break",
-            {
-                duration = 6
-            }
-        )
-    end
 
     -- Магический урон
     ApplyDamage({
@@ -189,39 +160,3 @@ function modifier_artem_na_zone_cage:OnDestroy()
     end
 end
 
-
---------------------------------------------------------------------------------
--- АГАНИМ: ИСТОЩЕНИЕ
---------------------------------------------------------------------------------
-
-modifier_artem_na_zone_break = class({})
-
-function modifier_artem_na_zone_break:IsHidden()
-    return false
-end
-
-function modifier_artem_na_zone_break:IsDebuff()
-    return true
-end
-
-function modifier_artem_na_zone_break:IsPurgable()
-    return false
-end
-
-function modifier_artem_na_zone_break:IsPurgeException()
-    return false
-end
-
-function modifier_artem_na_zone_break:RemoveOnDeath()
-    return true
-end
-
-function modifier_artem_na_zone_break:CheckState()
-    return {
-        [MODIFIER_STATE_PASSIVES_DISABLED] = true
-    }
-end
-
-function modifier_artem_na_zone_break:GetTexture()
-    return "item_ultimate_scepter"
-end
