@@ -6,6 +6,17 @@ function artem_mukbang:GetIntrinsicModifierName()
     return "modifier_artem_mukbang"
 end
 
+-- Уровень врождёнки: 1 до ульты, далее 2/3/4 с каждым уровнем ульты.
+function artem_mukbang:SyncLevelWithUltimate()
+    local ultimate = self:GetCaster():FindAbilityByName("artem_vodka_kalyan_shlyuhi")
+    local ultimate_level = ultimate and ultimate:GetLevel() or 0
+    local mukbang_level = math.max(1, math.min(4, ultimate_level + 1))
+
+    if self:GetLevel() ~= mukbang_level then
+        self:SetLevel(mukbang_level)
+    end
+end
+
 modifier_artem_mukbang = class({})
 
 function modifier_artem_mukbang:IsHidden() return false end
@@ -21,14 +32,7 @@ function modifier_artem_mukbang:OnDeath(params)
     local ability = self:GetAbility()
     if not ability or ability:IsNull() then return end
 
-    local ultimate = hero:FindAbilityByName("artem_vodka_kalyan_shlyuhi")
-    local ultimate_level = ultimate and ultimate:GetLevel() or 1
-    local mukbang_level = math.max(1, math.min(4, ultimate_level))
-
-    -- Делаем врождёнку уровнем, соответствующим уровню ульта.
-    if ability:GetLevel() ~= mukbang_level then
-        ability:SetLevel(mukbang_level)
-    end
+    ability:SyncLevelWithUltimate()
 
     -- Лечение в процентах от максимального здоровья
     local heal = hero:GetMaxHealth() * ability:GetSpecialValueFor("heal_pct") / 100
