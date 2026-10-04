@@ -1361,28 +1361,25 @@
     "BaseClass"               "ability_lua"
     "ScriptFile"              "abilities/dildochka_1_blanket_fight.lua"
     "AbilityTextureName"      "marci_rebound"
-    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_PASSIVE"
     "AbilityType"             "DOTA_ABILITY_TYPE_BASIC"
-    "AbilityCastPoint"        "0.15"
-    "AbilityCooldown"         "16 14 12 10"
-    "AbilityManaCost"         "75 85 95 105"
 
     "AbilityValues"
     {
         "bonus_damage_per_hit"
         {
-            "value" "10 20 30 40"
-            "special_bonus_unique_dildochka_blanket_damage" "+15"
+            "value" "10 15 20 25"
+            "special_bonus_unique_dildochka_blanket_damage" "+25"
         }
 
         "hits_to_trigger"
         {
             "value" "5"
-            "special_bonus_unique_dildochka_blanket_hits" "-1"
+            "special_bonus_unique_dildochka_blanket_hits" "-2"
         }
 
         "ministun_duration"    "0.15"
-        "duration"             "8"
+        "counter_duration"     "8"
     }
 }
 
@@ -1405,19 +1402,17 @@
     {
         "damage_per_second"
         {
-            "value" "20 30 40 50"
+            "value" "10 25 40 55"
             "special_bonus_unique_dildochka_rotten_damage" "+15"
         }
 
-        "duration"                   "6"
+        "duration"                   "4 5 6 7"
         "magic_resistance_reduction" "10"
-        "spread_radius"              "300"
-        "spread_interval"            "1"
-
-        "damage_percent_bonus"
+        "spread_radius"              "450"
+        "spread_interval"
         {
-            "value" "0"
-            "special_bonus_unique_dildochka_rotten_damage_percent" "+100"
+            "value" "1"
+            "special_bonus_unique_dildochka_rotten_spread" "-0.5"
         }
     }
 }
@@ -1436,21 +1431,24 @@
 
     "AbilityCooldown"
     {
-        "value" "20 18 16 14"
-        "special_bonus_unique_dildochka_horse_cooldown" "-2"
+        "value" "24 22 20 18"
     }
 
   "AbilityValues"
   {
     "duration"
     {
-        "value" "2 4 6 8"
-        "special_bonus_unique_dildochka_horse_duration" "+1"
+        "value" "4 5 6 7"
     }
 
     "bonus_movespeed_pct"
     {
         "value" "20"
+    }
+
+    "status_resistance"
+    {
+        "value" "30"
     }
 
     "bonus_magic_damage"
@@ -1483,6 +1481,7 @@
     "MaxLevel"          "3"
 
     "HasScepterUpgrade" "1"
+    "SpellImmunityType" "SPELL_IMMUNITY_ENEMIES_NO"
 
     "AbilityCooldown"   "3 3 3"
     "AbilityManaCost"   "50 50 50"
@@ -1493,14 +1492,36 @@
 
     "AbilityValues"
     {
-        "bonus_attack_damage" "50"
+        // Неактивное состояние (по уровням: 1 — урон, 2 — +крит, 3 — +замедление)
+        "bonus_attack_damage" "65"
 
-        "crit_chance"         "33"
-        "crit_multiplier"     "165"
+        "crit_chance"         "35"
+        "crit_multiplier"
+        {
+            "value" "160"
+            "special_bonus_unique_dildochka_ult_crit" "+60"
+        }
 
-        "spell_amplify"       "15 25 35"
+        "slow_chance"         "10"
+        "slow_pct"            "100"
+        "slow_duration"       "0.2"
 
-        "on_hit_infection"    "0 0 1"
+        // Активное состояние (1 — усиление магии, 2 — +срез магрезиста, 3 — +Гнилой пальчик)
+        "spell_amplify"       "10 15 20"
+
+        "magic_resistance_reduction"
+        {
+            "value" "10"
+            "special_bonus_unique_dildochka_ult_magic_reduction" "+5"
+        }
+        "magic_resistance_duration" "1.5"
+
+        "rotten_attacks_required"
+        {
+            "value" "2"
+            "special_bonus_unique_dildochka_ult_rotten_every_hit" "-1"
+        }
+        "rotten_duration"     "3.5"
 
         // ==========================================
         // AGHANIM SCEPTER
@@ -1540,11 +1561,8 @@
 
     "AbilityValues"
     {
-        "evasion_chance"
-        {
-            "value" "10"
-            "special_bonus_unique_dildochka_pirozhechek_evasion" "+10"
-        }
+        "evasion_chance"           "10"
+        "evasion_per_hero_level"   "1"
     }
 }
 
@@ -1672,6 +1690,47 @@
     "BaseClass" "special_bonus_base"
     "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
     "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_dildochka_rotten_spread"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_dildochka_ult_crit"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_dildochka_ult_magic_reduction"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_dildochka_ult_rotten_every_hit"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_dildochka_agility"
+{
+    "BaseClass" "ability_lua"
+    "ScriptFile" "talents/stat_talents"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+    "AbilityValues"
+    {
+        "bonus_agility" "20"
+    }
 }
   //=================================================================================
   // STRAY228: ВОРОВАЛ

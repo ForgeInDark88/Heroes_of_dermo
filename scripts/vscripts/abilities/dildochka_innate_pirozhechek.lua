@@ -18,6 +18,11 @@ function modifier_dildo_pirozhechek:DeclareFunctions()
     return { MODIFIER_PROPERTY_EVASION_CONSTANT }
 end
 
+-- 10% + 1% за каждый уровень героя
 function modifier_dildo_pirozhechek:GetModifierEvasion_Constant()
-    return self:GetAbility():GetSpecialValueFor("evasion_chance")
+    local ability = self:GetAbility()
+    if not ability or ability:IsNull() then return 0 end
+
+    return ability:GetSpecialValueFor("evasion_chance")
+        + ability:GetSpecialValueFor("evasion_per_hero_level") * self:GetParent():GetLevel()
 end

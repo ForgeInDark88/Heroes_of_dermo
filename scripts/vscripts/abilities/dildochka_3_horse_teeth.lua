@@ -67,6 +67,7 @@ function modifier_dildo_horse_teeth:OnCreated(params)
     self.bonus_speed = self:GetAbility():GetSpecialValueFor("bonus_movespeed_pct")
     self.bonus_damage = self:GetAbility():GetSpecialValueFor("bonus_magic_damage")
     self.rotten_extend = self:GetAbility():GetSpecialValueFor("rotten_extend")
+    self.status_resistance = self:GetAbility():GetSpecialValueFor("status_resistance")
 
     if not IsServer() then
         return
@@ -110,14 +111,23 @@ function modifier_dildo_horse_teeth:OnRefresh(params)
 
     self.rotten_extend =
         self:GetAbility():GetSpecialValueFor("rotten_extend")
+
+    self.status_resistance =
+        self:GetAbility():GetSpecialValueFor("status_resistance")
 end
 
 
 function modifier_dildo_horse_teeth:DeclareFunctions()
     return {
         MODIFIER_PROPERTY_MOVESPEED_ABSOLUTE,
+        MODIFIER_PROPERTY_STATUS_RESISTANCE_STACKING,
         MODIFIER_EVENT_ON_ATTACK_LANDED
     }
+end
+
+
+function modifier_dildo_horse_teeth:GetModifierStatusResistanceStacking()
+    return self.status_resistance or 0
 end
 
 

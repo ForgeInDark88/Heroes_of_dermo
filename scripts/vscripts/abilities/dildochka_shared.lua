@@ -14,18 +14,20 @@ function DildochkaGetEnemyUnits(caster, origin, radius)
     )
 end
 
-function DildochkaApplyRottenFinger(caster, target, sourceAbility)
+-- duration_override: своя длительность (например, 3.5 сек от ульты).
+-- Уже висящий пальчик не укорачивается.
+function DildochkaApplyRottenFinger(caster, target, sourceAbility, duration_override)
     if not caster or caster:IsNull() then return end
     if not target or target:IsNull() or not target:IsAlive() then return end
 
     local ability = sourceAbility or caster:FindAbilityByName("dildo_rotten_finger")
-    if not ability then return end
+    if not ability or ability:GetLevel() <= 0 then return end
 
-    local duration = ability:GetSpecialValueFor("duration")
+    local duration = duration_override or ability:GetSpecialValueFor("duration")
     local modifier = target:FindModifierByName("modifier_dildo_rotten_finger")
 
     if modifier then
-        modifier:SetDuration(duration, true)
+        modifier:SetDuration(math.max(modifier:GetRemainingTime(), duration), true)
         return
     end
 
