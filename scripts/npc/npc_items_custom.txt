@@ -50,4 +50,38 @@
             "01"                "item_diffusal_blade;item_yasha"
         }
     }
+    //=================================================================================
+    // МАНТИЯ ТЕНЕВОГО ПРАВИТЕЛЬСТВА (дроп с Главы Теневого правительства)
+    //=================================================================================
+    "item_shadow_gov_mantle"
+    {
+        "ID"                    "9003"
+        "BaseClass"             "item_lua"
+        "ScriptFile"            "items/item_shadow_gov_mantle"
+
+        "AbilityTextureName"    "item_glimmer_cape"
+
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+
+        "AbilityCooldown"       "120"
+        "AbilityManaCost"       "0"
+
+        "ItemCost"              "0"
+        "ItemPurchasable"       "0"
+        "ItemSellable"          "0"
+        "ItemDroppable"         "1"
+        "ItemKillable"          "0"
+        "ItemShareability"      "ITEM_NOT_SHAREABLE"
+
+        "AbilityValues"
+        {
+            "bonus_all_stats"       "12"
+            "bonus_armor"           "6"
+            "bonus_magic_resist"    "15"
+
+            "track_duration"        "20"
+            "vision_radius"         "400"
+            "ping_interval"         "3"
+        }
+    }
 }
