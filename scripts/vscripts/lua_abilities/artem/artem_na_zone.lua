@@ -10,6 +10,12 @@ LinkLuaModifier(
     LUA_MODIFIER_MOTION_NONE
 )
 
+LinkLuaModifier(
+    "modifier_artem_na_zone_break",
+    "lua_abilities/artem/artem_na_zone",
+    LUA_MODIFIER_MOTION_NONE
+)
+
 artem_na_zone = class({})
 
 function artem_na_zone:OnSpellStart()
@@ -28,14 +34,6 @@ function artem_na_zone:OnSpellStart()
     local damage = self:GetSpecialValueFor("damage")
     local duration = self:GetSpecialValueFor("duration")
 
-    -- Талант: +140 к урону
-    local talent = caster:FindAbilityByName(
-        "special_bonus_artem_na_zone_damage"
-    )
-
-    if talent and talent:GetLevel() > 0 then
-        damage = damage + self:GetSpecialValueFor("talent_damage")
-    end
 
     -- Сайленс
     target:AddNewModifier(
@@ -66,6 +64,22 @@ function artem_na_zone:OnSpellStart()
             duration = duration
         }
     )
+
+    -- Талант 25 уровня: истощение
+    local break_talent = caster:FindAbilityByName(
+        "special_bonus_unique_artem_na_zone_break"
+    )
+
+    if break_talent and break_talent:GetLevel() > 0 then
+        target:AddNewModifier(
+            caster,
+            self,
+            "modifier_artem_na_zone_break",
+            {
+                duration = duration
+            }
+        )
+    end
 
     -- Магический урон
     ApplyDamage({
@@ -196,5 +210,38 @@ function modifier_artem_na_zone_disarm:GetEffectName()
 end
 
 function modifier_artem_na_zone_disarm:GetEffectAttachType()
+    return PATTACH_OVERHEAD_FOLLOW
+end
+
+
+--------------------------------------------------------------------------------
+-- ТАЛАНТ: ИСТОЩЕНИЕ
+--------------------------------------------------------------------------------
+
+modifier_artem_na_zone_break = class({})
+
+function modifier_artem_na_zone_break:IsHidden()
+    return false
+end
+
+function modifier_artem_na_zone_break:IsDebuff()
+    return true
+end
+
+function modifier_artem_na_zone_break:IsPurgable()
+    return true
+end
+
+function modifier_artem_na_zone_break:CheckState()
+    return {
+        [MODIFIER_STATE_PASSIVES_DISABLED] = true
+    }
+end
+
+function modifier_artem_na_zone_break:GetEffectName()
+    return "particles/generic_gameplay/generic_break.vpcf"
+end
+
+function modifier_artem_na_zone_break:GetEffectAttachType()
     return PATTACH_OVERHEAD_FOLLOW
 end

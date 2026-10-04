@@ -913,10 +913,14 @@
         "bonus_magic_damage"
         {
             "value" "10 20 30 40"
-            "special_bonus_artem_snyusik_damage" "+50"
+            "special_bonus_artem_snyusik_damage" "+40"
         }
 
-        "duration" "6"
+        "duration"
+        {
+            "value" "6"
+            "special_bonus_unique_artem_snyusik_duration" "+1"
+        }
     }
   }
 
@@ -947,7 +951,6 @@
         "bonus_armor"
         {
             "value" "5 8 12 15"
-            "special_bonus_artem_pivo_vodka_armor" "+20"
         }
 
         "magic_resistance_loss" "20"
@@ -988,10 +991,13 @@
         "damage"
         {
             "value" "100 165 230 300"
-            "special_bonus_artem_na_zone_damage" "+140"
         }
 
-        "duration"    "1.1 1.4 1.7 2"
+        "duration"
+        {
+            "value" "1.1 1.4 1.7 2"
+            "special_bonus_unique_artem_na_zone_duration" "+0.8"
+        }
         "cage_radius" "180"
     }
   }
@@ -1022,7 +1028,7 @@
 
     "AbilityValues"
     {
-        "radius"        "500"
+        "radius"        "750"
         "duration"      "8"
         "slow"          "30 40 50"
         "slow_duration" "0.6"
@@ -1073,17 +1079,11 @@
 // ========================================================================
 // Таланты Артёма
 // ========================================================================
-
-"special_bonus_artem_na_zone_damage"
+"special_bonus_unique_artem_na_zone_break"
   {
     "BaseClass"         "special_bonus_base"
     "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
     "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
-
-    "AbilityValues"
-    {
-        "value" "140"
-    }
   }
 
 "special_bonus_artem_snyusik_damage"
@@ -1094,19 +1094,53 @@
 
     "AbilityValues"
     {
-        "value" "50"
+        "value" "40"
     }
   }
-
-"special_bonus_artem_pivo_vodka_armor"
+"special_bonus_unique_artem_pivo_vodka_no_magic_loss"
   {
     "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+
+"special_bonus_unique_artem_snyusik_duration"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+
+"special_bonus_unique_artem_na_zone_duration"
+  {
+    "BaseClass"         "special_bonus_base"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+  }
+
+"special_bonus_unique_artem_hp_150"
+  {
+    "BaseClass"         "ability_lua"
+    "ScriptFile"        "talents/stat_talents"
     "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
     "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
 
     "AbilityValues"
     {
-        "value" "20"
+        "bonus_health" "150"
+    }
+  }
+
+"special_bonus_unique_artem_attack_range"
+  {
+    "BaseClass"         "ability_lua"
+    "ScriptFile"        "talents/stat_talents"
+    "AbilityBehavior"   "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"       "ABILITY_TYPE_ATTRIBUTES"
+
+    "AbilityValues"
+    {
+        "bonus_attack_range" "80"
     }
   }
     qop_steal_intellect
