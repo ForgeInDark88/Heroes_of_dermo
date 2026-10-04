@@ -12,6 +12,18 @@ LinkLuaModifier(
 )
 
 LinkLuaModifier(
+    "modifier_dildo_ultimate_slow",
+    "abilities/dildochka_4_who_the_fuck_is_he",
+    LUA_MODIFIER_MOTION_NONE
+)
+
+LinkLuaModifier(
+    "modifier_dildo_ultimate_magic_reduction",
+    "abilities/dildochka_4_who_the_fuck_is_he",
+    LUA_MODIFIER_MOTION_NONE
+)
+
+LinkLuaModifier(
     "modifier_dildo_scepter_physical",
     "abilities/dildochka_4_who_the_fuck_is_he",
     LUA_MODIFIER_MOTION_NONE
@@ -124,6 +136,18 @@ end
 
 -- =========================================================
 -- ОСНОВНОЙ МОДИФИКАТОР УЛЬТЫ
+--
+-- Неактивное состояние (физический режим):
+--   1 ур. — бонус к урону атаки
+--   2 ур. — + шанс крита
+--   3 ур. — + шанс сильно замедлить цель
+--
+-- Активное состояние (магический режим):
+--   1 ур. — усиление магического урона
+--   2 ур. — + атаки снижают сопротивление магии
+--   3 ур. — + каждые N атак накладывают Гнилой пальчик
+--
+-- Эффекты на врагов не проходят сквозь невосприимчивость к эффектам.
 -- =========================================================
 
 modifier_dildo_ultimate = class({})
@@ -135,6 +159,11 @@ end
 
 
 function modifier_dildo_ultimate:IsPurgable()
+    return false
+end
+
+
+function modifier_dildo_ultimate:RemoveOnDeath()
     return false
 end
 
@@ -155,117 +184,187 @@ end
 
 
 function modifier_dildo_ultimate:OnCreated()
-    self:RefreshValues()
+    self.attack_counter = 0
 end
 
 
-function modifier_dildo_ultimate:OnRefresh()
-    self:RefreshValues()
-end
-
-
-function modifier_dildo_ultimate:RefreshValues()
-
+function modifier_dildo_ultimate:GetLevel()
     local ability = self:GetAbility()
+    if not ability or ability:IsNull() then
+        return 0
+    end
+    return ability:GetLevel()
+end
 
-    self.level = ability and ability:GetLevel() or 0
 
-    self.active = ability and ability:GetToggleState() or false
+function modifier_dildo_ultimate:IsActive()
+    local ability = self:GetAbility()
+    return ability and not ability:IsNull() and ability:GetToggleState()
+end
 
-    self.attack_damage =
-        ability and ability:GetSpecialValueFor("bonus_attack_damage") or 0
 
-    self.crit_chance =
-        ability and ability:GetSpecialValueFor("crit_chance") or 0
+function modifier_dildo_ultimate:Value(key)
+    return self:GetAbility():GetSpecialValueFor(key)
+end
 
-    self.crit_multiplier =
-        ability and ability:GetSpecialValueFor("crit_multiplier") or 0
 
-    self.on_hit_infection =
-        ability and ability:GetSpecialValueFor("on_hit_infection") or 0
-
-    self.spell_amp =
-        ability and ability:GetSpecialValueFor("spell_amplify") or 0
+local function IsValidEnemy(parent, target)
+    return target
+        and not target:IsNull()
+        and target:IsAlive()
+        and not target:IsBuilding()
+        and target:GetTeamNumber() ~= parent:GetTeamNumber()
 end
 
 
 function modifier_dildo_ultimate:GetModifierPreAttack_BonusDamage()
-
-    if self.active then
+    if self:GetLevel() < 1 or self:IsActive() then
         return 0
     end
 
-    return self.attack_damage
+    return self:Value("bonus_attack_damage")
 end
 
 
 function modifier_dildo_ultimate:GetModifierPreAttack_CriticalStrike(params)
-
-    if self.active or self.level < 2 then
-        return nil
-    end
-
-    if RollPercentage(self.crit_chance) then
-        return self.crit_multiplier
-    end
-
-    return nil
-end
-
-
-function modifier_dildo_ultimate:GetModifierSpellAmplify_Percentage()
-
-    if not self.active then
-        return 0
-    end
-
-    return self.spell_amp
-end
-
-
--- =========================================================
--- СТАРАЯ МЕХАНИКА УЛЬТЫ
--- В физическом режиме атаки заражают врага
--- =========================================================
-
-function modifier_dildo_ultimate:OnAttackLanded(params)
-
     if not IsServer() then
         return
     end
 
-    if params.attacker ~= self:GetParent() then
+    if self:GetLevel() < 2 or self:IsActive() then
         return
     end
 
-    if self.active or self.on_hit_infection ~= 1 then
+    if not IsValidEnemy(self:GetParent(), params.target) then
         return
     end
 
-    if not params.target or params.target:IsNull() then
+    if RollPseudoRandomPercentage(self:Value("crit_chance"), DOTA_PSEUDO_RANDOM_CUSTOM_GAME_2, self:GetParent()) then
+        return self:Value("crit_multiplier")
+    end
+end
+
+
+function modifier_dildo_ultimate:GetModifierSpellAmplify_Percentage()
+    if self:GetLevel() < 1 or not self:IsActive() then
+        return 0
+    end
+
+    return self:Value("spell_amplify")
+end
+
+
+function modifier_dildo_ultimate:OnAttackLanded(params)
+    if not IsServer() then
         return
     end
 
-    if params.target:GetTeamNumber() ==
-        self:GetParent():GetTeamNumber() then
+    local parent = self:GetParent()
+    if params.attacker ~= parent then
         return
     end
 
-    local rotten_finger =
-        self:GetParent():FindAbilityByName("dildo_rotten_finger")
-
-    if rotten_finger then
-
-        DildochkaApplyRottenFinger(
-            self:GetParent(),
-            params.target,
-            rotten_finger
-        )
-
-        params.target:EmitSound(
-            "Hero_Venomancer.VenomousGale"
-        )
+    local target = params.target
+    if not IsValidEnemy(parent, target) then
+        return
     end
+
+    local level = self:GetLevel()
+    if level < 2 then
+        return
+    end
+
+    -- Не проходит сквозь невосприимчивость к эффектам
+    if target:IsMagicImmune() then
+        return
+    end
+
+    local ability = self:GetAbility()
+
+    if not self:IsActive() then
+        -- 3 ур.: шанс замедлить
+        if level >= 3 and RollPseudoRandomPercentage(self:Value("slow_chance"), DOTA_PSEUDO_RANDOM_CUSTOM_GAME_3, parent) then
+            target:AddNewModifier(parent, ability, "modifier_dildo_ultimate_slow", {
+                duration = self:Value("slow_duration")
+            })
+        end
+        return
+    end
+
+    -- 2 ур.: снижение сопротивления магии
+    target:AddNewModifier(parent, ability, "modifier_dildo_ultimate_magic_reduction", {
+        duration = self:Value("magic_resistance_duration")
+    })
+
+    -- 3 ур.: каждые N атак — Гнилой пальчик
+    if level >= 3 then
+        self.attack_counter = (self.attack_counter or 0) + 1
+
+        local required = math.max(1, self:Value("rotten_attacks_required"))
+        if self.attack_counter >= required then
+            self.attack_counter = 0
+
+            local rotten_finger = parent:FindAbilityByName("dildo_rotten_finger")
+            if rotten_finger then
+                DildochkaApplyRottenFinger(parent, target, rotten_finger, self:Value("rotten_duration"))
+                target:EmitSound("Hero_Venomancer.VenomousGale")
+            end
+        end
+    end
+end
+
+
+-- =========================================================
+-- НЕАКТИВНЫЙ РЕЖИМ, 3 УР.: ЗАМЕДЛЕНИЕ
+-- =========================================================
+
+modifier_dildo_ultimate_slow = class({})
+
+function modifier_dildo_ultimate_slow:IsHidden() return false end
+function modifier_dildo_ultimate_slow:IsDebuff() return true end
+function modifier_dildo_ultimate_slow:IsPurgable() return true end
+function modifier_dildo_ultimate_slow:GetTexture() return "marci_unleash" end
+
+function modifier_dildo_ultimate_slow:OnCreated()
+    local ability = self:GetAbility()
+    self.slow = ability and ability:GetSpecialValueFor("slow_pct") or 0
+end
+
+function modifier_dildo_ultimate_slow:DeclareFunctions()
+    return { MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE }
+end
+
+function modifier_dildo_ultimate_slow:GetModifierMoveSpeedBonus_Percentage()
+    return -self.slow
+end
+
+
+-- =========================================================
+-- АКТИВНЫЙ РЕЖИМ, 2 УР.: СНИЖЕНИЕ СОПРОТИВЛЕНИЯ МАГИИ
+-- =========================================================
+
+modifier_dildo_ultimate_magic_reduction = class({})
+
+function modifier_dildo_ultimate_magic_reduction:IsHidden() return false end
+function modifier_dildo_ultimate_magic_reduction:IsDebuff() return true end
+function modifier_dildo_ultimate_magic_reduction:IsPurgable() return true end
+function modifier_dildo_ultimate_magic_reduction:GetTexture() return "marci_unleash" end
+
+function modifier_dildo_ultimate_magic_reduction:OnCreated()
+    local ability = self:GetAbility()
+    self.reduction = ability and ability:GetSpecialValueFor("magic_resistance_reduction") or 0
+end
+
+function modifier_dildo_ultimate_magic_reduction:OnRefresh()
+    self:OnCreated()
+end
+
+function modifier_dildo_ultimate_magic_reduction:DeclareFunctions()
+    return { MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS }
+end
+
+function modifier_dildo_ultimate_magic_reduction:GetModifierMagicalResistanceBonus()
+    return -self.reduction
 end
 
 

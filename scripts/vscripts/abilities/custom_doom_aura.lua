@@ -1,6 +1,13 @@
 custom_doom_aura = class({})
 LinkLuaModifier("modifier_custom_doom_aura_caster", "abilities/custom_doom_aura", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_custom_doom_aura_effect", "abilities/custom_doom_aura", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_custom_doom_aura_scepter", "abilities/custom_doom_aura", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_custom_doom_aura_scepter_slow", "abilities/custom_doom_aura", LUA_MODIFIER_MOTION_NONE)
+
+-- Аганим: пассивные замедление и крит атак
+function custom_doom_aura:GetIntrinsicModifierName()
+    return "modifier_custom_doom_aura_scepter"
+end
 
 function custom_doom_aura:OnSpellStart()
     local caster = self:GetCaster()
@@ -129,7 +136,7 @@ function modifier_custom_doom_aura_effect:OnIntervalThink()
     local target = self:GetParent()
 
     if caster and not caster:IsNull() and caster:HasScepter() and target:IsRealHero() then
-        local gold_to_steal = 20
+        local gold_to_steal = 30
         if self:GetAbility() then
             gold_to_steal = self:GetAbility():GetSpecialValueFor("gold_steal_per_tick_scepter")
         end
@@ -151,4 +158,77 @@ function modifier_custom_doom_aura_effect:OnDestroy()
         ParticleManager:DestroyParticle(self.nFXIndex, false)
         ParticleManager:ReleaseParticleIndex(self.nFXIndex)
     end
+end
+
+--------------------------------------------------------------------------------
+-- АГАНИМ: атаки замедляют и могут критовать
+--------------------------------------------------------------------------------
+modifier_custom_doom_aura_scepter = class({})
+
+function modifier_custom_doom_aura_scepter:IsHidden() return true end
+function modifier_custom_doom_aura_scepter:IsPurgable() return false end
+function modifier_custom_doom_aura_scepter:RemoveOnDeath() return false end
+
+function modifier_custom_doom_aura_scepter:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_PREATTACK_CRITICALSTRIKE,
+        MODIFIER_EVENT_ON_ATTACK_LANDED,
+    }
+end
+
+function modifier_custom_doom_aura_scepter:GetModifierPreAttack_CriticalStrike(params)
+    if not IsServer() then return end
+
+    local parent = self:GetParent()
+    local ability = self:GetAbility()
+    if not ability or ability:IsNull() or not parent:HasScepter() then return end
+    if parent:PassivesDisabled() then return end
+
+    local target = params.target
+    if not target or target:IsNull() or target:IsBuilding() or target:GetTeamNumber() == parent:GetTeamNumber() then return end
+
+    if RollPseudoRandomPercentage(ability:GetSpecialValueFor("scepter_crit_chance"), DOTA_PSEUDO_RANDOM_CUSTOM_GAME_1, parent) then
+        return ability:GetSpecialValueFor("scepter_crit_damage")
+    end
+end
+
+function modifier_custom_doom_aura_scepter:OnAttackLanded(params)
+    if not IsServer() then return end
+
+    local parent = self:GetParent()
+    if params.attacker ~= parent then return end
+
+    local ability = self:GetAbility()
+    if not ability or ability:IsNull() or not parent:HasScepter() then return end
+    if parent:PassivesDisabled() then return end
+
+    local target = params.target
+    if not target or target:IsNull() or target:IsBuilding() or target:GetTeamNumber() == parent:GetTeamNumber() then return end
+
+    target:AddNewModifier(parent, ability, "modifier_custom_doom_aura_scepter_slow", {
+        duration = ability:GetSpecialValueFor("scepter_attack_slow_duration"),
+    })
+end
+
+modifier_custom_doom_aura_scepter_slow = class({})
+
+function modifier_custom_doom_aura_scepter_slow:IsHidden() return false end
+function modifier_custom_doom_aura_scepter_slow:IsDebuff() return true end
+function modifier_custom_doom_aura_scepter_slow:IsPurgable() return true end
+
+function modifier_custom_doom_aura_scepter_slow:OnCreated()
+    local ability = self:GetAbility()
+    self.slow = ability and ability:GetSpecialValueFor("scepter_attack_slow") or 0
+end
+
+function modifier_custom_doom_aura_scepter_slow:OnRefresh()
+    self:OnCreated()
+end
+
+function modifier_custom_doom_aura_scepter_slow:DeclareFunctions()
+    return { MODIFIER_PROPERTY_MOVESPEED_BONUS_PERCENTAGE }
+end
+
+function modifier_custom_doom_aura_scepter_slow:GetModifierMoveSpeedBonus_Percentage()
+    return -self.slow
 end

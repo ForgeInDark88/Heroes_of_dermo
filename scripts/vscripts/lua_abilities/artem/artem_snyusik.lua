@@ -2,8 +2,6 @@ artem_snyusik = class({})
 
 LinkLuaModifier("modifier_artem_snyusik", "lua_abilities/artem/artem_snyusik", LUA_MODIFIER_MOTION_NONE)
 
-local TALENT = "special_bonus_artem_snyusik_damage"
-
 function artem_snyusik:OnSpellStart()
     local caster = self:GetCaster()
     caster:AddNewModifier(caster, self, "modifier_artem_snyusik", { duration = self:GetSpecialValueFor("duration") })
@@ -21,11 +19,8 @@ function modifier_artem_snyusik:OnAttackLanded(params)
     local target = params.target
     if not target or target:IsNull() or target:IsBuilding() then return end
 
+    -- Бонус таланта уже учтён в AbilityValues
     local damage = self:GetAbility():GetSpecialValueFor("bonus_magic_damage")
-    local talent = parent:FindAbilityByName(TALENT)
-    if talent and talent:GetLevel() > 0 then
-        damage = damage + 50
-    end
 
     ApplyDamage({
         victim = target,

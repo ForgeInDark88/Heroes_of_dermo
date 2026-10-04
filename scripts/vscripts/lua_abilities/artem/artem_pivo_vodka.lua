@@ -6,7 +6,7 @@ LinkLuaModifier(
     LUA_MODIFIER_MOTION_NONE
 )
 
-local TALENT = "special_bonus_artem_pivo_vodka_armor"
+local TALENT_NO_MAGIC_LOSS = "special_bonus_unique_artem_pivo_vodka_no_magic_loss"
 
 function artem_pivo_vodka:OnSpellStart()
     local caster = self:GetCaster()
@@ -48,11 +48,11 @@ function modifier_artem_pivo_vodka:OnCreated()
         self.magic_resist = 0
     end
 
-    -- Талант
-    local talent = parent:FindAbilityByName(TALENT)
+    -- Талант 25 уровня тоже убирает штраф
+    local talent = parent:FindAbilityByName(TALENT_NO_MAGIC_LOSS)
 
     if talent and talent:GetLevel() > 0 then
-        self.armor = self.armor + 20
+        self.magic_resist = 0
     end
 end
 

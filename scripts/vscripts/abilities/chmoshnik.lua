@@ -1,5 +1,5 @@
 chmoshnik = class({})
-LinkLuaModifier("modifier_chmoshnik_invis", "abilities/chmoshnik", LUA_MODIFIER_MOTION_NONE)
+LinkLuaModifier("modifier_chmoshnik_attack_speed", "abilities/chmoshnik", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_chmoshnik_root", "abilities/chmoshnik", LUA_MODIFIER_MOTION_NONE)
 
 function chmoshnik:OnSpellStart()
@@ -30,8 +30,8 @@ function chmoshnik:OnSpellStart()
     -- Накладываем оцепенение на цель
     target:AddNewModifier(caster, self, "modifier_chmoshnik_root", { duration = root_duration })
 
-    -- Накладываем невидимость на себя
-    caster:AddNewModifier(caster, self, "modifier_chmoshnik_invis", { duration = duration })
+    -- Даём себе бонус скорости атаки
+    caster:AddNewModifier(caster, self, "modifier_chmoshnik_attack_speed", { duration = duration })
 end
 
 --------------------------------------------------------------------------------
@@ -58,41 +58,29 @@ function modifier_chmoshnik_root:CheckState()
 end
 
 --------------------------------------------------------------------------------
--- Модификатор невидимости (Invis)
+-- Бонус скорости атаки
 --------------------------------------------------------------------------------
-modifier_chmoshnik_invis = class({})
+modifier_chmoshnik_attack_speed = class({})
 
-function modifier_chmoshnik_invis:IsHidden() return false end
-function modifier_chmoshnik_invis:IsDebuff() return false end
-function modifier_chmoshnik_invis:IsPurgable() return true end
+function modifier_chmoshnik_attack_speed:IsHidden() return false end
+function modifier_chmoshnik_attack_speed:IsDebuff() return false end
+function modifier_chmoshnik_attack_speed:IsPurgable() return true end
 
-function modifier_chmoshnik_invis:CheckState()
+function modifier_chmoshnik_attack_speed:OnCreated()
+    local ability = self:GetAbility()
+    self.attack_speed = ability and ability:GetSpecialValueFor("bonus_attack_speed") or 0
+end
+
+function modifier_chmoshnik_attack_speed:OnRefresh()
+    self:OnCreated()
+end
+
+function modifier_chmoshnik_attack_speed:DeclareFunctions()
     return {
-        [MODIFIER_STATE_INVISIBLE] = true,
+        MODIFIER_PROPERTY_ATTACKSPEED_BONUS_CONSTANT,
     }
 end
 
-function modifier_chmoshnik_invis:DeclareFunctions()
-    return {
-        MODIFIER_PROPERTY_INVISIBILITY_LEVEL,
-        MODIFIER_EVENT_ON_ATTACK_START,     -- Для сброса инвиза в начале замаха/атаки
-        MODIFIER_EVENT_ON_ABILITY_EXECUTED,
-    }
-end
-
-function modifier_chmoshnik_invis:GetModifierInvisibilityLevel()
-    return 1
-end
--- Сбрасываем невидимость при начале атаки
-function modifier_chmoshnik_invis:OnAttackStart(keys)
-    if keys.attacker == self:GetParent() then
-        self:Destroy()
-    end
-end
-
--- Сбрасываем невидимость при касте любого скилла (или предмета)
-function modifier_chmoshnik_invis:OnAbilityExecuted(keys)
-    if keys.unit == self:GetParent() then
-        self:Destroy()
-    end
+function modifier_chmoshnik_attack_speed:GetModifierAttackSpeedBonus_Constant()
+    return self.attack_speed
 end

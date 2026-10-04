@@ -7,6 +7,10 @@ function ability_summon_cat:OnSpellStart()
     local point = caster:GetAbsOrigin() + caster:GetForwardVector() * 150
 
     local duration = self:GetSpecialValueFor("cat_duration")
+    -- Шард: котик живёт дольше
+    if caster:HasShard() then
+        duration = self:GetSpecialValueFor("shard_cat_duration")
+    end
     local cat_hp = self:GetSpecialValueFor("cat_hp")
     local cat_damage = self:GetSpecialValueFor("cat_damage")
 

@@ -50,7 +50,12 @@ function modifier_dildo_rotten_finger:OnCreated()
         )
         ParticleManager:SetParticleControl(self.particle, 0, self:GetParent():GetAbsOrigin())
         ParticleManager:SetParticleControl(self.particle, 1, self:GetParent():GetAbsOrigin())
-        self:StartIntervalThink(self.interval > 0 and self.interval or 1.0)
+
+        -- Урон тикает раз в секунду, распространение — раз в spread_interval
+        self.think = 0.25
+        self.damage_timer = self.damage_timer or 0
+        self.spread_timer = self.spread_timer or 0
+        self:StartIntervalThink(self.think)
     end
 end
 
@@ -77,15 +82,26 @@ function modifier_dildo_rotten_finger:OnIntervalThink()
     local parent = self:GetParent()
     if not parent or parent:IsNull() or not parent:IsAlive() then return end
 
-    ApplyDamage({
-        victim = parent,
-        attacker = self.caster,
-        damage = self.damage,
-        damage_type = DAMAGE_TYPE_MAGICAL,
-        ability = self:GetAbility()
-    })
+    self.damage_timer = self.damage_timer + self.think
+    self.spread_timer = self.spread_timer + self.think
 
-    parent:EmitSound("Hero_Venomancer.PoisonNovaImpact")
+    if self.damage_timer >= 1.0 - 0.01 then
+        self.damage_timer = 0
+
+        ApplyDamage({
+            victim = parent,
+            attacker = self.caster,
+            damage = self.damage,
+            damage_type = DAMAGE_TYPE_MAGICAL,
+            ability = self:GetAbility()
+        })
+
+        parent:EmitSound("Hero_Venomancer.PoisonNovaImpact")
+    end
+
+    local spread_interval = self.interval > 0 and self.interval or 1.0
+    if self.spread_timer < spread_interval - 0.01 then return end
+    self.spread_timer = 0
 
     local ability = self:GetAbility()
     for _, enemy in pairs(DildochkaGetEnemyUnits(self.caster, parent:GetAbsOrigin(), self.radius)) do

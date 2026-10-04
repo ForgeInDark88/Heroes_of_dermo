@@ -21,6 +21,16 @@ function rumka_trezvennik:Precache(context)
     )
 end
 
+-- Врождёнка Танчики прокачивается вместе с ультой
+function rumka_trezvennik:OnUpgrade()
+    if not IsServer() then return end
+
+    local tankchiki = self:GetCaster():FindAbilityByName("rumka_tankchiki")
+    if tankchiki and tankchiki.SyncLevelWithUltimate then
+        tankchiki:SyncLevelWithUltimate()
+    end
+end
+
 function rumka_trezvennik:OnSpellStart()
 
     local caster = self:GetCaster()
@@ -65,17 +75,21 @@ modifier_rumka_trezvennik = class({})
 function modifier_rumka_trezvennik:IsHidden() return false end
 function modifier_rumka_trezvennik:IsPurgable() return false end
 
+-- Полная защита только от физического урона + сопротивление магии
 function modifier_rumka_trezvennik:DeclareFunctions()
     return {
-        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_MAGICAL,
         MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PHYSICAL,
-        MODIFIER_PROPERTY_ABSOLUTE_NO_DAMAGE_PURE,
+        MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
     }
 end
 
-function modifier_rumka_trezvennik:GetAbsoluteNoDamageMagical() return 1 end
 function modifier_rumka_trezvennik:GetAbsoluteNoDamagePhysical() return 1 end
-function modifier_rumka_trezvennik:GetAbsoluteNoDamagePure() return 1 end
+
+function modifier_rumka_trezvennik:GetModifierMagicalResistanceBonus()
+    local ability = self:GetAbility()
+    if not ability or ability:IsNull() then return 0 end
+    return ability:GetSpecialValueFor("magic_resistance")
+end
 
 
 --------------------------------------------------
