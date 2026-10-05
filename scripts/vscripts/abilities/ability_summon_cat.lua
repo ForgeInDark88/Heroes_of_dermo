@@ -16,7 +16,10 @@ function ability_summon_cat:OnSpellStart()
 
     -- Создаем котика
     local cat = CreateUnitByName("npc_dota_creature_cat", point, true, caster, caster, caster:GetTeamNumber())
-    if not cat then return end
+    if not cat then
+        print("[SUPRUNOV CAT] ERROR: не удалось создать npc_dota_creature_cat")
+        return
+    end
     cat:SetOwner(caster)
     cat:SetControllableByPlayer(caster:GetPlayerOwnerID(), true)
     

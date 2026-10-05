@@ -122,6 +122,12 @@ function Precache(context)
         PrecacheResource("soundfile", sound, context)
     end
 
+    -- Юниты, которых создают способности героев
+    PrecacheUnitByNameSync("npc_dota_creature_cat", context)          -- Котик Супрунова
+    PrecacheUnitByNameSync("npc_dota_custom_creeper1", context)       -- Ебанный брат Попчика
+    PrecacheUnitByNameSync("npc_suprunov_ender_eidolon", context)     -- Эндер Вася
+    PrecacheResource("model", "models/creeps/neutral_creeps/n_creep_worg_small/n_creep_worg_small.vmdl", context)
+
     -- STRAY228 + ивент Теневого правительства
     PrecacheUnitByNameSync("npc_stray228_boss", context)
     PrecacheUnitByNameSync("npc_shadow_gov_agent", context)
