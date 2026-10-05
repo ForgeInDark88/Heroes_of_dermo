@@ -23,6 +23,16 @@ end
 modifier_arnold_cosplay = class({})
 
 function modifier_arnold_cosplay:IsHidden() return true end
+
+function modifier_arnold_cosplay:OnCreated()
+    if not IsServer() then return end
+
+    -- Врождёнка должна быть изучена, иначе значения из AbilityValues не берутся
+    local ability = self:GetAbility()
+    if ability and not ability:IsNull() and ability:GetLevel() == 0 then
+        ability:SetLevel(1)
+    end
+end
 function modifier_arnold_cosplay:IsPurgable() return false end
 function modifier_arnold_cosplay:RemoveOnDeath() return false end
 
@@ -74,7 +84,7 @@ function modifier_arnold_cosplay:OnAttackLanded(params)
     burn = math.min(burn, target:GetMana())
     if burn <= 0 then return end
 
-    target:ReduceMana(burn, ability)
+    target:SetMana(math.max(0, target:GetMana() - burn))
 
     ApplyDamage({
         victim = target,
@@ -90,6 +100,9 @@ function modifier_arnold_cosplay:OnAttackLanded(params)
         PATTACH_ABSORIGIN_FOLLOW,
         target
     )
-    ParticleManager:ReleaseParticleIndex(fx)
+    Timers:CreateTimer(1.0, function()
+        ParticleManager:DestroyParticle(fx, false)
+        ParticleManager:ReleaseParticleIndex(fx)
+    end)
     target:EmitSound("Hero_Antimage.ManaBreak")
 end
