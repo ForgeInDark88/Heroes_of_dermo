@@ -84,4 +84,178 @@
             "ping_interval"         "3"
         }
     }
+
+    //=================================================================================
+    // GERICH'S KNIFE (Sange + Platemail + рецепт 600 = 4100)
+    //=================================================================================
+    "item_gerich_knife"
+    {
+        "ID"                    "9004"
+        "BaseClass"             "item_lua"
+        "ScriptFile"            "items/item_gerich_knife"
+
+        "AbilityTextureName"    "item_sange"
+
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+        "AbilityUnitTargetTeam" "DOTA_UNIT_TARGET_TEAM_ENEMY"
+        "AbilityUnitTargetType" "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+        "SpellImmunityType"     "SPELL_IMMUNITY_ENEMIES_NO"
+        "SpellDispellableType"  "SPELL_DISPELLABLE_YES"
+
+        "AbilityCastRange"      "300"
+        "AbilityCastPoint"      "0"
+        "AbilityCooldown"       "26"
+        "AbilityManaCost"       "45"
+
+        "ItemCost"              "4100"
+        "ItemShopTags"          "str;armor;regen_health"
+        "ItemQuality"           "artifact"
+        "ItemAliases"           "gerich;knife;герыч"
+
+        "AbilityValues"
+        {
+            "bonus_strength"        "16"
+            "slow_resistance"       "20"
+            "hp_regen_amp"          "10"
+            "bonus_armor"           "10"
+
+            "rage_duration"         "1.8"
+            "rage_attack_speed"     "60"
+            "kill_heal_pct"         "20"
+        }
+    }
+    "item_recipe_gerich_knife"
+    {
+        "ID"                    "9005"
+        "BaseClass"             "item_datadriven"
+        "AbilityTextureName"    "item_recipe"
+
+        "ItemCost"              "600"
+        "ItemShopTags"          ""
+
+        "ItemRecipe"            "1"
+        "ItemResult"            "item_gerich_knife"
+
+        "ItemRequirements"
+        {
+            "01"                "item_sange;item_platemail"
+        }
+    }
+
+    //=================================================================================
+    // HOOKAH OF HAZE (Urn + Veil + Staff of Wizardry + рецепт 500 = 4025)
+    //=================================================================================
+    "item_hookah_of_haze"
+    {
+        "ID"                    "9006"
+        "BaseClass"             "item_lua"
+        "ScriptFile"            "items/item_hookah_of_haze"
+
+        "AbilityTextureName"    "item_veil_of_discord"
+
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+        "AbilityUnitDamageType" "DAMAGE_TYPE_MAGICAL"
+        "SpellImmunityType"     "SPELL_IMMUNITY_ENEMIES_NO"
+        "SpellDispellableType"  "SPELL_DISPELLABLE_YES"
+
+        "AbilityCastPoint"      "0"
+        "AbilityCooldown"       "14"
+        "AbilityManaCost"       "50"
+
+        "ItemCost"              "4025"
+        "ItemShopTags"          "health_pool;int;armor;regen_mana"
+        "ItemQuality"           "rare"
+        "ItemAliases"           "hookah;haze;кальян"
+
+        "AbilityValues"
+        {
+            "bonus_health"          "150"
+            "bonus_intellect"       "18"
+            "spell_lifesteal"       "10"
+            "bonus_armor"           "2"
+            "bonus_mana_regen"      "1.75"
+
+            "radius"                "900"
+            "duration"              "14"
+            "damage_per_sec"        "20"
+            "damage_max_hp_pct"     "1"
+            "magic_damage_amp"      "14"
+        }
+    }
+    "item_recipe_hookah_of_haze"
+    {
+        "ID"                    "9007"
+        "BaseClass"             "item_datadriven"
+        "AbilityTextureName"    "item_recipe"
+
+        "ItemCost"              "500"
+        "ItemShopTags"          ""
+
+        "ItemRecipe"            "1"
+        "ItemResult"            "item_hookah_of_haze"
+
+        "ItemRequirements"
+        {
+            "01"                "item_urn_of_shadows;item_veil_of_discord;item_staff_of_wizardry"
+        }
+    }
+
+    //=================================================================================
+    // ЧЕКУШКА (Bottle + Diadem + рецепт 100 = 1775)
+    //=================================================================================
+    "item_chekushka"
+    {
+        "ID"                    "9008"
+        "BaseClass"             "item_lua"
+        "ScriptFile"            "items/item_chekushka"
+
+        "AbilityTextureName"    "item_bottle"
+
+        "AbilityBehavior"       "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+
+        "AbilityCastPoint"      "0"
+        "AbilityCooldown"       "1"
+        "AbilityManaCost"       "0"
+
+        "ItemCost"              "1775"
+        "ItemShopTags"          "int;agi;str;regen_health;regen_mana"
+        "ItemQuality"           "common"
+        "ItemAliases"           "chekushka;чекушка"
+
+        "ItemInitialCharges"    "3"
+        "ItemDisplayCharges"    "1"
+        "ItemRequiresCharges"   "1"
+        "ItemStackable"         "0"
+        "ItemPermanent"         "1"
+
+        "AbilityValues"
+        {
+            "bonus_all_stats"       "8"
+            "bonus_mana_regen"      "0.75"
+            "bonus_health_regen"    "1.5"
+
+            "restore_health"        "160"
+            "restore_mana"          "100"
+            "restore_duration"      "2"
+            "charge_interval"       "20"
+            "max_charges"           "5"
+        }
+    }
+    "item_recipe_chekushka"
+    {
+        "ID"                    "9009"
+        "BaseClass"             "item_datadriven"
+        "AbilityTextureName"    "item_recipe"
+
+        "ItemCost"              "100"
+        "ItemShopTags"          ""
+
+        "ItemRecipe"            "1"
+        "ItemResult"            "item_chekushka"
+
+        "ItemRequirements"
+        {
+            "01"                "item_bottle;item_diadem"
+        }
+    }
 }
