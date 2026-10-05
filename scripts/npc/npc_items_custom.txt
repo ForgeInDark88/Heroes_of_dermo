@@ -176,7 +176,7 @@
             "bonus_mana_regen"      "1.75"
 
             "radius"                "900"
-            "duration"              "14"
+            "duration"              "8"
             "damage_per_sec"        "20"
             "damage_max_hp_pct"     "1"
             "magic_damage_amp"      "14"
