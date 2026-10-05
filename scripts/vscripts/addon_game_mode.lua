@@ -84,6 +84,22 @@ function Precache(context)
         "particles/units/heroes/hero_pudge/pudge_meathook_impact.vpcf",
         "particles/units/heroes/hero_razor/razor_rain_storm.vpcf",
         "particles/units/heroes/hero_siren/siren_net.vpcf",
+
+        -- Предметы
+        "particles/units/heroes/hero_axe/axe_beserkers_call.vpcf",
+        "particles/items2_fx/veil_of_discord.vpcf",
+        "particles/items2_fx/veil_of_discord_debuff.vpcf",
+        "particles/items3_fx/octarine_core_lifesteal.vpcf",
+        "particles/items_fx/bottle.vpcf",
+
+        -- Арнольд
+        "particles/generic_gameplay/generic_manaburn.vpcf",
+        "particles/units/heroes/hero_mars/mars_spear.vpcf",
+        "particles/units/heroes/hero_mars/mars_spear_impact_debuff.vpcf",
+        "particles/items4_fx/nullifier_mute_debuff.vpcf",
+        "particles/items2_fx/manta_phase.vpcf",
+        "particles/units/heroes/hero_queenofpain/queen_scream_of_pain.vpcf",
+        "particles/units/heroes/hero_dark_seer/dark_seer_surge.vpcf",
     }
     for _, particle in ipairs(hero_particles) do
         PrecacheResource("particle", particle, context)
@@ -99,6 +115,8 @@ function Precache(context)
         "soundevents/game_sounds_heroes/game_sounds_venomancer.vsndevts",
         "soundevents/game_sounds_heroes/game_sounds_marci.vsndevts",
         "soundevents/game_sounds_heroes/game_sounds_pudge.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_axe.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_antimage.vsndevts",
     }
     for _, sound in ipairs(hero_sounds) do
         PrecacheResource("soundfile", sound, context)
