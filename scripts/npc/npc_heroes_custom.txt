@@ -334,4 +334,52 @@
 "Ability16" "special_bonus_unique_dildochka_blanket_hits"
 "Ability17" "special_bonus_unique_dildochka_ult_rotten_every_hit"
     }
+
+    // Арнольд (ловкость). Значения регенов/брони/здоровья/маны подобраны так,
+    // чтобы с учётом атрибутов 1 уровня получались: 591 HP, 226 маны,
+    // 3.8 реген HP, 0.5 реген маны, 6 брони.
+    "npc_dota_hero_arnold"
+    {
+        "override_hero" "npc_dota_hero_antimage"
+        "Enabled" "1"
+
+        "Ability1" "arnold_eternal_bum"
+        "Ability2" "arnold_divan"
+        "Ability3" "arnold_boosters"
+        "Ability4" ""
+        "Ability5" "arnold_cosplay"
+        "Ability6" "arnold_mother"
+        "Ability7" ""
+        "Ability8" ""
+        "Ability9" ""
+
+        "Ability10" "special_bonus_unique_arnold_booster_duration"
+        "Ability11" "special_bonus_unique_arnold_hp_regen"
+        "Ability12" "special_bonus_unique_arnold_cosplay_burn"
+        "Ability13" "special_bonus_unique_arnold_mother_duration"
+        "Ability14" "special_bonus_unique_arnold_cosplay_damage"
+        "Ability15" "special_bonus_unique_arnold_booster_incoming"
+        "Ability16" "special_bonus_unique_arnold_cosplay_magic_resist"
+        "Ability17" "special_bonus_unique_arnold_booster_count"
+
+        "AttributePrimary" "DOTA_ATTRIBUTE_AGILITY"
+        "AttributeBaseStrength" "20"
+        "AttributeStrengthGain" "1.7"
+        "AttributeBaseAgility" "22"
+        "AttributeAgilityGain" "3.0"
+        "AttributeBaseIntelligence" "13"
+        "AttributeIntelligenceGain" "1.8"
+
+        "AttackCapabilities" "DOTA_UNIT_CAP_MELEE_ATTACK"
+        "AttackRange" "150"
+        "AttackRate" "1.4"
+        "BaseAttackSpeed" "130"
+        "MovementSpeed" "320"
+
+        "ArmorPhysical" "2.33"
+        "StatusHealth" "151"
+        "StatusMana" "70"
+        "StatusHealthRegen" "1.8"
+        "StatusManaRegen" "-0.15"
+    }
 }

@@ -1,4 +1,4 @@
--- Таланты на статы (здоровье, дальность атаки, сила, ловкость, урон, реген маны).
+-- Таланты на статы (здоровье, дальность атаки, сила, ловкость, урон, реген маны и здоровья).
 --
 -- Сами таланты — обычные special_bonus_base (как все остальные таланты),
 -- иначе движок не даёт доизучать вторую сторону дерева на 27-30 уровнях.
@@ -14,6 +14,7 @@ local STAT_TALENTS = {
     "special_bonus_unique_rumka_attack_damage",
     "special_bonus_unique_tugarchik_mana_regen_175",
     "special_bonus_unique_dildochka_agility",
+    "special_bonus_unique_arnold_hp_regen",
 }
 
 --------------------------------------------------------------------------------
@@ -47,6 +48,7 @@ function modifier_stat_talents:DeclareFunctions()
         MODIFIER_PROPERTY_STATS_AGILITY_BONUS,
         MODIFIER_PROPERTY_PREATTACK_BONUS_DAMAGE,
         MODIFIER_PROPERTY_MANA_REGEN_CONSTANT,
+        MODIFIER_PROPERTY_HEALTH_REGEN_CONSTANT,
     }
 end
 
@@ -72,4 +74,8 @@ end
 
 function modifier_stat_talents:GetModifierConstantManaRegen()
     return self:Value("bonus_mana_regen")
+end
+
+function modifier_stat_talents:GetModifierConstantHealthRegen()
+    return self:Value("bonus_health_regen")
 end

@@ -1782,5 +1782,228 @@
         "damage"                "150"
     }
   }
+
+  //=================================================================================
+  // АРНОЛЬД
+  //=================================================================================
+
+"arnold_cosplay"
+{
+    "BaseClass"               "ability_lua"
+    "ScriptFile"              "abilities/arnold_cosplay"
+    "AbilityTextureName"      "antimage_mana_break"
+    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"             "DOTA_ABILITY_TYPE_BASIC"
+    "AbilityUnitDamageType"   "DAMAGE_TYPE_PHYSICAL"
+    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_YES"
+    "MaxLevel"                "1"
+    "Innate"                  "1"
+
+    "AbilityValues"
+    {
+        "mana_burn_base"            "10"
+        "mana_burn_per_level"       "2"
+        "mana_burn_pct"
+        {
+            "value" "3"
+            "special_bonus_unique_arnold_cosplay_burn" "+1"
+        }
+        "damage_pct"
+        {
+            "value" "40"
+            "special_bonus_unique_arnold_cosplay_damage" "+15"
+        }
+        "self_magic_resistance"     "20"
+    }
+}
+
+"arnold_eternal_bum"
+{
+    "BaseClass"               "ability_lua"
+    "ScriptFile"              "abilities/arnold_eternal_bum"
+    "AbilityTextureName"      "antimage_blink"
+    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"             "DOTA_ABILITY_TYPE_BASIC"
+    "MaxLevel"                "4"
+
+    "AbilityValues"
+    {
+        "evasion_chance"            "10 25 40 65"
+        "bonus_movement_speed"      "10 15 20 25"
+    }
+}
+
+"arnold_divan"
+{
+    "BaseClass"               "ability_lua"
+    "ScriptFile"              "abilities/arnold_divan"
+    "AbilityTextureName"      "mars_spear"
+    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_POINT"
+    "AbilityType"             "DOTA_ABILITY_TYPE_BASIC"
+    "AbilityUnitTargetTeam"   "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"   "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+    "AbilityUnitDamageType"   "DAMAGE_TYPE_MAGICAL"
+    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_NO"
+    "SpellDispellableType"    "SPELL_DISPELLABLE_YES"
+    "HasScepterUpgrade"       "1"
+    "MaxLevel"                "4"
+
+    "AbilityCastRange"        "600 700 800 900"
+    "AbilityCastPoint"        "0.25"
+    "AbilityCooldown"         "20 18 16 14"
+    "AbilityManaCost"         "100"
+
+    "AbilityValues"
+    {
+        "damage"                    "90 170 250 335"
+        "root_duration"             "1.6 1.8 2 2.2"
+        "projectile_speed"          "1400"
+        "projectile_width"          "125"
+        "scepter_purge_duration"
+        {
+            "value"             "2.2"
+            "RequiresScepter"   "1"
+        }
+    }
+}
+
+"arnold_boosters"
+{
+    "BaseClass"               "ability_lua"
+    "ScriptFile"              "abilities/arnold_boosters"
+    "AbilityTextureName"      "phantom_lancer_doppelwalk"
+    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityType"             "DOTA_ABILITY_TYPE_BASIC"
+    "HasShardUpgrade"         "1"
+    "MaxLevel"                "4"
+
+    "AbilityCastPoint"        "0"
+    "AbilityCooldown"         "16 12 8 4"
+    "AbilityManaCost"         "95"
+
+    "AbilityValues"
+    {
+        "vanish_duration"           "0.4"
+        "images_count"
+        {
+            "value" "1"
+            "special_bonus_unique_arnold_booster_count" "+1"
+        }
+        "outgoing_damage"           "45"
+        "incoming_damage"
+        {
+            "value" "250"
+            "special_bonus_unique_arnold_booster_incoming" "-50"
+        }
+        "illusion_duration"
+        {
+            "value" "6"
+            "special_bonus_unique_arnold_booster_duration" "+2"
+        }
+    }
+}
+
+"arnold_mother"
+{
+    "BaseClass"               "ability_lua"
+    "ScriptFile"              "abilities/arnold_mother"
+    "AbilityTextureName"      "queenofpain_scream_of_pain"
+    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_NO_TARGET"
+    "AbilityType"             "DOTA_ABILITY_TYPE_ULTIMATE"
+    "AbilityUnitDamageType"   "DAMAGE_TYPE_MAGICAL"
+    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_YES"
+    "SpellDispellableType"    "SPELL_DISPELLABLE_YES"
+    "HasScepterUpgrade"       "1"
+    "MaxLevel"                "3"
+    "RequiredLevel"           "6"
+    "LevelsBetweenUpgrades"   "6"
+
+    "AbilityCastPoint"        "0.2"
+    "AbilityCooldown"         "100 90 80"
+    "AbilityManaCost"         "175 250 325"
+
+    "AbilityValues"
+    {
+        "radius"                    "650"
+        "damage"                    "220 360 480"
+        "duration"
+        {
+            "value" "3 4 5"
+            "special_bonus_unique_arnold_mother_duration" "+1"
+        }
+        "slow"                      "20 35 50"
+        "scepter_cooldown_reduction"
+        {
+            "value"             "30"
+            "RequiresScepter"   "1"
+        }
+        "scepter_max_speed_duration"
+        {
+            "value"             "1"
+            "RequiresScepter"   "1"
+        }
+    }
+}
+
+"special_bonus_unique_arnold_booster_duration"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_arnold_cosplay_burn"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_arnold_mother_duration"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_arnold_cosplay_damage"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_arnold_booster_incoming"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_arnold_cosplay_magic_resist"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_arnold_booster_count"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_arnold_hp_regen"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+    "AbilityValues"
+    {
+        "bonus_health_regen" "0.5"
+    }
+}
 }
 
