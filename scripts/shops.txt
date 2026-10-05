@@ -17,6 +17,7 @@
     "item"    "item_ward_observer"
     "item"    "item_ward_sentry"
     "item"    "item_bottle"             
+    "item"    "item_chekushka"
   }
 
   "attributes"
@@ -121,6 +122,7 @@
     "item"    "item_cyclone"
     "item"    "item_dagon"
     "item"    "item_veil_of_discord"    
+    "item"    "item_hookah_of_haze"
     "item"    "item_rod_of_atos"
     "item"    "item_ultimate_scepter"
     "item"    "item_octarine_core"
@@ -167,6 +169,7 @@
     "item"    "item_rapier"
     "item"    "item_abyssal_blade"  
     "item"    "item_shemelis"
+    "item"    "item_gerich_knife"
           
           
   }
