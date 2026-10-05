@@ -76,10 +76,12 @@ function GameMode:OnGameInProgress()
     Stray228Boss:Spawn()
 
 
+    GameMode:StartDayNightCycle()
+
     Timers:CreateTimer(5, function()
         print('[GAME] Spawning wave...')
         GameMode:WaveMobs()
-        return 40
+        return WAVE_INTERVAL
     end)
 end
 
@@ -126,11 +128,106 @@ function GameMode:QopBoss()
     end
 end
 
+--------------------------------------------------------------------------------
+-- ВОЛНЫ КРИПОВ
+-- Обычная волна: 1 дальник + 3 милишника на каждой точке, каждые WAVE_INTERVAL сек.
+-- Усиленная волна (+катапульта, +1 милишник) выходит у группы точек
+-- с первой обычной волной после каждой отметки её интервала (по игровому времени).
+--------------------------------------------------------------------------------
+
+WAVE_INTERVAL = 40
+
+WAVE_POINTS = {
+    { name = 'z1',  team = DOTA_TEAM_BADGUYS },
+    { name = 'z7',  team = DOTA_TEAM_GOODGUYS },
+    { name = 'y1',  team = DOTA_TEAM_BADGUYS },
+    { name = 'x1',  team = DOTA_TEAM_GOODGUYS },
+    { name = 'rz1', team = DOTA_TEAM_BADGUYS },
+    { name = 'rr1', team = DOTA_TEAM_GOODGUYS },
+}
+
+-- Интервалы усиленных волн (в секундах игрового времени) по группам точек
+BIG_WAVE_GROUPS = {
+    { interval = 5 * 60, points = { z1 = true, z7 = true } },
+    { interval = 7 * 60, points = { x1 = true, rz1 = true } },
+    { interval = 8 * 60, points = { rr1 = true, y1 = true } },
+}
+
+local CREEP_NAMES = {
+    [DOTA_TEAM_GOODGUYS] = {
+        melee  = 'npc_dota_creep_goodguys_melee',
+        ranged = 'npc_dota_creep_goodguys_ranged',
+        siege  = 'npc_dota_goodguys_siege',
+    },
+    [DOTA_TEAM_BADGUYS] = {
+        melee  = 'npc_dota_creep_badguys_melee',
+        ranged = 'npc_dota_creep_badguys_ranged',
+        siege  = 'npc_dota_badguys_siege',
+    },
+}
+
+-- Какие точки в этой волне получают усиление
+function GameMode:GetBigWavePoints()
+    local big = {}
+    local game_time = GameRules:GetDOTATime(false, false)
+
+    self.BigWaveLastIndex = self.BigWaveLastIndex or {}
+
+    for i, group in ipairs(BIG_WAVE_GROUPS) do
+        local index = math.floor(game_time / group.interval)
+        local last = self.BigWaveLastIndex[i] or 0
+
+        if index > last then
+            self.BigWaveLastIndex[i] = index
+            for name in pairs(group.points) do
+                big[name] = true
+            end
+            print(string.format('[WAVE] Усиленная волна (%d мин) на %.0f сек игры', group.interval / 60, game_time))
+        end
+    end
+
+    return big
+end
+
+function GameMode:SpawnWaveAtPoint(point_name, team, is_big)
+    if self.TeamDefeated[team] then
+        print('[WAVE] Team ' .. team .. ' defeated - skipping ' .. point_name)
+        return
+    end
+
+    local point = Entities:FindByName(nil, point_name)
+    if not point then
+        print('[ERROR] Не найдена точка ' .. point_name .. '!')
+        return
+    end
+
+    local names = CREEP_NAMES[team]
+    local origin = point:GetAbsOrigin()
+
+    local function Spawn(unit_name)
+        local unit = CreateUnitByName(unit_name, origin, true, nil, nil, team)
+        if unit then
+            unit:SetInitialGoalEntity(point)
+        end
+        return unit
+    end
+
+    Spawn(names.ranged)
+
+    local melee_count = is_big and 4 or 3
+    for i = 1, melee_count do
+        Spawn(names.melee)
+    end
+
+    if is_big then
+        Spawn(names.siege)
+    end
+end
+
 function GameMode:WaveMobs()
     DebugPrint('[GAME] WaveMobs()')
 
     -- Если таблица ещё не создана, создаём её здесь.
-    -- Это не меняет существующую структуру GameMode/settings/events/timers.
     if self.TeamDefeated == nil then
         self.TeamDefeated = {
             [DOTA_TEAM_GOODGUYS] = false,
@@ -138,205 +235,33 @@ function GameMode:WaveMobs()
         }
     end
 
-    ----------------------------------------------------------------
-    -- TEAM 2 / BADGUYS
-    -- Точка z1
-    ----------------------------------------------------------------
-    local bad_point = Entities:FindByName(nil, 'z1')
+    local big = self:GetBigWavePoints()
 
-    if self.TeamDefeated[DOTA_TEAM_BADGUYS] then
-        print('[WAVE] BADGUYS defeated - skipping z1')
-    elseif bad_point then
-        local ranged = CreateUnitByName(
-            'npc_dota_creep_badguys_ranged',
-            bad_point:GetAbsOrigin(),
-            true, nil, nil, DOTA_TEAM_BADGUYS
-        )
-
-        if ranged then
-            ranged:SetInitialGoalEntity(bad_point)
-        end
-
-        for i = 1, 3 do
-            local unit = CreateUnitByName(
-                'npc_dota_creep_badguys_melee',
-                bad_point:GetAbsOrigin(),
-                true, nil, nil, DOTA_TEAM_BADGUYS
-            )
-
-            if unit then
-                unit:SetInitialGoalEntity(bad_point)
-            end
-        end
-    else
-        print('[ERROR] Не найдена точка z1!')
+    for _, point in ipairs(WAVE_POINTS) do
+        self:SpawnWaveAtPoint(point.name, point.team, big[point.name] == true)
     end
+end
 
-    ----------------------------------------------------------------
-    -- TEAM 1 / GOODGUYS
-    -- Точка z7
-    ----------------------------------------------------------------
-    local good_point = Entities:FindByName(nil, 'z7')
+--------------------------------------------------------------------------------
+-- ДЕНЬ / НОЧЬ: смена каждые DAY_NIGHT_INTERVAL сек
+-- (естественный цикл отключён в settings.lua)
+--------------------------------------------------------------------------------
 
-    if self.TeamDefeated[DOTA_TEAM_GOODGUYS] then
-        print('[WAVE] GOODGUYS defeated - skipping z7')
-    elseif good_point then
-        local ranged = CreateUnitByName(
-            'npc_dota_creep_goodguys_ranged',
-            good_point:GetAbsOrigin(),
-            true, nil, nil, DOTA_TEAM_GOODGUYS
-        )
+DAY_NIGHT_INTERVAL = 5 * 60
 
-        if ranged then
-            ranged:SetInitialGoalEntity(good_point)
-        end
+function GameMode:StartDayNightCycle()
+    if self._dayNightStarted then return end
+    self._dayNightStarted = true
 
-        for i = 1, 3 do
-            local unit = CreateUnitByName(
-                'npc_dota_creep_goodguys_melee',
-                good_point:GetAbsOrigin(),
-                true, nil, nil, DOTA_TEAM_GOODGUYS
-            )
+    local is_day = true
 
-            if unit then
-                unit:SetInitialGoalEntity(good_point)
-            end
-        end
-    else
-        print('[ERROR] Не найдена точка z7!')
-    end
-
-    ----------------------------------------------------------------
-    -- TEAM 2 / BADGUYS
-    -- Точка y1
-    ----------------------------------------------------------------
-    local bad_point1 = Entities:FindByName(nil, 'y1')
-
-    if self.TeamDefeated[DOTA_TEAM_BADGUYS] then
-        print('[WAVE] BADGUYS defeated - skipping y1')
-    elseif bad_point1 then
-        local ranged = CreateUnitByName(
-            'npc_dota_creep_badguys_ranged',
-            bad_point1:GetAbsOrigin(),
-            true, nil, nil, DOTA_TEAM_BADGUYS
-        )
-
-        if ranged then
-            ranged:SetInitialGoalEntity(bad_point1)
-        end
-
-        for i = 1, 3 do
-            local unit = CreateUnitByName(
-                'npc_dota_creep_badguys_melee',
-                bad_point1:GetAbsOrigin(),
-                true, nil, nil, DOTA_TEAM_BADGUYS
-            )
-
-            if unit then
-                unit:SetInitialGoalEntity(bad_point1)
-            end
-        end
-    else
-        print('[ERROR] Не найдена точка y1!')
-    end
-
-    ----------------------------------------------------------------
-    -- TEAM 1 / GOODGUYS
-    -- Точка x1
-    ----------------------------------------------------------------
-    local good_point1 = Entities:FindByName(nil, 'x1')
-
-    if self.TeamDefeated[DOTA_TEAM_GOODGUYS] then
-        print('[WAVE] GOODGUYS defeated - skipping x1')
-    elseif good_point1 then
-        local ranged = CreateUnitByName(
-            'npc_dota_creep_goodguys_ranged',
-            good_point1:GetAbsOrigin(),
-            true, nil, nil, DOTA_TEAM_GOODGUYS
-        )
-
-        if ranged then
-            ranged:SetInitialGoalEntity(good_point1)
-        end
-
-        for i = 1, 3 do
-            local unit = CreateUnitByName(
-                'npc_dota_creep_goodguys_melee',
-                good_point1:GetAbsOrigin(),
-                true, nil, nil, DOTA_TEAM_GOODGUYS
-            )
-
-            if unit then
-                unit:SetInitialGoalEntity(good_point1)
-            end
-        end
-    else
-        print('[ERROR] Не найдена точка x1!')
-    end
-
-        local bad_point2 = Entities:FindByName(nil, 'rz1')
-
-    if self.TeamDefeated[DOTA_TEAM_BADGUYS] then
-        print('[WAVE] BADGUYS defeated - skipping rz1')
-    elseif bad_point2 then
-        local ranged = CreateUnitByName(
-            'npc_dota_creep_badguys_ranged',
-            bad_point2:GetAbsOrigin(),
-            true, nil, nil, DOTA_TEAM_BADGUYS
-        )
-
-        if ranged then
-            ranged:SetInitialGoalEntity(bad_point2)
-        end
-
-        for i = 1, 3 do
-            local unit = CreateUnitByName(
-                'npc_dota_creep_badguys_melee',
-                bad_point2:GetAbsOrigin(),
-                true, nil, nil, DOTA_TEAM_BADGUYS
-            )
-
-            if unit then
-                unit:SetInitialGoalEntity(bad_point2)
-            end
-        end
-    else
-        print('[ERROR] Не найдена точка rz1!')
-    end
-
-    ----------------------------------------------------------------
-    -- TEAM 1 / GOODGUYS
-    -- Точка x1
-    ----------------------------------------------------------------
-    local good_point2 = Entities:FindByName(nil, 'rr1')
-
-    if self.TeamDefeated[DOTA_TEAM_GOODGUYS] then
-        print('[WAVE] GOODGUYS defeated - skipping rr1')
-    elseif good_point2 then
-        local ranged = CreateUnitByName(
-            'npc_dota_creep_goodguys_ranged',
-            good_point2:GetAbsOrigin(),
-            true, nil, nil, DOTA_TEAM_GOODGUYS
-        )
-
-        if ranged then
-            ranged:SetInitialGoalEntity(good_point2)
-        end
-
-        for i = 1, 3 do
-            local unit = CreateUnitByName(
-                'npc_dota_creep_goodguys_melee',
-                good_point2:GetAbsOrigin(),
-                true, nil, nil, DOTA_TEAM_GOODGUYS
-            )
-
-            if unit then
-                unit:SetInitialGoalEntity(good_point2)
-            end
-        end
-    else
-        print('[ERROR] Не найдена точка rr1!')
-    end
+    Timers:CreateTimer(0, function()
+        -- 0.5 = полдень, 0.0 = полночь
+        GameRules:SetTimeOfDay(is_day and 0.5 or 0.0)
+        print('[DAYNIGHT] ' .. (is_day and 'День' or 'Ночь'))
+        is_day = not is_day
+        return DAY_NIGHT_INTERVAL
+    end)
 end
 
 --------------------------------------------------------------------------------
