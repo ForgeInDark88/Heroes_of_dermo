@@ -72,7 +72,7 @@ function innate_tp_ability:OnIntervalThink()
         return
     end
 
-    if caster:HasShard() then
+    if caster:HasModifier("modifier_item_aghanims_shard") then
 
         if not caster:HasModifier("modifier_suprunov_shard_barrier") then
 

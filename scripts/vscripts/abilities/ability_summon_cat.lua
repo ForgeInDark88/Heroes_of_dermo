@@ -8,7 +8,7 @@ function ability_summon_cat:OnSpellStart()
 
     local duration = self:GetSpecialValueFor("cat_duration")
     -- Шард: котик живёт дольше
-    if caster:HasShard() then
+    if caster:HasModifier("modifier_item_aghanims_shard") then
         duration = self:GetSpecialValueFor("shard_cat_duration")
     end
     local cat_hp = self:GetSpecialValueFor("cat_hp")
@@ -16,6 +16,7 @@ function ability_summon_cat:OnSpellStart()
 
     -- Создаем котика
     local cat = CreateUnitByName("npc_dota_creature_cat", point, true, caster, caster, caster:GetTeamNumber())
+    if not cat then return end
     cat:SetOwner(caster)
     cat:SetControllableByPlayer(caster:GetPlayerOwnerID(), true)
     
