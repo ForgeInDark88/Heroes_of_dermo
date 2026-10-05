@@ -30,7 +30,10 @@ function arnold_mother:OnSpellStart()
         caster
     )
     ParticleManager:SetParticleControl(fx, 0, origin)
-    ParticleManager:ReleaseParticleIndex(fx)
+    Timers:CreateTimer(2.0, function()
+        ParticleManager:DestroyParticle(fx, false)
+        ParticleManager:ReleaseParticleIndex(fx)
+    end)
 
     caster:EmitSound("Hero_QueenOfPain.ScreamOfPain")
 

@@ -22,12 +22,28 @@ function arnold_divan:OnSpellStart()
 
     local speed = self:GetSpecialValueFor("projectile_speed")
     local width = self:GetSpecialValueFor("projectile_width")
+    local distance = self:GetCastRange(origin, nil) + caster:GetCastRangeBonus()
+
+    -- Частицу ведём сами и удаляем сразу по прилёту: у копья Марса
+    -- есть зацикленные части, которые иначе остаются на карте навсегда.
+    local fx = ParticleManager:CreateParticle(
+        "particles/units/heroes/hero_mars/mars_spear.vpcf",
+        PATTACH_WORLDORIGIN,
+        nil
+    )
+    ParticleManager:SetParticleControl(fx, 0, origin)
+    ParticleManager:SetParticleControl(fx, 1, direction * speed)
+    ParticleManager:SetParticleControl(fx, 2, Vector(0, 0, 0))
+    Timers:CreateTimer(distance / speed, function()
+        ParticleManager:DestroyParticle(fx, true)
+        ParticleManager:ReleaseParticleIndex(fx)
+    end)
 
     ProjectileManager:CreateLinearProjectile({
         Ability = self,
-        EffectName = "particles/units/heroes/hero_mars/mars_spear.vpcf",
+        EffectName = "",
         vSpawnOrigin = origin,
-        fDistance = self:GetCastRange(origin, nil) + caster:GetCastRangeBonus(),
+        fDistance = distance,
         fStartRadius = width,
         fEndRadius = width,
         Source = caster,

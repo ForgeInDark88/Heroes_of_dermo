@@ -57,7 +57,10 @@ function modifier_arnold_boosters_vanish:OnCreated()
         PATTACH_ABSORIGIN_FOLLOW,
         parent
     )
-    ParticleManager:ReleaseParticleIndex(fx)
+    Timers:CreateTimer(1.0, function()
+        ParticleManager:DestroyParticle(fx, false)
+        ParticleManager:ReleaseParticleIndex(fx)
+    end)
 
     parent:AddNoDraw()
 end
