@@ -1,0 +1,185 @@
+/* Выбор гильдии: окно по центру поверх затемнённой игры. */
+
+.GuildSelectRoot
+{
+	width: 100%;
+	height: 100%;
+}
+
+#GuildSelect
+{
+	width: 100%;
+	height: 100%;
+	visibility: collapse;
+	opacity: 0;
+	transition-property: opacity;
+	transition-duration: 0.3s;
+}
+
+#GuildSelect.visible
+{
+	visibility: visible;
+	opacity: 1;
+}
+
+#GSShade
+{
+	width: 100%;
+	height: 100%;
+	background-color: #000000c8;
+}
+
+#GSWindow
+{
+	horizontal-align: center;
+	vertical-align: center;
+	padding: 30px 40px;
+	flow-children: down;
+	border-radius: 12px;
+	border: 2px solid #f2c14e88;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #1a1408f5 ), to( #0b0f1af5 ) );
+	box-shadow: #000000 0px 0px 40px 4px;
+}
+
+#GSTitle
+{
+	horizontal-align: center;
+	font-family: Radiance;
+	font-weight: black;
+	font-size: 42px;
+	letter-spacing: 4px;
+	color: #ffffff;
+	text-shadow: 0px 0px 12px 2.0 #000000;
+}
+
+#GSTimer
+{
+	horizontal-align: center;
+	font-family: Radiance;
+	font-weight: black;
+	font-size: 30px;
+	color: #f2c14e;
+	margin-bottom: 20px;
+}
+
+#GSTimer.urgent
+{
+	color: #ff5a5a;
+}
+
+#GuildCards
+{
+	horizontal-align: center;
+	flow-children: right;
+}
+
+.GuildCard
+{
+	width: 300px;
+	height: 430px;
+	margin: 0px 12px;
+	padding: 20px;
+	flow-children: down;
+	border-radius: 10px;
+	border: 2px solid #f2c14e;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #4a2f0cee ), to( #1a1006ee ) );
+	box-shadow: #f2c14e55 0px 0px 20px 0px;
+	transition-property: brightness, transform;
+	transition-duration: 0.15s;
+}
+
+.GuildCard:hover
+{
+	brightness: 1.15;
+	transform: translateY( -4px );
+}
+
+.GuildCard.no_guild
+{
+	border: 2px solid #ffffff33;
+	background-color: #11141cee;
+	box-shadow: #00000000 0px 0px 0px 0px;
+}
+
+.GuildCard.no_guild #GuildEmblem
+{
+	visibility: collapse;
+}
+
+#GuildEmblem
+{
+	width: 128px;
+	height: 128px;
+	horizontal-align: center;
+	border-radius: 64px;
+	border: 3px solid #f2c14e;
+	box-shadow: #000000 0px 0px 12px 0px;
+}
+
+#GuildIcon,
+#GuildImage
+{
+	width: 100%;
+	height: 100%;
+}
+
+#GuildName
+{
+	horizontal-align: center;
+	margin-top: 14px;
+	text-align: center;
+	font-family: Radiance;
+	font-weight: black;
+	font-size: 26px;
+	color: #ffffff;
+}
+
+#GuildDescription
+{
+	width: 100%;
+	margin-top: 10px;
+	text-align: center;
+	font-size: 16px;
+	color: #ffffffcc;
+}
+
+.Spacer
+{
+	height: fill-parent-flow( 1.0 );
+}
+
+.GuildButton
+{
+	width: 100%;
+	height: 50px;
+	border-radius: 6px;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #f7d26a ), to( #c8901f ) );
+	border: 1px solid #ffe7a0;
+}
+
+.GuildButton:hover
+{
+	brightness: 1.25;
+}
+
+.GuildButton Label
+{
+	horizontal-align: center;
+	vertical-align: center;
+	font-family: Radiance;
+	font-weight: black;
+	font-size: 19px;
+	letter-spacing: 2px;
+	color: #2a1a00;
+}
+
+.no_guild .GuildButton
+{
+	background-color: #2a3040;
+	border: 1px solid #ffffff44;
+}
+
+.no_guild .GuildButton Label
+{
+	color: #ffffff;
+}

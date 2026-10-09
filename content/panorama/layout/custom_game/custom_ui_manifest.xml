@@ -1,0 +1,10 @@
+<root>
+	<Panel>
+		<!-- Лобби: выбор стороны (вместо стандартного/barebones) -->
+		<CustomUIElement type="GameSetup" layoutfile="file://{resources}/layout/custom_game/team_select.xml" />
+
+		<!-- Начало игры: выбор героя, затем гильдии -->
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hero_select.xml" />
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/guild_select.xml" />
+	</Panel>
+</root>

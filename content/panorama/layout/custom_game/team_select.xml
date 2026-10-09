@@ -1,0 +1,83 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/styles/custom_game/team_select.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/team_select.js" />
+	</scripts>
+
+	<snippets>
+		<snippet name="PlayerEntry">
+			<Panel class="PlayerEntry">
+				<DOTAAvatarImage id="PlayerAvatar" />
+				<Label id="PlayerName" text="" />
+				<Label id="HostBadge" text="ХОСТ" />
+			</Panel>
+		</snippet>
+	</snippets>
+
+	<Panel class="TeamSelectRoot">
+		<Panel id="Background" />
+		<Panel id="BackgroundShade" />
+
+		<Panel id="Header">
+			<Label id="GameTitle" text="#addon_game_name" />
+			<Label id="ScreenTitle" text="ВЫБЕРИ СТОРОНУ" />
+		</Panel>
+
+		<Panel id="Arena">
+			<!-- Левая (синяя) сторона картинки = Radiant -->
+			<Panel id="RadiantSide" class="TeamSide Radiant">
+				<Label id="RadiantName" class="TeamName" text="" />
+				<Label id="RadiantCount" class="TeamCount" text="" />
+				<Panel id="RadiantPlayers" class="PlayerList" />
+				<Button id="RadiantJoin" class="JoinButton">
+					<Label text="ВСТУПИТЬ" />
+				</Button>
+			</Panel>
+
+			<Panel id="Versus">
+				<Panel id="ArtHalfRadiant" class="ArtHalf" />
+				<Panel id="ArtHalfDire" class="ArtHalf" />
+			</Panel>
+
+			<!-- Правая (красная) сторона картинки = Dire -->
+			<Panel id="DireSide" class="TeamSide Dire">
+				<Label id="DireName" class="TeamName" text="" />
+				<Label id="DireCount" class="TeamCount" text="" />
+				<Panel id="DirePlayers" class="PlayerList" />
+				<Button id="DireJoin" class="JoinButton">
+					<Label text="ВСТУПИТЬ" />
+				</Button>
+			</Panel>
+		</Panel>
+
+		<Panel id="BottomBar">
+			<Panel id="UnassignedBlock">
+				<Label class="SmallHeader" text="БЕЗ СТОРОНЫ" />
+				<Panel id="UnassignedPlayers" />
+			</Panel>
+
+			<Panel id="TimerBlock">
+				<Label id="TimerLabel" text="" />
+				<Label id="TimerCaption" text="" />
+			</Panel>
+
+			<Panel id="HostControls">
+				<Button id="AutoAssignButton" class="HostButton">
+					<Label text="РАСКИДАТЬ" />
+				</Button>
+				<Button id="ShuffleButton" class="HostButton">
+					<Label text="ПЕРЕМЕШАТЬ" />
+				</Button>
+				<Button id="LockButton" class="HostButton Primary">
+					<Label text="НАЧАТЬ" />
+				</Button>
+				<Button id="UnlockButton" class="HostButton">
+					<Label text="ОТМЕНА" />
+				</Button>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

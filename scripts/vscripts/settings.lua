@@ -61,6 +61,20 @@ DISABLE_STASH_PURCHASING = false        -- Should we prevent players from being 
 DISABLE_ANNOUNCER = false               -- Should we disable the announcer from working in the game?
 FORCE_PICKED_HERO = nil                 -- What hero should we force all players to spawn as? (e.g. "npc_dota_hero_axe").  Use nil to allow players to pick their own hero.
 
+-- Свой выбор героя и гильдии (hero_selection.lua, guilds.lua + panorama hero_select / guild_select).
+-- Все появляются временным героем HERO_SELECTION_DUMMY, а в начале PRE_GAME выбирают героя,
+-- затем гильдию. Время на выбор добавляется к PRE_GAME_TIME, так что на закупку остаётся столько же.
+USE_CUSTOM_HERO_SELECTION = true        -- false = стандартный выбор героя Доты (гильдию всё равно выбирают)
+HERO_SELECTION_DUMMY = "npc_dota_hero_wisp"
+HERO_PICK_TIME = 40                     -- Сколько секунд даётся на выбор героя, потом — случайный
+GUILD_PICK_TIME = 20                    -- Сколько ещё секунд после выбора героев даётся на выбор гильдии
+
+PRE_GAME_TIME = PRE_GAME_TIME + GUILD_PICK_TIME
+if USE_CUSTOM_HERO_SELECTION then
+  FORCE_PICKED_HERO = HERO_SELECTION_DUMMY
+  PRE_GAME_TIME = PRE_GAME_TIME + HERO_PICK_TIME
+end
+
 FIXED_RESPAWN_TIME = -1                 -- What time should we use for a fixed respawn timer?  Use -1 to keep the default dota behavior.
 FOUNTAIN_CONSTANT_MANA_REGEN = -1       -- What should we use for the constant fountain mana regen?  Use -1 to keep the default dota behavior.
 FOUNTAIN_PERCENTAGE_MANA_REGEN = -1     -- What should we use for the percentage fountain mana regen?  Use -1 to keep the default dota behavior.
