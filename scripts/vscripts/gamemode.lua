@@ -38,6 +38,9 @@ LinkLuaModifier("modifier_always_visible", "modifiers/modifier_always_visible", 
 require('units/stray228_boss')
 print('[STRAY228] boss module loaded')
 
+require('units/alko_guild')
+print('[ALKO_GUILD] module loaded')
+
 function GameMode:OnFirstPlayerLoaded()
     DebugPrint('[BAREBONES] First Player has loaded')
 end
@@ -74,6 +77,7 @@ function GameMode:OnGameInProgress()
 
     GameMode:QopBoss()
     Stray228Boss:Spawn()
+    AlkoGuild:Spawn()
 
 
     GameMode:StartDayNightCycle()
@@ -340,6 +344,9 @@ function GameMode:OnNPCSpawned(keys)
         return
     end
 
+    -- Видимость, таланты на статы, гильдия алкашей (events.lua)
+    GameMode:OnNPCSpawnedShared(keys)
+
     local unit = EntIndexToHScript(keys.entindex)
 
     if not unit or unit:IsNull() then
@@ -413,6 +420,9 @@ end
 --------------------------------------------------------------------------------
 
 function GameMode:FilterCourierSecretShop(filterTable)
+
+    -- Правый клик по Гильдии алкашей = подойти к ней
+    AlkoGuild:FilterOrder(filterTable)
 
     local units = filterTable.units
 
@@ -642,6 +652,19 @@ function GameMode:InitGameMode()
             Stray228Boss:Spawn()
         end,
         "Spawn Stray228 boss",
+        FCVAR_CHEAT
+    )
+
+    Convars:RegisterCommand(
+        "spawn_alko_guild",
+        function()
+            local player = Convars:GetCommandClient()
+            local hero = player and player:GetAssignedHero()
+            if not hero then return end
+
+            AlkoGuild:Spawn(hero:GetAbsOrigin() + hero:GetForwardVector() * 400)
+        end,
+        "Spawn Alko Guild in front of your hero",
         FCVAR_CHEAT
     )
 

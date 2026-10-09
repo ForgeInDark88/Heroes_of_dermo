@@ -3,7 +3,7 @@
 -- Сами таланты — обычные special_bonus_base (как все остальные таланты),
 -- иначе движок не даёт доизучать вторую сторону дерева на 27-30 уровнях.
 -- Бонусы даёт скрытый модификатор, который вешается на каждого героя
--- при спавне (events.lua, OnNPCSpawned). Значения берутся из AbilityValues таланта.
+-- при спавне (events.lua, OnNPCSpawnedShared). Значения берутся из AbilityValues таланта.
 
 LinkLuaModifier("modifier_stat_talents", "talents/stat_talents", LUA_MODIFIER_MOTION_NONE)
 

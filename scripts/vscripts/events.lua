@@ -21,7 +21,9 @@ function GameMode:OnGameRulesStateChange(keys)
 end
 
 -- An NPC has spawned somewhere in game.  This includes heroes
-function GameMode:OnNPCSpawned(keys)
+-- Общая обработка спавна любого NPC. Вызывается из GameMode:OnNPCSpawned
+-- (gamemode.lua): одноимённая функция там объявлена позже и перекрыла бы эту.
+function GameMode:OnNPCSpawnedShared(keys)
     DebugPrint("[BAREBONES] NPC Spawned")
     DebugPrintTable(keys)
 
@@ -47,17 +49,14 @@ function GameMode:OnNPCSpawned(keys)
     end
 
     ---------------------------------------------------------
-    -- НАША БОЛЬШАЯ КВОПА
+    -- ГИЛЬДИЯ АЛКАШЕЙ (units/alko_guild.lua): значок членам гильдии
     ---------------------------------------------------------
 
-    if npc:GetUnitName() == "npc_qop_intellect_boss" then
-
-        print("[QOP BOSS] NPC spawned")
-
-        if QopIntellectBoss then
-            QopIntellectBoss:Init(npc)
-        end
+    if AlkoGuild then
+        AlkoGuild:OnNPCSpawned(npc)
     end
+
+    -- Квопа и Stray228 инициализируются в GameMode:OnNPCSpawned (gamemode.lua)
 end
 
 -- An entity somewhere has been hurt.  This event fires very often with many units so don't do too many expensive
