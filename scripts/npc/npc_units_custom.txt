@@ -525,6 +525,93 @@
   }
 
   //=================================================================================
+  // БОСС БРУДСКОЕ (units/brudskoe_boss.lua) — чёрная бруда и её паучки
+  //=================================================================================
+  "npc_brudskoe_boss"
+  {
+    "BaseClass"                 "npc_dota_creature"
+    "Model"                     "models/heroes/broodmother/broodmother.vmdl"
+    "ModelScale"                "1.7"
+    "SoundSet"                  "Hero_Broodmother"
+    "GameSoundsFile"            "soundevents/game_sounds_heroes/game_sounds_broodmother.vsndevts"
+    "Level"                     "20"
+    "UnitLabel"                 "brudskoe_boss"
+
+    "Ability1"                  ""
+    "Ability2"                  ""
+    "Ability3"                  ""
+    "Ability4"                  ""
+
+    "StatusHealth"              "15000"
+    "StatusHealthRegen"         "30"
+    "StatusMana"                "0"
+
+    "ArmorPhysical"             "20"
+    "MagicalResistance"         "40"
+
+    "AttackCapabilities"        "DOTA_UNIT_CAP_MELEE_ATTACK"
+    "AttackDamageMin"           "150"
+    "AttackDamageMax"           "190"
+    "AttackRate"                "0.9"
+    "AttackAnimationPoint"      "0.4"
+    "AttackAcquisitionRange"    "600"
+    "AttackRange"               "150"
+
+    "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
+    "MovementSpeed"             "330"
+    "BoundsHullName"            "DOTA_HULL_SIZE_HERO"
+
+    "VisionDaytimeRange"        "1200"
+    "VisionNighttimeRange"      "1000"
+
+    "BountyGoldMin"             "700"
+    "BountyGoldMax"             "900"
+    "BountyXP"                  "2000"
+
+    "HealthBarOffset"           "300"
+    "IsAncient"                 "1"
+    "CanBeDominated"            "0"
+  }
+
+  "npc_brudskoe_spider"
+  {
+    "BaseClass"                 "npc_dota_creature"
+    "Model"                     "models/heroes/broodmother/spiderling.vmdl"
+    "ModelScale"                "1.0"
+    "SoundSet"                  "Hero_Broodmother"
+    "Level"                     "4"
+    "UnitLabel"                 "brudskoe_spider"
+
+    "StatusHealth"              "400"
+    "StatusHealthRegen"         "1"
+    "StatusMana"                "0"
+
+    "ArmorPhysical"             "2"
+    "MagicalResistance"         "0"
+
+    "AttackCapabilities"        "DOTA_UNIT_CAP_MELEE_ATTACK"
+    "AttackDamageMin"           "28"
+    "AttackDamageMax"           "34"
+    "AttackRate"                "1.0"
+    "AttackAnimationPoint"      "0.5"
+    "AttackAcquisitionRange"    "500"
+    "AttackRange"               "100"
+
+    "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
+    "MovementSpeed"             "380"
+    "BoundsHullName"            "DOTA_HULL_SIZE_SMALL"
+
+    "VisionDaytimeRange"        "800"
+    "VisionNighttimeRange"      "600"
+
+    "BountyGoldMin"             "25"
+    "BountyGoldMax"             "35"
+    "BountyXP"                  "40"
+
+    "HealthBarOffset"           "120"
+  }
+
+  //=================================================================================
   // ТЕНЕВОЕ ПРАВИТЕЛЬСТВО (мобы из портала)
   //=================================================================================
   "npc_shadow_gov_agent"

@@ -1,0 +1,33 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/styles/custom_game/suprunov_music.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/suprunov_music.js" />
+	</scripts>
+
+	<!-- Меню выбора трека для ульты Супрунова с аганимом (abilities/custom_earthquake_bounce.lua) -->
+	<Panel class="SuprunovMusicRoot" hittest="false">
+		<Panel id="MusicMenu">
+			<Panel id="MusicHeader">
+				<Label id="MusicTitle" text="ВЫБЕРИ ТРЕК" />
+				<Label id="MusicTimer" text="" />
+			</Panel>
+			<Panel id="Tracks">
+				<Button id="Track_chronoshift" class="Track">
+					<Label class="TrackName" text="CHRONOSHIFT" />
+					<Label class="TrackDesc" text="Обычная ульта со станами" />
+				</Button>
+				<Button id="Track_terra" class="Track">
+					<Label class="TrackName" text="TERRA" />
+					<Label class="TrackDesc" text="Без станов. КД предметов не больше 4 сек., герой светится" />
+				</Button>
+				<Button id="Track_opa" class="Track">
+					<Label class="TrackName" text="OPA" />
+					<Label class="TrackDesc" text="+50% к урону от магии и взрыв Шивы" />
+				</Button>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>
