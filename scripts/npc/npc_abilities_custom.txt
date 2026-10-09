@@ -2003,5 +2003,269 @@
         "bonus_health_regen" "0.5"
     }
 }
+
+  //=================================================================================
+  // РУСИК
+  //=================================================================================
+
+"rusik_yablochki"
+{
+    "BaseClass"               "ability_lua"
+    "ScriptFile"              "abilities/rusik_yablochki"
+    "AbilityTextureName"      "obsidian_destroyer_astral_imprisonment"
+    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityType"             "DOTA_ABILITY_TYPE_BASIC"
+    "AbilityUnitTargetTeam"   "DOTA_UNIT_TARGET_TEAM_BOTH"
+    "AbilityUnitTargetType"   "DOTA_UNIT_TARGET_HERO"
+    "AbilityUnitDamageType"   "DAMAGE_TYPE_MAGICAL"
+    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_NO"
+    "SpellDispellableType"    "SPELL_DISPELLABLE_NO"
+    "MaxLevel"                "4"
+
+    "AbilityCastRange"        "450 525 600 675"
+    "AbilityCastPoint"        "0.25"
+    "AbilityCooldown"         "22 19 16 13"
+    "AbilityManaCost"         "100 110 120 130"
+
+    "AbilityValues"
+    {
+        "prison_duration"           "4"
+        "damage"                    "100 175 250 325"
+        "str_steal"
+        {
+            "value" "10"
+            "special_bonus_unique_rusik_yablochki_steal" "+5"
+        }
+        "steal_duration"            "20"
+        "ally_bonus_damage"         "20 35 50 65"
+        "cooldown_reduction"
+        {
+            "value" "0"
+            "special_bonus_unique_rusik_yablochki_cd" "+5"
+        }
+    }
 }
 
+"rusik_larpcraft"
+{
+    "BaseClass"               "ability_lua"
+    "ScriptFile"              "abilities/rusik_larpcraft"
+    "AbilityTextureName"      "obsidian_destroyer_arcane_orb"
+    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_UNIT_TARGET"
+    "AbilityType"             "DOTA_ABILITY_TYPE_BASIC"
+    "AbilityUnitTargetTeam"   "DOTA_UNIT_TARGET_TEAM_ENEMY"
+    "AbilityUnitTargetType"   "DOTA_UNIT_TARGET_HERO | DOTA_UNIT_TARGET_BASIC"
+    "AbilityUnitDamageType"   "DAMAGE_TYPE_PURE"
+    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_NO"
+    "SpellDispellableType"    "SPELL_DISPELLABLE_YES"
+    "MaxLevel"                "4"
+
+    "AbilityCastRange"        "700"
+    "AbilityCastPoint"        "0.3"
+    "AbilityCooldown"         "18 16 14 12"
+    "AbilityManaCost"         "90 100 110 120"
+
+    "AbilityValues"
+    {
+        "damage"
+        {
+            "value" "80 150 220 290"
+            "special_bonus_unique_rusik_larpcraft_damage" "+90"
+        }
+        "silence_duration"          "1.5 2 2.5 3"
+        "slow"                      "20 25 30 35"
+        "projectile_speed"          "1200"
+        "aoe_radius"
+        {
+            "value" "0"
+            "special_bonus_unique_rusik_larpcraft_aoe" "+400"
+        }
+    }
+}
+
+"rusik_statuetka"
+{
+    "BaseClass"               "ability_lua"
+    "ScriptFile"              "abilities/rusik_statuetka"
+    "AbilityTextureName"      "medusa_stone_gaze"
+    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityType"             "DOTA_ABILITY_TYPE_BASIC"
+    "MaxLevel"                "4"
+
+    "AbilityCastPoint"        "0"
+    "AbilityCooldown"         "24 22 20 18"
+    "AbilityManaCost"         "80"
+
+    "AbilityValues"
+    {
+        "duration"
+        {
+            "value" "3 3.5 4 4.5"
+            "special_bonus_unique_rusik_statuetka_duration" "+1.5"
+        }
+        "radius"                    "350"
+        "bonus_movement_speed"      "15 20 25 30"
+    }
+}
+
+"rusik_greaves"
+{
+    "BaseClass"               "ability_lua"
+    "ScriptFile"              "abilities/rusik_greaves"
+    "AbilityTextureName"      "item_guardian_greaves"
+    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_NO_TARGET | DOTA_ABILITY_BEHAVIOR_IMMEDIATE"
+    "AbilityType"             "DOTA_ABILITY_TYPE_BASIC"
+    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_NO"
+    "SpellDispellableType"    "SPELL_DISPELLABLE_YES"
+    "MaxLevel"                "1"
+    "IsGrantedByShard"        "1"
+
+    "AbilityCastPoint"        "0"
+    "AbilityCooldown"         "35"
+    "AbilityManaCost"         "0"
+
+    "AbilityValues"
+    {
+        "heal_amount"               "300"
+        "mana_amount"               "150"
+        "radius"                    "650"
+        "fear_radius"               "450"
+        "fear_duration"             "1"
+    }
+}
+
+"rusik_aloha"
+{
+    "BaseClass"               "ability_lua"
+    "ScriptFile"              "abilities/rusik_aloha"
+    "AbilityTextureName"      "huskar_burning_spear"
+    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+    "AbilityType"             "DOTA_ABILITY_TYPE_BASIC"
+    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_NO"
+    "SpellDispellableType"    "SPELL_DISPELLABLE_YES"
+    "HasScepterUpgrade"       "1"
+    "MaxLevel"                "1"
+    "Innate"                  "1"
+
+    "AbilityValues"
+    {
+        "bonus_int_base"            "2"
+        "bonus_int_per_level"       "1"
+        "radius"                    "900"
+        "facing_angle"              "120"
+        "stone_duration"
+        {
+            "value" "0.8"
+            "special_bonus_unique_rusik_aloha_stone" "+0.4"
+        }
+        "scepter_mana_burn"
+        {
+            "value"             "60"
+            "RequiresScepter"   "1"
+        }
+        "scepter_mana_burn_int_pct"
+        {
+            "value"             "100"
+            "RequiresScepter"   "1"
+        }
+    }
+}
+
+"rusik_forgeinleague"
+{
+    "BaseClass"               "ability_lua"
+    "ScriptFile"              "abilities/rusik_forgeinleague"
+    "AbilityTextureName"      "mars_arena_of_blood"
+    "AbilityBehavior"         "DOTA_ABILITY_BEHAVIOR_POINT | DOTA_ABILITY_BEHAVIOR_AOE"
+    "AbilityType"             "DOTA_ABILITY_TYPE_ULTIMATE"
+    "AbilityUnitTargetTeam"   "DOTA_UNIT_TARGET_TEAM_BOTH"
+    "AbilityUnitTargetType"   "DOTA_UNIT_TARGET_HERO"
+    "AbilityUnitDamageType"   "DAMAGE_TYPE_MAGICAL"
+    "SpellImmunityType"       "SPELL_IMMUNITY_ENEMIES_YES"
+    "SpellDispellableType"    "SPELL_DISPELLABLE_NO"
+    "MaxLevel"                "3"
+    "RequiredLevel"           "6"
+    "LevelsBetweenUpgrades"   "6"
+
+    "AbilityCastRange"        "700"
+    "AbilityCastPoint"        "0.3"
+    "AbilityCooldown"         "120 110 100"
+    "AbilityManaCost"         "200 300 400"
+
+    "AbilityValues"
+    {
+        "radius"                    "550"
+        "duration"                  "6 7 8"
+        "ally_attack_speed"         "60 90 120"
+        "gold_reward"
+        {
+            "value" "150 250 350"
+            "special_bonus_unique_rusik_tournament_gold" "+200"
+        }
+        "lose_damage"               "150 250 350"
+        "cancel_damage"             "200 300 400"
+        "cancel_stun_duration"      "1.5 2 2.5"
+    }
+}
+
+"special_bonus_unique_rusik_intellect"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+
+    "AbilityValues"
+    {
+        "bonus_intellect" "10"
+    }
+}
+
+"special_bonus_unique_rusik_yablochki_steal"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_rusik_larpcraft_damage"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_rusik_statuetka_duration"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_rusik_aloha_stone"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_rusik_yablochki_cd"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_rusik_larpcraft_aoe"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+
+"special_bonus_unique_rusik_tournament_gold"
+{
+    "BaseClass" "special_bonus_base"
+    "AbilityType" "ABILITY_TYPE_ATTRIBUTES"
+    "AbilityBehavior" "DOTA_ABILITY_BEHAVIOR_PASSIVE"
+}
+}

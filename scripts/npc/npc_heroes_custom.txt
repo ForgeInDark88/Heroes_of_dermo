@@ -382,4 +382,54 @@
         "StatusHealthRegen" "1.8"
         "StatusManaRegen" "-0.15"
     }
+
+    // Русик (интеллект), моделька Outworld Destroyer
+    "npc_dota_hero_rusik"
+    {
+        "override_hero" "npc_dota_hero_obsidian_destroyer"
+        "Enabled" "1"
+
+        "Ability1" "rusik_yablochki"
+        "Ability2" "rusik_larpcraft"
+        "Ability3" "rusik_statuetka"
+        "Ability4" "rusik_greaves"
+        "Ability5" "rusik_aloha"
+        "Ability6" "rusik_forgeinleague"
+        "Ability7" ""
+        "Ability8" ""
+        "Ability9" ""
+
+        "Ability10" "special_bonus_unique_rusik_intellect"
+        "Ability11" "special_bonus_unique_rusik_yablochki_steal"
+        "Ability12" "special_bonus_unique_rusik_larpcraft_damage"
+        "Ability13" "special_bonus_unique_rusik_statuetka_duration"
+        "Ability14" "special_bonus_unique_rusik_aloha_stone"
+        "Ability15" "special_bonus_unique_rusik_yablochki_cd"
+        "Ability16" "special_bonus_unique_rusik_larpcraft_aoe"
+        "Ability17" "special_bonus_unique_rusik_tournament_gold"
+
+        "AttributePrimary" "DOTA_ATTRIBUTE_INTELLECT"
+        "AttributeBaseStrength" "19"
+        "AttributeStrengthGain" "2.3"
+        "AttributeBaseAgility" "16"
+        "AttributeAgilityGain" "1.6"
+        "AttributeBaseIntelligence" "25"
+        "AttributeIntelligenceGain" "3.5"
+
+        "AttackCapabilities" "DOTA_UNIT_CAP_RANGED_ATTACK"
+        "AttackDamageMin" "20"
+        "AttackDamageMax" "26"
+        "AttackRate" "1.7"
+        "BaseAttackSpeed" "100"
+        "AttackAnimationPoint" "0.46"
+        "AttackAcquisitionRange" "800"
+        "AttackRange" "450"
+        "ProjectileModel" "particles/units/heroes/hero_obsidian_destroyer/obsidian_destroyer_base_attack.vpcf"
+        "ProjectileSpeed" "900"
+
+        "ArmorPhysical" "1"
+        "MovementSpeed" "305"
+        "StatusHealthRegen" "1"
+        "StatusManaRegen" "0.5"
+    }
 }
