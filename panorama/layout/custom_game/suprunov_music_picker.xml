@@ -1,0 +1,27 @@
+<root>
+    <styles>
+        <include src="s2r://panorama/styles/dotastyles.vcss_c" />
+        <include src="file://{resources}/styles/custom_game/suprunov_music_picker.css" />
+    </styles>
+
+    <scripts>
+        <include src="file://{resources}/scripts/custom_game/suprunov_music_picker.js" />
+    </scripts>
+
+    <Panel class="SuprunovMusicRoot" hittest="false">
+        <Panel id="SuprunovMusicContainer" class="SuprunovMusicContainer hidden">
+            <Label id="SuprunovMusicTitle" text="ВЫБОР ТРЕКА (АГАНИМ)" />
+            <Panel id="SuprunovTrackList" class="SuprunovTrackList">
+                <Button id="TrackBtn1" class="TrackButton selected" onactivate="OnSelectTrack(1)">
+                    <Label class="TrackText" text="1. 333" />
+                </Button>
+                <Button id="TrackBtn2" class="TrackButton" onactivate="OnSelectTrack(2)">
+                    <Label class="TrackText" text="2. СЧАСТЬЕ" />
+                </Button>
+                <Button id="TrackBtn3" class="TrackButton" onactivate="OnSelectTrack(3)">
+                    <Label class="TrackText" text="3. ЭДИТ В ТТ" />
+                </Button>
+            </Panel>
+        </Panel>
+    </Panel>
+</root>
