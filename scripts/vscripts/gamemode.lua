@@ -38,8 +38,15 @@ LinkLuaModifier("modifier_always_visible", "modifiers/modifier_always_visible", 
 require('units/stray228_boss')
 print('[STRAY228] boss module loaded')
 
+require('units/brudskoe_boss')
+print('[BRUDSKOE] boss module loaded')
+
 require('units/alko_guild')
 print('[ALKO_GUILD] module loaded')
+
+require('guilds')
+require('hero_selection')
+print('[CUSTOM_GAME] guilds / hero_selection loaded')
 
 function GameMode:OnFirstPlayerLoaded()
     DebugPrint('[BAREBONES] First Player has loaded')
@@ -77,6 +84,7 @@ function GameMode:OnGameInProgress()
 
     GameMode:QopBoss()
     Stray228Boss:Spawn()
+    BrudskoeBoss:Spawn()
     AlkoGuild:Spawn()
 
 
@@ -106,6 +114,8 @@ Timers:CreateTimer(1, function()
     end
     return 0.5
 end)
+
+QOP_RESPAWN_TIME = 5 * 60   -- через сколько секунд после смерти Квопа возрождается
 
 function GameMode:QopBoss()
     local point = Entities:FindByName(nil, "bosses_point")
@@ -283,7 +293,10 @@ function GameMode:OnEntityKilled(keys)
     -- QOP BOSS
     ----------------------------------------------------------------
 
-    if killed:GetUnitName() == "npc_qop_intellect_boss" then
+    -- entity_killed в этом проекте приходит в OnEntityKilled дважды:
+    -- флаг, чтобы не выпало два аегиса и не было двух респавнов
+    if killed:GetUnitName() == "npc_qop_intellect_boss" and not killed.QopDeathHandled then
+        killed.QopDeathHandled = true
 
         print("[QOP BOSS] BOSS KILLED")
 
@@ -298,6 +311,16 @@ function GameMode:OnEntityKilled(keys)
         else
             print("[QOP BOSS] ERROR: Failed to create Aegis")
         end
+
+        -- Квопа возрождается через QOP_RESPAWN_TIME
+        GameRules:SendCustomMessage(
+            "<font color='#c040ff'>Квопа повержена! Она вернётся через " .. math.floor(QOP_RESPAWN_TIME / 60) .. " мин.</font>",
+            0, 0
+        )
+        Timers:CreateTimer(QOP_RESPAWN_TIME, function()
+            GameMode:QopBoss()
+            GameRules:SendCustomMessage("<font color='#c040ff'>Квопа снова на месте!</font>", 0, 0)
+        end)
 
         -- Здесь НЕ делаем return,
         -- потому что ниже находится существующая логика тронов.
@@ -315,6 +338,10 @@ function GameMode:OnEntityKilled(keys)
         end
 
         Stray228Boss:OnDeath(killed, killer)
+    end
+
+    if killed:GetUnitName() == BRUDSKOE_BOSS_NAME then
+        BrudskoeBoss:OnDeath(killed)
     end
 
     if killed:GetUnitName() == SHADOW_GOV_HEAD_NAME then
@@ -355,6 +382,11 @@ function GameMode:OnNPCSpawned(keys)
 
     if unit:GetUnitName() == STRAY228_BOSS_NAME then
         Stray228Boss:Init(unit)
+        return
+    end
+
+    if unit:GetUnitName() == BRUDSKOE_BOSS_NAME then
+        BrudskoeBoss:Init(unit)
         return
     end
 
@@ -580,6 +612,10 @@ function GameMode:InitGameMode()
     end
     self._customCommandsRegistered = true
 
+    -- Свой выбор героя и гильдии в начале игры
+    HeroSelection:Init()
+    Guilds:Init()
+
     Convars:RegisterCommand(
         'command_example',
         Dynamic_Wrap(GameMode, 'ExampleConsoleCommand'),
@@ -665,6 +701,15 @@ function GameMode:InitGameMode()
             AlkoGuild:Spawn(hero:GetAbsOrigin() + hero:GetForwardVector() * 400)
         end,
         "Spawn Alko Guild in front of your hero",
+        FCVAR_CHEAT
+    )
+
+    Convars:RegisterCommand(
+        "spawn_brudskoe",
+        function()
+            BrudskoeBoss:Spawn()
+        end,
+        "Spawn Brudskoe boss",
         FCVAR_CHEAT
     )
 

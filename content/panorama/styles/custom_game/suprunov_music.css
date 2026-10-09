@@ -1,0 +1,113 @@
+/* Меню выбора трека Супрунова: три кнопки над панелью способностей. */
+
+.SuprunovMusicRoot
+{
+	width: 100%;
+	height: 100%;
+}
+
+#MusicMenu
+{
+	horizontal-align: center;
+	vertical-align: bottom;
+	margin-bottom: 250px;
+	padding: 16px 20px;
+	flow-children: down;
+	border-radius: 10px;
+	border: 2px solid #f2c14e;
+	background-color: #0b0f1aee;
+	box-shadow: #000000 0px 0px 24px 2px;
+	visibility: collapse;
+	opacity: 0;
+	transform: translateY( 20px );
+	transition-property: opacity, transform;
+	transition-duration: 0.2s;
+}
+
+#MusicMenu.visible
+{
+	visibility: visible;
+	opacity: 1;
+	transform: translateY( 0px );
+}
+
+#MusicHeader
+{
+	width: 100%;
+	flow-children: right;
+	margin-bottom: 10px;
+}
+
+#MusicTitle
+{
+	font-family: Radiance;
+	font-weight: black;
+	font-size: 24px;
+	letter-spacing: 3px;
+	color: #ffffff;
+}
+
+#MusicTimer
+{
+	horizontal-align: right;
+	font-family: Radiance;
+	font-weight: black;
+	font-size: 24px;
+	color: #f2c14e;
+}
+
+#Tracks
+{
+	flow-children: right;
+}
+
+.Track
+{
+	width: 220px;
+	height: 120px;
+	margin: 0px 6px;
+	padding: 10px;
+	flow-children: down;
+	border-radius: 8px;
+	border: 1px solid #ffffff33;
+	transition-property: brightness, transform, border;
+	transition-duration: 0.12s;
+}
+
+#Track_chronoshift
+{
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #3a2a78 ), to( #15102e ) );
+}
+
+#Track_terra
+{
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #2f6e2a ), to( #10260e ) );
+}
+
+#Track_opa
+{
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #1f5f8f ), to( #0b2133 ) );
+}
+
+.Track:hover
+{
+	brightness: 1.3;
+	border: 1px solid #f2c14e;
+	transform: translateY( -3px );
+}
+
+.TrackName
+{
+	font-family: Radiance;
+	font-weight: black;
+	font-size: 24px;
+	color: #ffffff;
+}
+
+.TrackDesc
+{
+	width: 100%;
+	margin-top: 4px;
+	font-size: 14px;
+	color: #ffffffcc;
+}

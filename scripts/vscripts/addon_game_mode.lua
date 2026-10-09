@@ -160,6 +160,19 @@ function Precache(context)
     PrecacheUnitByNameSync("npc_shadow_gov_agent", context)
     PrecacheUnitByNameSync("npc_shadow_gov_sniper", context)
     PrecacheUnitByNameSync("npc_shadow_gov_head", context)
+
+    -- Босс Брудское
+    PrecacheUnitByNameSync("npc_brudskoe_boss", context)
+    PrecacheUnitByNameSync("npc_brudskoe_spider", context)
+    PrecacheResource("particle", "particles/units/heroes/hero_broodmother/broodmother_spiderlings_spawn.vpcf", context)
+    PrecacheResource("particle", "particles/generic_gameplay/generic_lifesteal.vpcf", context)
+    PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_broodmother.vsndevts", context)
+    PrecacheResource("soundfile", "soundevents/game_sounds_brudskoe.vsndevts", context)   -- музыка боя
+
+    -- Ульта Супрунова: трек opa (взрыв Шивы)
+    PrecacheResource("particle", "particles/items2_fx/shivas_guard_active.vpcf", context)
+    PrecacheResource("particle", "particles/items2_fx/shivas_guard_impact.vpcf", context)
+    PrecacheResource("particle", "particles/status_fx/status_effect_frost.vpcf", context)
     PrecacheResource("particle", "particles/units/heroes/hero_enigma/enigma_blackhole.vpcf", context)
     PrecacheResource("particle", "particles/units/heroes/hero_bounty_hunter/bounty_hunter_track_shield.vpcf", context)
     PrecacheResource("particle", "particles/units/heroes/hero_slardar/slardar_amp_damage.vpcf", context)

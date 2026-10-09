@@ -18,6 +18,12 @@ function GameMode:OnGameRulesStateChange(keys)
   DebugPrintTable(keys)
 
   local newState = GameRules:State_Get()
+
+  -- Выбор героя и гильдии (hero_selection.lua, guilds.lua)
+  if newState == DOTA_GAMERULES_STATE_PRE_GAME then
+    HeroSelection:Start()
+    Guilds:Start()
+  end
 end
 
 -- An NPC has spawned somewhere in game.  This includes heroes
@@ -39,6 +45,9 @@ function GameMode:OnNPCSpawnedShared(keys)
 
     -- Невидимость в кастомке отключена: всех видно
     GameMode:ApplyAlwaysVisible(npc)
+
+    -- Временный герой на время выбора героя (hero_selection.lua)
+    HeroSelection:OnNPCSpawned(npc)
 
     ---------------------------------------------------------
     -- ТАЛАНТЫ НА СТАТЫ (talents/stat_talents.lua)
