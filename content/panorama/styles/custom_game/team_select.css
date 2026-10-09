@@ -1,0 +1,384 @@
+/* Лобби: выбор стороны. Синие цвета — Radiant (левая половина картинки), красные — Dire (правая). */
+
+.TeamSelectRoot
+{
+	width: 100%;
+	height: 100%;
+	background-color: #04060c;
+}
+
+#Background
+{
+	width: 100%;
+	height: 100%;
+	background-image: url("file://{images}/custom_game/team_select/versus.png");
+	background-size: cover;
+	background-position: 50% 50%;
+	blur: gaussian( 14 );
+	opacity: 0.55;
+}
+
+#BackgroundShade
+{
+	width: 100%;
+	height: 100%;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #04060ccc ), color-stop( 0.45, #04060c55 ), to( #04060cee ) );
+}
+
+/* ---------- Заголовок ---------- */
+
+#Header
+{
+	horizontal-align: center;
+	margin-top: 28px;
+	flow-children: down;
+}
+
+#GameTitle
+{
+	horizontal-align: center;
+	font-family: Radiance;
+	font-weight: black;
+	font-size: 22px;
+	letter-spacing: 6px;
+	color: #f2c14e;
+	text-shadow: 0px 0px 8px 2.0 #000000;
+}
+
+#ScreenTitle
+{
+	horizontal-align: center;
+	font-family: Radiance;
+	font-weight: black;
+	font-size: 44px;
+	letter-spacing: 4px;
+	color: #ffffff;
+	text-shadow: 0px 0px 14px 3.0 #000000;
+}
+
+/* ---------- Арена: команда | картинка | команда ---------- */
+
+#Arena
+{
+	horizontal-align: center;
+	vertical-align: center;
+	margin-top: -10px;
+	flow-children: right;
+}
+
+#Versus
+{
+	width: 660px;
+	height: 660px;
+	margin-left: 18px;
+	margin-right: 18px;
+	flow-children: right;
+	background-image: url("file://{images}/custom_game/team_select/versus.png");
+	background-size: 100% 100%;
+	border-radius: 14px;
+	border: 3px solid #f2c14e;
+	box-shadow: #000000 0px 0px 40px 4px;
+}
+
+.ArtHalf
+{
+	width: 50%;
+	height: 100%;
+	transition-property: background-color;
+	transition-duration: 0.2s;
+}
+
+#ArtHalfRadiant:hover,
+#ArtHalfRadiant.local_team
+{
+	background-color: gradient( linear, 0% 0%, 100% 0%, from( #2f6bff66 ), to( #2f6bff00 ) );
+}
+
+#ArtHalfDire:hover,
+#ArtHalfDire.local_team
+{
+	background-color: gradient( linear, 100% 0%, 0% 0%, from( #ff2f3f66 ), to( #ff2f3f00 ) );
+}
+
+.TeamSide
+{
+	width: 320px;
+	height: 660px;
+	flow-children: down;
+	padding: 18px 16px;
+	border-radius: 10px;
+	border: 2px solid #ffffff22;
+	transition-property: box-shadow, border;
+	transition-duration: 0.2s;
+}
+
+.TeamSide.Radiant
+{
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #1b3fa8ee ), to( #0a1640ee ) );
+}
+
+.TeamSide.Dire
+{
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #a8161fee ), to( #400a0eee ) );
+}
+
+.TeamSide.Radiant.local_team
+{
+	border: 2px solid #6f9bff;
+	box-shadow: #2f6bff 0px 0px 30px 2px;
+}
+
+.TeamSide.Dire.local_team
+{
+	border: 2px solid #ff6f78;
+	box-shadow: #ff2f3f 0px 0px 30px 2px;
+}
+
+.TeamName
+{
+	horizontal-align: center;
+	font-family: Radiance;
+	font-weight: black;
+	font-size: 30px;
+	color: #ffffff;
+	text-align: center;
+	text-shadow: 0px 0px 6px 2.0 #000000;
+}
+
+.TeamCount
+{
+	horizontal-align: center;
+	font-size: 18px;
+	color: #ffffffaa;
+	margin-bottom: 12px;
+}
+
+.PlayerList
+{
+	width: 100%;
+	height: fill-parent-flow( 1.0 );
+	flow-children: down;
+	overflow: squish scroll;
+}
+
+.JoinButton
+{
+	width: 100%;
+	height: 52px;
+	margin-top: 12px;
+	border-radius: 6px;
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #f7d26a ), to( #c8901f ) );
+	box-shadow: #00000099 0px 2px 8px 0px;
+	transition-property: brightness, saturation, opacity;
+	transition-duration: 0.15s;
+}
+
+.JoinButton Label
+{
+	horizontal-align: center;
+	vertical-align: center;
+	font-family: Radiance;
+	font-weight: black;
+	font-size: 22px;
+	letter-spacing: 2px;
+	color: #2a1a00;
+}
+
+.JoinButton:hover
+{
+	brightness: 1.25;
+}
+
+.JoinButton:disabled
+{
+	saturation: 0;
+	opacity: 0.35;
+}
+
+/* ---------- Игрок в списке ---------- */
+
+.PlayerEntry
+{
+	width: 100%;
+	height: 52px;
+	margin-bottom: 6px;
+	padding: 6px;
+	flow-children: right;
+	border-radius: 6px;
+	background-color: #00000066;
+}
+
+.PlayerEntry.is_local
+{
+	background-color: #f2c14e33;
+	border: 1px solid #f2c14e;
+}
+
+#PlayerAvatar
+{
+	width: 40px;
+	height: 40px;
+	border-radius: 4px;
+}
+
+#PlayerName
+{
+	width: fill-parent-flow( 1.0 );
+	vertical-align: center;
+	margin-left: 10px;
+	font-size: 18px;
+	color: #ffffff;
+	text-overflow: shrink;
+}
+
+#HostBadge
+{
+	visibility: collapse;
+	vertical-align: center;
+	font-size: 12px;
+	font-weight: bold;
+	color: #f2c14e;
+	margin-right: 4px;
+}
+
+.is_host #HostBadge
+{
+	visibility: visible;
+}
+
+/* ---------- Нижняя панель ---------- */
+
+#BottomBar
+{
+	width: 100%;
+	height: 120px;
+	vertical-align: bottom;
+	padding: 0px 40px 22px 40px;
+	flow-children: right;
+}
+
+#UnassignedBlock
+{
+	width: 36%;
+	height: 100%;
+	flow-children: down;
+	padding: 8px;
+	border-radius: 8px;
+	background-color: #00000088;
+}
+
+#UnassignedBlock:hover
+{
+	background-color: #000000bb;
+}
+
+#UnassignedBlock.empty
+{
+	opacity: 0.4;
+}
+
+#UnassignedPlayers
+{
+	width: 100%;
+	height: fill-parent-flow( 1.0 );
+	flow-children: right-wrap;
+	overflow: squish scroll;
+}
+
+#UnassignedPlayers .PlayerEntry
+{
+	width: 230px;
+	margin-right: 6px;
+}
+
+.SmallHeader
+{
+	font-size: 14px;
+	font-weight: bold;
+	letter-spacing: 2px;
+	color: #ffffff88;
+	margin-bottom: 4px;
+}
+
+#TimerBlock
+{
+	width: 28%;
+	height: 100%;
+	flow-children: down;
+}
+
+#TimerLabel
+{
+	horizontal-align: center;
+	font-family: Radiance;
+	font-weight: black;
+	font-size: 58px;
+	color: #ffffff;
+	text-shadow: 0px 0px 10px 2.0 #000000;
+}
+
+#TimerBlock.urgent #TimerLabel
+{
+	color: #ff5a5a;
+}
+
+#TimerCaption
+{
+	horizontal-align: center;
+	font-size: 15px;
+	letter-spacing: 3px;
+	color: #ffffffaa;
+}
+
+#HostControls
+{
+	width: 36%;
+	height: 100%;
+	flow-children: right-wrap;
+	visibility: collapse;
+}
+
+#HostControls.visible
+{
+	visibility: visible;
+}
+
+.HostButton
+{
+	height: 46px;
+	margin: 4px;
+	padding: 0px 16px;
+	border-radius: 6px;
+	background-color: #1c2230ee;
+	border: 1px solid #ffffff33;
+}
+
+.HostButton:hover
+{
+	background-color: #2c3448ee;
+}
+
+.HostButton.Primary
+{
+	background-color: gradient( linear, 0% 0%, 0% 100%, from( #4fbf5a ), to( #2a7a33 ) );
+	border: 1px solid #9cf0a4;
+}
+
+.HostButton:disabled
+{
+	saturation: 0;
+	opacity: 0.4;
+}
+
+.HostButton.hidden
+{
+	visibility: collapse;
+}
+
+.HostButton Label
+{
+	vertical-align: center;
+	font-size: 17px;
+	font-weight: bold;
+	color: #ffffff;
+}

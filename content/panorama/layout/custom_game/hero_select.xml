@@ -1,0 +1,64 @@
+<root>
+	<styles>
+		<include src="s2r://panorama/styles/dotastyles.vcss_c" />
+		<include src="file://{resources}/styles/custom_game/hero_select.css" />
+	</styles>
+	<scripts>
+		<include src="file://{resources}/scripts/custom_game/hero_select.js" />
+	</scripts>
+
+	<snippets>
+		<snippet name="HeroCard">
+			<Panel class="HeroCard">
+				<DOTAHeroImage id="HeroImage" heroimagestyle="portrait" scaling="stretch-to-cover-preserve-aspect" />
+				<Panel id="CardShade" />
+				<Label id="TakenBy" text="" />
+				<Label id="HeroName" text="" />
+			</Panel>
+		</snippet>
+
+		<snippet name="PickEntry">
+			<Panel class="PickEntry">
+				<DOTAHeroImage id="PickHero" heroimagestyle="icon" scaling="stretch-to-cover-preserve-aspect" />
+				<Label id="PickPlayer" text="" />
+			</Panel>
+		</snippet>
+	</snippets>
+
+	<Panel class="HeroSelectRoot" hittest="false">
+		<Panel id="HeroSelect">
+			<Panel id="HSBackground" />
+			<Panel id="HSShade" />
+
+			<Panel id="HSHeader">
+				<Label id="HSTitle" text="ВЫБЕРИ ГЕРОЯ" />
+				<Label id="HSTimer" text="" />
+			</Panel>
+
+			<Panel id="HSBody">
+				<Panel id="LeftColumn">
+					<Panel id="HeroGrid" />
+					<Panel id="TeamPicks">
+						<Panel id="RadiantPicks" class="TeamPicks Radiant" />
+						<Panel id="DirePicks" class="TeamPicks Dire" />
+					</Panel>
+				</Panel>
+
+				<Panel id="HeroPreview">
+					<DOTAHeroMovie id="PreviewMovie" heroname="" />
+					<Label id="PreviewName" text="" />
+					<Label id="PreviewAttribute" text="" />
+					<Label class="PreviewHeader" text="СПОСОБНОСТИ" />
+					<Panel id="PreviewAbilities" />
+					<Panel class="Spacer" />
+					<Button id="PickButton" class="HSButton Primary">
+						<Label text="ВЫБРАТЬ" />
+					</Button>
+					<Button id="RandomButton" class="HSButton">
+						<Label text="СЛУЧАЙНЫЙ ГЕРОЙ" />
+					</Button>
+				</Panel>
+			</Panel>
+		</Panel>
+	</Panel>
+</root>

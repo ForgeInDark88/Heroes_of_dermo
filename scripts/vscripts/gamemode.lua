@@ -41,6 +41,10 @@ print('[STRAY228] boss module loaded')
 require('units/alko_guild')
 print('[ALKO_GUILD] module loaded')
 
+require('guilds')
+require('hero_selection')
+print('[CUSTOM_GAME] guilds / hero_selection loaded')
+
 function GameMode:OnFirstPlayerLoaded()
     DebugPrint('[BAREBONES] First Player has loaded')
 end
@@ -579,6 +583,10 @@ function GameMode:InitGameMode()
         return
     end
     self._customCommandsRegistered = true
+
+    -- Свой выбор героя и гильдии в начале игры
+    HeroSelection:Init()
+    Guilds:Init()
 
     Convars:RegisterCommand(
         'command_example',

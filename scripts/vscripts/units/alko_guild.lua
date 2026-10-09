@@ -1,5 +1,5 @@
 -- Гильдия алкашей
--- Неуязвимая постройка на карте. Члены гильдии (Русик, Супрунов, Артем)
+-- Неуязвимая постройка на карте. Члены гильдии (кто выбрал её в начале игры, guilds.lua)
 -- активируют её, подойдя вплотную (правый клик по гильдии ведёт героя к ней):
 -- мгновенно восстанавливается здоровье и мана. Перезарядка у каждого героя
 -- своя — 120 сек. (висит на герое как "Похмелье").
@@ -19,23 +19,14 @@ ALKO_GUILD_COOLDOWN = 120
 ALKO_GUILD_HEAL_PCT = 50   -- % от макс. здоровья
 ALKO_GUILD_MANA_PCT = 50   -- % от макс. маны
 
--- override_hero оставляет герою имя базового героя, поэтому проверяем оба
-ALKO_GUILD_MEMBERS = {
-    ["npc_dota_hero_obsidian_destroyer"] = true, -- Русик
-    ["npc_dota_hero_rusik"] = true,
-    ["npc_dota_hero_tinker"] = true,             -- Супрунов
-    ["npc_dota_hero_suprunov"] = true,
-    ["npc_dota_hero_hoodwink"] = true,           -- Артем
-    ["npc_dota_hero_artem"] = true,
-}
+ALKO_GUILD_ID = "alko"         -- id в GUILD_LIST (guilds.lua)
 
 LinkLuaModifier("modifier_alko_guild", "units/alko_guild", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_alko_guild_member", "units/alko_guild", LUA_MODIFIER_MOTION_NONE)
 LinkLuaModifier("modifier_alko_guild_cooldown", "units/alko_guild", LUA_MODIFIER_MOTION_NONE)
 
 function AlkoGuild:IsMember(unit)
-    return unit and not unit:IsNull() and unit.GetUnitName
-        and ALKO_GUILD_MEMBERS[unit:GetUnitName()] == true
+    return Guilds ~= nil and Guilds:GetUnitGuild(unit) == ALKO_GUILD_ID
 end
 
 function AlkoGuild:Spawn(position)
