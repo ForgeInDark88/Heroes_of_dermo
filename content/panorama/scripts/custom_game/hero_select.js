@@ -36,8 +36,6 @@ function ToArray( obj )
 
 function GetState()
 {
-	$.Msg( "[hero_select] loaded" );
-
 	return CustomNetTables.GetTableValue( "hero_selection", "state" ) || {};
 }
 
@@ -48,8 +46,6 @@ function GetPicks()
 
 function FindHero( name )
 {
-	$.Msg( "[hero_select] loaded" );
-
 	for ( var i = 0; i < heroes.length; i++ )
 	{
 		if ( heroes[i].name === name )
@@ -70,8 +66,6 @@ function GetTakenBy()
 
 function IsTaken( name )
 {
-	$.Msg( "[hero_select] loaded" );
-
 	return !GetState().allow_same && GetTakenBy()[name] !== undefined;
 }
 
@@ -110,8 +104,6 @@ function BuildGrid()
 
 function SelectHero( name )
 {
-	$.Msg( "[hero_select] loaded" );
-
 	var hero = FindHero( name );
 	if ( !hero )
 		return;
@@ -152,8 +144,6 @@ function UpdatePickButton()
 
 function UpdatePicks()
 {
-	$.Msg( "[hero_select] loaded" );
-
 	var picks = GetPicks();
 	var takenBy = GetTakenBy();
 	var allowSame = !!GetState().allow_same;
@@ -190,8 +180,6 @@ function UpdatePicks()
 
 function PickSelected()
 {
-	$.Msg( "[hero_select] loaded" );
-
 	if ( !selectedHero || IsTaken( selectedHero ) )
 		return;
 
@@ -200,8 +188,6 @@ function PickSelected()
 
 function PickRandom()
 {
-	$.Msg( "[hero_select] loaded" );
-
 	GameEvents.SendCustomGameEventToServer( "hero_selection_random", {} );
 }
 
