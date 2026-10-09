@@ -641,4 +641,38 @@
     "IsAncient"                 "1"
     "CanBeDominated"            "0"
   }
+
+  // Гильдия алкашей (units/alko_guild.lua): неуязвимая постройка,
+  // члены гильдии получают у неё здоровье и ману
+  "npc_alko_guild"
+  {
+    "BaseClass"                 "npc_dota_creature"
+    "Model"                     "models/props_structures/radiant_ranged_barracks001.vmdl"
+    "ModelScale"                "0.85"
+    "Level"                     "1"
+    "UnitLabel"                 "alko_guild"
+
+    "StatusHealth"              "5000"
+    "StatusHealthRegen"         "0"
+    "StatusMana"                "0"
+    "ArmorPhysical"             "0"
+    "MagicalResistance"         "0"
+
+    "AttackCapabilities"        "DOTA_UNIT_CAP_NO_ATTACK"
+    "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_NONE"
+    "MovementSpeed"             "0"
+    "BoundsHullName"            "DOTA_HULL_SIZE_BUILDING"
+    "RingRadius"                "150"
+
+    "VisionDaytimeRange"        "0"
+    "VisionNighttimeRange"      "0"
+
+    "BountyGoldMin"             "0"
+    "BountyGoldMax"             "0"
+    "BountyXP"                  "0"
+
+    "HealthBarOffset"           "300"
+    "CanBeDominated"            "0"
+    "ConsideredHero"            "0"
+  }
 }

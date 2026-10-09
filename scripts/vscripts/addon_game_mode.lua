@@ -146,6 +146,9 @@ function Precache(context)
     PrecacheUnitByNameSync("npc_dota_creature_cat", context)          -- Котик Супрунова
     PrecacheUnitByNameSync("npc_dota_custom_creeper1", context)       -- Ебанный брат Попчика
     PrecacheUnitByNameSync("npc_suprunov_ender_eidolon", context)     -- Эндер Вася
+    PrecacheUnitByNameSync("npc_alko_guild", context)                 -- Гильдия алкашей
+    PrecacheResource("model", "models/props_structures/radiant_ranged_barracks001.vmdl", context)
+    PrecacheResource("particle", "particles/units/heroes/hero_brewmaster/brewmaster_thunder_clap.vpcf", context)
     PrecacheResource("model", "models/creeps/neutral_creeps/n_creep_worg_small/n_creep_worg_small.vmdl", context)
 
     -- STRAY228 + ивент Теневого правительства
