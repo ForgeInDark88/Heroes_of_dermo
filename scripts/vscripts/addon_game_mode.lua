@@ -163,6 +163,7 @@ function Precache(context)
     PrecacheResource("particle", "particles/units/heroes/hero_broodmother/broodmother_spiderlings_spawn.vpcf", context)
     PrecacheResource("particle", "particles/generic_gameplay/generic_lifesteal.vpcf", context)
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_broodmother.vsndevts", context)
+    PrecacheResource("soundfile", "soundevents/game_sounds_brudskoe.vsndevts", context)   -- музыка боя
 
     -- Ульта Супрунова: трек opa (взрыв Шивы)
     PrecacheResource("particle", "particles/items2_fx/shivas_guard_active.vpcf", context)

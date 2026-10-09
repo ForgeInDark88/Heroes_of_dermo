@@ -8,8 +8,14 @@
 --   - на BRUDSKOE_COCOON_HP_PCT% здоровья один раз прячется в кокон: неуязвима, лечится, зовёт паучков;
 --   - если её утащить от дома дальше BRUDSKOE_LEASH_RANGE — возвращается и полностью лечится.
 --
--- При смерти по всей карте в случайных местах появляются агрессивные паучки
--- и всем игрокам играет музыка BRUDSKOE_DEATH_MUSIC.
+-- Пока идёт бой с брудой, всем игрокам играет музыка BRUDSKOE_FIGHT_MUSIC
+-- (громкость — в content/soundevents/game_sounds_brudskoe.vsndevts).
+-- Бой начинается с первого удара героя и заканчивается смертью бруды,
+-- её возвратом в логово или если её BRUDSKOE_FIGHT_TIMEOUT сек. никто не бьёт.
+--
+-- При смерти по всей карте в случайных местах появляются агрессивные паучки.
+--
+-- Внешний вид: сет Widow of the Undermount Gloom — в npc_units_custom.txt (AttachWearables).
 --
 -- Место на карте: info_target с именем BRUDSKOE_SPAWN_POINT_NAME в Hammer.
 --------------------------------------------------------------------------------
@@ -41,7 +47,9 @@ BRUDSKOE_SPIDERS_MAX_ALIVE = 60     -- лимит живых паучков, ч�
 BRUDSKOE_SPIDER_AGGRO_RANGE = 900   -- с какого расстояния паучок бросается на героя
 BRUDSKOE_FOUNTAIN_SAFE_RANGE = 1800 -- паучки не появляются ближе к фонтанам
 
-BRUDSKOE_DEATH_MUSIC = "brudskoe_death_music"
+BRUDSKOE_FIGHT_MUSIC = "brudskoe_fight_music"
+BRUDSKOE_FIGHT_TIMEOUT = 10         -- через сколько сек. без ударов по бруде бой (и музыка) заканчивается
+BRUDSKOE_FIGHT_MUSIC_LENGTH = 0     -- длина трека в сек.: если > 0, трек повторяется, пока идёт бой
 BRUDSKOE_SPAWN_PARTICLE = "particles/units/heroes/hero_broodmother/broodmother_spiderlings_spawn.vpcf"
 BRUDSKOE_COLOR = Vector(25, 25, 30)
 
@@ -144,6 +152,11 @@ function BrudskoeBoss:Think(unit)
 
     local home = unit.BrudskoeHome
 
+    if unit.BrudskoeFighting
+        and GameRules:GetGameTime() - (unit.BrudskoeLastHit or 0) > BRUDSKOE_FIGHT_TIMEOUT then
+        self:StopFight(unit)
+    end
+
     if unit.BrudskoeReturning then
         if (unit:GetAbsOrigin() - home):Length2D() < 200 then
             unit.BrudskoeReturning = false
@@ -156,11 +169,51 @@ function BrudskoeBoss:Think(unit)
 
     if (unit:GetAbsOrigin() - home):Length2D() > BRUDSKOE_LEASH_RANGE then
         unit.BrudskoeReturning = true
+        self:StopFight(unit)
         unit:Stop()
         unit:MoveToPosition(home)
     end
 
     return 0.5
+end
+
+--------------------------------------------------------------------------------
+-- БОЙ И МУЗЫКА
+--------------------------------------------------------------------------------
+
+function BrudskoeBoss:OnFightHit(boss)
+    boss.BrudskoeLastHit = GameRules:GetGameTime()
+
+    -- Пока бежит в логово лечиться, бой заново не начинается
+    if boss.BrudskoeFighting or boss.BrudskoeReturning then
+        return
+    end
+
+    boss.BrudskoeFighting = true
+    boss.BrudskoeMusicId = (boss.BrudskoeMusicId or 0) + 1
+    local music_id = boss.BrudskoeMusicId
+
+    EmitGlobalSound(BRUDSKOE_FIGHT_MUSIC)
+    Announce("Началась битва с Брудским!")
+
+    if BRUDSKOE_FIGHT_MUSIC_LENGTH > 0 then
+        Timers:CreateTimer(BRUDSKOE_FIGHT_MUSIC_LENGTH, function()
+            if boss:IsNull() or not boss.BrudskoeFighting or boss.BrudskoeMusicId ~= music_id then
+                return nil
+            end
+            EmitGlobalSound(BRUDSKOE_FIGHT_MUSIC)
+            return BRUDSKOE_FIGHT_MUSIC_LENGTH
+        end)
+    end
+end
+
+function BrudskoeBoss:StopFight(boss)
+    if not boss.BrudskoeFighting then
+        return
+    end
+
+    boss.BrudskoeFighting = false
+    StopGlobalSound(BRUDSKOE_FIGHT_MUSIC)
 end
 
 --------------------------------------------------------------------------------
@@ -272,7 +325,7 @@ function BrudskoeBoss:OnDeath(boss)
         end
     end
 
-    EmitGlobalSound(BRUDSKOE_DEATH_MUSIC)
+    self:StopFight(boss)
     Announce("Брудское повержена... но её детишки расползлись по всей карте!")
 
     local spawned = 0
@@ -336,12 +389,13 @@ function modifier_brudskoe_carapace:OnTakeDamage(params)
         return
     end
 
-    -- Запоминаем команду последнего ударившего героя (для награды)
+    -- Удар от игроков: запоминаем команду (для награды) и запускаем/продлеваем бой с музыкой
     local attacker = params.attacker
     if attacker and not attacker:IsNull() then
         local team = attacker:GetTeamNumber()
         if team == DOTA_TEAM_GOODGUYS or team == DOTA_TEAM_BADGUYS then
             boss.BrudskoeKillerTeam = team
+            BrudskoeBoss:OnFightHit(boss)
         end
     end
 

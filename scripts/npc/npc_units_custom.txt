@@ -571,6 +571,18 @@
     "HealthBarOffset"           "300"
     "IsAncient"                 "1"
     "CanBeDominated"            "0"
+
+    // Сет Widow of the Undermount Gloom (ID предметов из items_game)
+    "Creature"
+    {
+      "AttachWearables"
+      {
+        "Wearable1"   { "ItemDef" "19776" }   // Anterior
+        "Wearable2"   { "ItemDef" "19777" }   // Legs
+        "Wearable3"   { "ItemDef" "19779" }   // Head
+        "Wearable4"   { "ItemDef" "19780" }   // Back
+      }
+    }
   }
 
   "npc_brudskoe_spider"
