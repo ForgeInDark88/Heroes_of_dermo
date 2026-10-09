@@ -18,7 +18,7 @@
 	</snippets>
 
 	<Panel class="TeamSelectRoot">
-		<Panel id="Background" />
+		<Image id="Background" src="file://{images}/custom_game/team_select/versus.png" scaling="stretch-to-cover-preserve-aspect" />
 		<Panel id="BackgroundShade" />
 
 		<Panel id="Header">
@@ -38,8 +38,11 @@
 			</Panel>
 
 			<Panel id="Versus">
-				<Panel id="ArtHalfRadiant" class="ArtHalf" />
-				<Panel id="ArtHalfDire" class="ArtHalf" />
+				<Image id="VersusArt" src="file://{images}/custom_game/team_select/versus.png" scaling="stretch-to-fit-preserve-aspect" />
+				<Panel id="ArtHalves">
+					<Panel id="ArtHalfRadiant" class="ArtHalf" />
+					<Panel id="ArtHalfDire" class="ArtHalf" />
+				</Panel>
 			</Panel>
 
 			<!-- Правая (красная) сторона картинки = Dire -->
