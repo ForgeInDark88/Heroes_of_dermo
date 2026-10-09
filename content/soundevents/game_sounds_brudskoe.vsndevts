@@ -1,0 +1,12 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	// Музыка боя с Брудским (units/brudskoe_boss.lua).
+	// Файл трека: content/dota_addons/<аддон>/sounds/music/brudskoe_fight.wav (или .mp3)
+	// volume — громкость: 1.0 = как в файле, 0.35 = заметно тише. Подбирай на слух.
+	brudskoe_fight_music =
+	{
+		type = "dota_src1_2d"
+		volume = 0.35
+		vsnd_files = "sounds/music/brudskoe_fight.vsnd"
+	}
+}
