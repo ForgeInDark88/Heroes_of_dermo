@@ -100,6 +100,23 @@ function Precache(context)
         "particles/items2_fx/manta_phase.vpcf",
         "particles/units/heroes/hero_queenofpain/queen_scream_of_pain.vpcf",
         "particles/units/heroes/hero_dark_seer/dark_seer_surge.vpcf",
+
+        -- Русик
+        "particles/units/heroes/hero_obsidian_destroyer/obsidian_destroyer_prison.vpcf",
+        "particles/units/heroes/hero_obsidian_destroyer/obsidian_destroyer_prison_end_dmg.vpcf",
+        "particles/units/heroes/hero_skywrath_mage/skywrath_mage_concussive_shot.vpcf",
+        "particles/units/heroes/hero_medusa/medusa_stone_gaze_debuff_stoned.vpcf",
+        "particles/status_fx/status_effect_medusa_stone_gaze.vpcf",
+        "particles/units/heroes/hero_huskar/huskar_burning_spear_debuff.vpcf",
+        "particles/items3_fx/warmage.vpcf",
+        "particles/items3_fx/warmage_recipient.vpcf",
+        "particles/units/heroes/hero_lone_druid/lone_druid_savage_roar.vpcf",
+        "particles/units/heroes/hero_lone_druid/lone_druid_savage_roar_debuff.vpcf",
+        "particles/status_fx/status_effect_lone_druid_savage_roar.vpcf",
+        "particles/units/heroes/hero_mars/mars_arena_of_blood.vpcf",
+        "particles/units/heroes/hero_zuus/zuus_lightning_bolt.vpcf",
+        "particles/units/heroes/hero_troll_warlord/troll_warlord_battletrance_buff.vpcf",
+        "particles/generic_gameplay/lasthit_coins.vpcf",
     }
     for _, particle in ipairs(hero_particles) do
         PrecacheResource("particle", particle, context)
@@ -117,6 +134,16 @@ function Precache(context)
         "soundevents/game_sounds_heroes/game_sounds_pudge.vsndevts",
         "soundevents/game_sounds_heroes/game_sounds_axe.vsndevts",
         "soundevents/game_sounds_heroes/game_sounds_antimage.vsndevts",
+
+        -- Русик
+        "soundevents/game_sounds_heroes/game_sounds_obsidian_destroyer.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_skywrath_mage.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_medusa.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_huskar.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_lone_druid.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_legion_commander.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_zuus.vsndevts",
+        "soundevents/game_sounds_items.vsndevts",
     }
     for _, sound in ipairs(hero_sounds) do
         PrecacheResource("soundfile", sound, context)

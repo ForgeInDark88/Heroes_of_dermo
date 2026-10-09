@@ -12,4 +12,5 @@
   "npc_dota_hero_pudge"     "1"
   "npc_dota_hero_hoodwink"  "1"
   "npc_dota_hero_antimage"  "1"
+  "npc_dota_hero_obsidian_destroyer"  "1"
 }
