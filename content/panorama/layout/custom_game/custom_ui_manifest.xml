@@ -6,5 +6,8 @@
 		<!-- Начало игры: выбор героя, затем гильдии -->
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/hero_select.xml" />
 		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/guild_select.xml" />
+
+		<!-- Ульта Супрунова с аганимом: меню выбора трека -->
+		<CustomUIElement type="Hud" layoutfile="file://{resources}/layout/custom_game/suprunov_music.xml" />
 	</Panel>
 </root>
