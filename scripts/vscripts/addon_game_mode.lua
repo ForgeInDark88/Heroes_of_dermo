@@ -100,6 +100,9 @@ function Precache(context)
         "particles/items2_fx/manta_phase.vpcf",
         "particles/units/heroes/hero_queenofpain/queen_scream_of_pain.vpcf",
         "particles/units/heroes/hero_dark_seer/dark_seer_surge.vpcf",
+        "particles/units/heroes/hero_wisp/wisp_relocate_channel.vpcf",
+        "particles/units/heroes/hero_wisp/wisp_relocate_teleport.vpcf",
+        "particles/units/heroes/hero_wisp/wisp_relocate_marker.vpcf",
 
         -- Русик
         "particles/units/heroes/hero_obsidian_destroyer/obsidian_destroyer_base_attack.vpcf",
@@ -133,6 +136,7 @@ function Precache(context)
         "soundevents/game_sounds_heroes/game_sounds_pudge.vsndevts",
         "soundevents/game_sounds_heroes/game_sounds_axe.vsndevts",
         "soundevents/game_sounds_heroes/game_sounds_antimage.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_wisp.vsndevts",
         "soundevents/game_sounds_heroes/game_sounds_obsidian_destroyer.vsndevts",
         "soundevents/game_sounds_heroes/game_sounds_medusa.vsndevts",
         "soundevents/game_sounds_heroes/game_sounds_huskar.vsndevts",
