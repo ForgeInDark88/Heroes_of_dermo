@@ -6,8 +6,9 @@
 --   * Победил противник — Русик и союзники-участники получают урон.
 -- Победитель: сторона, у которой остались живые (или к концу турнира
 -- больше средний % здоровья).
--- Если на арене всего один противник (или нет ни одного союзника),
--- турнир отменяется: врагам просто наносится урон и оглушение.
+-- Турнир идёт и 1 на 1. Если противнику не с кем драться (на арене нет ни
+-- одного союзного героя, включая самого Русика), турнир отменяется: врагам
+-- просто наносится урон и оглушение.
 
 rusik_forgeinleague = class({})
 
@@ -50,7 +51,7 @@ function rusik_forgeinleague:OnSpellStart()
     local allies = FindRealHeroes(caster, center, radius,
         DOTA_UNIT_TARGET_TEAM_FRIENDLY, DOTA_UNIT_TARGET_FLAG_NONE)
 
-    if #enemies <= 1 or #allies == 0 then
+    if #enemies == 0 or #allies == 0 then
         self:CancelTournament(center, radius, enemies)
         return
     end
