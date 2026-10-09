@@ -27,7 +27,7 @@
 
 	<Panel class="HeroSelectRoot" hittest="false">
 		<Panel id="HeroSelect">
-			<Panel id="HSBackground" />
+			<Image id="HSBackground" src="file://{images}/custom_game/team_select/versus.png" scaling="stretch-to-cover-preserve-aspect" />
 			<Panel id="HSShade" />
 
 			<Panel id="HSHeader">

@@ -1,25 +1,26 @@
 "use strict";
 
-// Свой выбор героя. Данные и логика — на сервере (scripts/vscripts/hero_selection.lua),
-// здесь только окно: net table "hero_selection" -> карточки, клик -> событие на сервер.
+// Custom hero selection. Data and logic live on the server (scripts/vscripts/hero_selection.lua);
+// this is only the window: net table "hero_selection" -> cards, click -> event to the server.
+// Keep this file ASCII-only: Russian texts live in resource/addon_english.txt (#hero_select_*).
 
 var ATTRIBUTES = {
-	DOTA_ATTRIBUTE_STRENGTH: { text: "СИЛА", cls: "attr_str" },
-	DOTA_ATTRIBUTE_AGILITY: { text: "ЛОВКОСТЬ", cls: "attr_agi" },
-	DOTA_ATTRIBUTE_INTELLECT: { text: "ИНТЕЛЛЕКТ", cls: "attr_int" },
-	DOTA_ATTRIBUTE_ALL: { text: "УНИВЕРСАЛ", cls: "attr_all" },
+	DOTA_ATTRIBUTE_STRENGTH: { text: "#hero_select_attr_str", cls: "attr_str" },
+	DOTA_ATTRIBUTE_AGILITY: { text: "#hero_select_attr_agi", cls: "attr_agi" },
+	DOTA_ATTRIBUTE_INTELLECT: { text: "#hero_select_attr_int", cls: "attr_int" },
+	DOTA_ATTRIBUTE_ALL: { text: "#hero_select_attr_all", cls: "attr_all" },
 };
 
 var TEAM_PICKS = [
-	{ id: DOTATeam_t.DOTA_TEAM_GOODGUYS, panel: "#RadiantPicks" },
-	{ id: DOTATeam_t.DOTA_TEAM_BADGUYS, panel: "#DirePicks" },
+	{ id: 2, panel: "#RadiantPicks" },
+	{ id: 3, panel: "#DirePicks" },
 ];
 
 var heroes = [];
 var cards = {};
 var selectedHero = null;
 
-// Net table превращает Lua-массивы в объекты { "1": ..., "2": ... }
+// Net tables turn Lua arrays into objects { "1": ..., "2": ... }
 function ToArray( obj )
 {
 	var result = [];
@@ -35,6 +36,8 @@ function ToArray( obj )
 
 function GetState()
 {
+	$.Msg( "[hero_select] loaded" );
+
 	return CustomNetTables.GetTableValue( "hero_selection", "state" ) || {};
 }
 
@@ -45,6 +48,8 @@ function GetPicks()
 
 function FindHero( name )
 {
+	$.Msg( "[hero_select] loaded" );
+
 	for ( var i = 0; i < heroes.length; i++ )
 	{
 		if ( heroes[i].name === name )
@@ -53,7 +58,7 @@ function FindHero( name )
 	return null;
 }
 
-// Кто взял героя: { имя героя: playerID }
+// Who took which hero: { hero name: playerID }
 function GetTakenBy()
 {
 	var picks = GetPicks();
@@ -65,6 +70,8 @@ function GetTakenBy()
 
 function IsTaken( name )
 {
+	$.Msg( "[hero_select] loaded" );
+
 	return !GetState().allow_same && GetTakenBy()[name] !== undefined;
 }
 
@@ -103,6 +110,8 @@ function BuildGrid()
 
 function SelectHero( name )
 {
+	$.Msg( "[hero_select] loaded" );
+
 	var hero = FindHero( name );
 	if ( !hero )
 		return;
@@ -117,7 +126,7 @@ function SelectHero( name )
 
 	var attribute = ATTRIBUTES[hero.attribute];
 	var attributeLabel = $( "#PreviewAttribute" );
-	attributeLabel.text = attribute ? attribute.text : "";
+	attributeLabel.text = attribute ? $.Localize( attribute.text ) : "";
 	for ( var key in ATTRIBUTES )
 		attributeLabel.SetHasClass( ATTRIBUTES[key].cls, attribute === ATTRIBUTES[key] );
 
@@ -143,6 +152,8 @@ function UpdatePickButton()
 
 function UpdatePicks()
 {
+	$.Msg( "[hero_select] loaded" );
+
 	var picks = GetPicks();
 	var takenBy = GetTakenBy();
 	var allowSame = !!GetState().allow_same;
@@ -179,6 +190,8 @@ function UpdatePicks()
 
 function PickSelected()
 {
+	$.Msg( "[hero_select] loaded" );
+
 	if ( !selectedHero || IsTaken( selectedHero ) )
 		return;
 
@@ -187,6 +200,8 @@ function PickSelected()
 
 function PickRandom()
 {
+	$.Msg( "[hero_select] loaded" );
+
 	GameEvents.SendCustomGameEventToServer( "hero_selection_random", {} );
 }
 
@@ -210,6 +225,8 @@ function Update()
 
 ( function ()
 {
+	$.Msg( "[hero_select] loaded" );
+
 	$( "#PickButton" ).SetPanelEvent( "onactivate", PickSelected );
 	$( "#RandomButton" ).SetPanelEvent( "onactivate", PickRandom );
 

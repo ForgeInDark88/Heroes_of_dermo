@@ -1,11 +1,12 @@
 "use strict";
 
-// Выбор гильдии после выбора героя. Логика — на сервере (scripts/vscripts/guilds.lua).
-// Названия и описания: "#guild_<id>" и "#guild_<id>_description" в addon_english.txt.
+// Guild selection after the hero is picked. Logic lives on the server (scripts/vscripts/guilds.lua).
+// Names and descriptions: "#guild_<id>" and "#guild_<id>_description" in addon_english.txt.
+// Keep this file ASCII-only: Russian texts live in resource/addon_english.txt.
 
 var GUILD_NONE = "none";
 
-// Net table превращает Lua-массивы в объекты { "1": ..., "2": ... }
+// Net tables turn Lua arrays into objects { "1": ..., "2": ... }
 function ToArray( obj )
 {
 	var result = [];
@@ -21,6 +22,8 @@ function ToArray( obj )
 
 function CreateCard( guild )
 {
+	$.Msg( "[guild_select] loaded" );
+
 	var card = $.CreatePanel( "Panel", $( "#GuildCards" ), "" );
 	card.BLoadLayoutSnippet( "GuildCard" );
 	card.SetHasClass( "no_guild", guild.id === GUILD_NONE );
@@ -42,7 +45,7 @@ function CreateCard( guild )
 	card.FindChildTraverse( "GuildDescription" ).text = $.Localize( "#guild_" + guild.id + "_description" );
 
 	if ( guild.id === GUILD_NONE )
-		card.FindChildTraverse( "GuildJoinLabel" ).text = "ОСТАТЬСЯ ОДНОМУ";
+		card.FindChildTraverse( "GuildJoinLabel" ).text = $.Localize( "#guild_none_join" );
 
 	var join = card.FindChildTraverse( "GuildJoin" );
 	join.SetPanelEvent( "onactivate", function ()
@@ -53,13 +56,15 @@ function CreateCard( guild )
 
 function BuildCards()
 {
+	$.Msg( "[guild_select] loaded" );
+
 	$( "#GuildCards" ).RemoveAndDeleteChildren();
 
 	ToArray( CustomNetTables.GetTableValue( "guilds", "list" ) ).forEach( CreateCard );
 	CreateCard( { id: GUILD_NONE, icon: "" } );
 }
 
-// Окно показывается, когда игрок уже выбрал героя (или свой выбор героя выключен)
+// Shown once the player has a hero (or custom hero selection is disabled)
 function IsHeroChosen( localId )
 {
 	var heroState = CustomNetTables.GetTableValue( "hero_selection", "state" ) || {};
@@ -93,6 +98,8 @@ function Update()
 
 ( function ()
 {
+	$.Msg( "[guild_select] loaded" );
+
 	CustomNetTables.SubscribeNetTableListener( "guilds", function ( table, key, data )
 	{
 		if ( key === "list" )
