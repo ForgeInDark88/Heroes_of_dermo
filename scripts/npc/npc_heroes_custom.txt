@@ -432,4 +432,50 @@
         "StatusHealthRegen" "1"
         "StatusManaRegen" "0.5"
     }
+
+    // Данил (сила), моделька Luna
+    "npc_dota_hero_danil"
+    {
+        "override_hero" "npc_dota_hero_luna"
+        "Enabled" "1"
+
+        "Ability1" "danil_akkbaer"
+        "Ability2" "danil_son_yablochek"
+        "Ability3" "danil_vozduhan"
+        "Ability4" ""
+        "Ability5" "danil_intimki"
+        "Ability6" "danil_son_24"
+        "Ability7" ""
+        "Ability8" ""
+        "Ability9" ""
+
+        "Ability10" "special_bonus_unique_danil_strength"
+        "Ability11" "special_bonus_unique_danil_intimki_chance"
+        "Ability12" "special_bonus_unique_danil_akkbaer_damage"
+        "Ability13" "special_bonus_unique_danil_vozduhan_damage"
+        "Ability14" "special_bonus_unique_danil_son_yablochek_reduction"
+        "Ability15" "special_bonus_unique_danil_son_24_duration"
+        "Ability16" "special_bonus_unique_danil_intimki_silence"
+        "Ability17" "special_bonus_unique_danil_son_24_damage"
+
+        "AttributePrimary" "DOTA_ATTRIBUTE_STRENGTH"
+        "AttributeBaseStrength" "23"
+        "AttributeStrengthGain" "3.0"
+        "AttributeBaseAgility" "17"
+        "AttributeAgilityGain" "1.8"
+        "AttributeBaseIntelligence" "18"
+        "AttributeIntelligenceGain" "1.6"
+
+        "AttackCapabilities" "DOTA_UNIT_CAP_RANGED_ATTACK"
+        "AttackDamageMin" "22"
+        "AttackDamageMax" "28"
+        "AttackRate" "1.7"
+        "BaseAttackSpeed" "100"
+        "AttackRange" "330"
+
+        "ArmorPhysical" "1"
+        "MovementSpeed" "305"
+        "StatusHealthRegen" "1"
+        "StatusManaRegen" "0.4"
+    }
 }

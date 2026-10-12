@@ -44,6 +44,10 @@ print('[BRUDSKOE] boss module loaded')
 require('units/alko_guild')
 print('[ALKO_GUILD] module loaded')
 
+require('units/vetmo_guild')
+require('guild_perks')
+print('[GUILDS] vetmo / perks loaded')
+
 require('guilds')
 require('hero_selection')
 print('[CUSTOM_GAME] guilds / hero_selection loaded')
@@ -86,6 +90,7 @@ function GameMode:OnGameInProgress()
     Stray228Boss:Spawn()
     BrudskoeBoss:Spawn()
     AlkoGuild:Spawn()
+    VetmoGuild:Spawn()
 
 
     GameMode:StartDayNightCycle()
@@ -254,6 +259,9 @@ function GameMode:WaveMobs()
     for _, point in ipairs(WAVE_POINTS) do
         self:SpawnWaveAtPoint(point.name, point.team, big[point.name] == true)
     end
+
+    -- Нефоры гильдии Ветмо выходят вместе с волной (units/vetmo_guild.lua)
+    VetmoGuild:SpawnNefors()
 end
 
 --------------------------------------------------------------------------------
@@ -701,6 +709,16 @@ function GameMode:InitGameMode()
             AlkoGuild:Spawn(hero:GetAbsOrigin() + hero:GetForwardVector() * 400)
         end,
         "Spawn Alko Guild in front of your hero",
+        FCVAR_CHEAT
+    )
+
+    Convars:RegisterCommand(
+        "spawn_vetmo_nefors",
+        function()
+            VetmoGuild:Spawn()
+            VetmoGuild:SpawnNefors()
+        end,
+        "Spawn Vetmo guild buildings (if missing) and a nefor wave",
         FCVAR_CHEAT
     )
 

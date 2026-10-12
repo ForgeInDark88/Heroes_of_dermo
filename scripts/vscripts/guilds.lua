@@ -22,7 +22,10 @@ GUILD_NONE = "none"
 -- image — своя картинка вместо icon, например "file://{images}/custom_game/guilds/alko.png"
 --         (файл кладётся в content/.../panorama/images/custom_game/guilds/alko.png).
 GUILD_LIST = {
-    { id = "alko", icon = "brewmaster_drunken_brawler" },
+    { id = "alko",   icon = "brewmaster_drunken_brawler" },
+    { id = "vetmo",  icon = "undying_tombstone" },
+    { id = "slyuni", icon = "bristleback_viscous_nasal_goo" },
+    { id = "anime",  icon = "marci_unleash" },
 }
 
 function Guilds:Init()
@@ -81,11 +84,19 @@ function Guilds:OnSelect(playerID, guild_id)
 
     print("[GUILDS] Player " .. playerID .. " -> " .. guild_id)
 
-    -- Значок гильдии на уже появившегося героя (новым героям его вешает OnNPCSpawned)
+    -- Значок и бонусы гильдии на уже появившегося героя (новым героям их вешает OnNPCSpawned)
     local hero = PlayerResource:GetSelectedHeroEntity(playerID)
-    if hero and AlkoGuild then
-        AlkoGuild:OnNPCSpawned(hero)
+    if hero then
+        self:OnNPCSpawned(hero)
     end
+end
+
+-- Вызывается при спавне любого NPC (events.lua) и при выборе гильдии:
+-- каждая гильдия вешает своим членам значок / бонусы
+function Guilds:OnNPCSpawned(npc)
+    if AlkoGuild then AlkoGuild:OnNPCSpawned(npc) end
+    if VetmoGuild then VetmoGuild:OnNPCSpawned(npc) end
+    if GuildPerks then GuildPerks:OnNPCSpawned(npc) end
 end
 
 function Guilds:GetPlayerGuild(playerID)

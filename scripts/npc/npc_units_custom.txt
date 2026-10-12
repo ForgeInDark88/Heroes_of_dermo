@@ -774,4 +774,80 @@
     "CanBeDominated"            "0"
     "ConsideredHero"            "0"
   }
+
+  // Гильдия Ветмо: надгробие на базе (units/vetmo_guild.lua)
+  "npc_vetmo_guild"
+  {
+    "BaseClass"                 "npc_dota_creature"
+    "Model"                     "models/heroes/undying/undying_tower.vmdl"
+    "ModelScale"                "1.6"
+    "Level"                     "1"
+    "UnitLabel"                 "vetmo_guild"
+
+    "StatusHealth"              "5000"
+    "StatusHealthRegen"         "0"
+    "StatusMana"                "0"
+    "ArmorPhysical"             "0"
+    "MagicalResistance"         "0"
+
+    "AttackCapabilities"        "DOTA_UNIT_CAP_NO_ATTACK"
+    "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_NONE"
+    "MovementSpeed"             "0"
+    "BoundsHullName"            "DOTA_HULL_SIZE_BUILDING"
+    "RingRadius"                "120"
+
+    "VisionDaytimeRange"        "600"
+    "VisionNighttimeRange"      "600"
+
+    "BountyGoldMin"             "0"
+    "BountyGoldMax"             "0"
+    "BountyXP"                  "0"
+
+    "HealthBarOffset"           "250"
+    "CanBeDominated"            "0"
+    "ConsideredHero"            "0"
+  }
+
+  // Нефор: зомби гильдии Ветмо, идёт по лайну как обычный крип
+  "npc_vetmo_nefor"
+  {
+    "BaseClass"                 "npc_dota_creep_lane"
+    "Model"                     "models/heroes/undying/undying_minion.vmdl"
+    "ModelScale"                "0.9"
+    "Level"                     "1"
+    "UnitLabel"                 "vetmo_nefor"
+    "SoundSet"                  "Creep_Bad_Melee"
+
+    "StatusHealth"              "450"
+    "StatusHealthRegen"         "0.5"
+    "StatusMana"                "0"
+    "ArmorPhysical"             "2"
+    "MagicalResistance"         "0"
+
+    "AttackCapabilities"        "DOTA_UNIT_CAP_MELEE_ATTACK"
+    "AttackDamageMin"           "20"
+    "AttackDamageMax"           "24"
+    "AttackDamageType"          "DAMAGE_TYPE_ArmorPhysical"
+    "AttackRate"                "1.2"
+    "AttackAnimationPoint"      "0.467"
+    "AttackAcquisitionRange"    "500"
+    "AttackRange"               "100"
+
+    "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
+    "MovementSpeed"             "325"
+    "MovementTurnRate"          "0.5"
+    "BoundsHullName"            "DOTA_HULL_SIZE_REGULAR"
+    "RingRadius"                "45"
+
+    "VisionDaytimeRange"        "750"
+    "VisionNighttimeRange"      "750"
+
+    "BountyGoldMin"             "20"
+    "BountyGoldMax"             "26"
+    "BountyXP"                  "57"
+
+    "HealthBarOffset"           "160"
+    "CanBeDominated"            "1"
+    "ConsideredHero"            "0"
+  }
 }

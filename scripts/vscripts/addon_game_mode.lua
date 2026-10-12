@@ -104,6 +104,18 @@ function Precache(context)
         "particles/units/heroes/hero_wisp/wisp_relocate_teleport.vpcf",
         "particles/units/heroes/hero_wisp/wisp_relocate_marker.vpcf",
 
+        -- Данил
+        "particles/units/heroes/hero_sven/sven_spell_gods_strength_ambient.vpcf",
+        "particles/units/heroes/hero_invoker/invoker_deafening_blast.vpcf",
+        "particles/units/heroes/hero_invoker/invoker_deafening_blast_knockback_debuff.vpcf",
+        "particles/units/heroes/hero_enigma/enigma_midnight_pulse.vpcf",
+        "particles/generic_gameplay/generic_sleep.vpcf",
+
+        -- Гильдии: Ветмо, Слюни, Анимешники
+        "particles/units/heroes/hero_undying/undying_zombie_spawn.vpcf",
+        "particles/units/heroes/hero_bristleback/bristleback_viscous_nasal_goo_debuff.vpcf",
+        "particles/items2_fx/mask_of_madness.vpcf",
+
         -- Русик
         "particles/units/heroes/hero_obsidian_destroyer/obsidian_destroyer_base_attack.vpcf",
         "particles/units/heroes/hero_obsidian_destroyer/obsidian_destroyer_prison.vpcf",
@@ -137,6 +149,9 @@ function Precache(context)
         "soundevents/game_sounds_heroes/game_sounds_axe.vsndevts",
         "soundevents/game_sounds_heroes/game_sounds_antimage.vsndevts",
         "soundevents/game_sounds_heroes/game_sounds_wisp.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_sven.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_invoker.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_luna.vsndevts",
         "soundevents/game_sounds_heroes/game_sounds_obsidian_destroyer.vsndevts",
         "soundevents/game_sounds_heroes/game_sounds_medusa.vsndevts",
         "soundevents/game_sounds_heroes/game_sounds_huskar.vsndevts",
@@ -151,6 +166,8 @@ function Precache(context)
     PrecacheUnitByNameSync("npc_dota_custom_creeper1", context)       -- Ебанный брат Попчика
     PrecacheUnitByNameSync("npc_suprunov_ender_eidolon", context)     -- Эндер Вася
     PrecacheUnitByNameSync("npc_alko_guild", context)                 -- Гильдия алкашей
+    PrecacheUnitByNameSync("npc_vetmo_guild", context)                -- Гильдия Ветмо
+    PrecacheUnitByNameSync("npc_vetmo_nefor", context)                -- Нефор (Ветмо)
     PrecacheResource("model", "models/props_structures/radiant_ranged_barracks001.vmdl", context)
     PrecacheResource("particle", "particles/units/heroes/hero_brewmaster/brewmaster_thunder_clap.vpcf", context)
     PrecacheResource("model", "models/creeps/neutral_creeps/n_creep_worg_small/n_creep_worg_small.vmdl", context)
