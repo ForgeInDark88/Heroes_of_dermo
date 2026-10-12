@@ -111,6 +111,13 @@ function Precache(context)
         "particles/units/heroes/hero_enigma/enigma_midnight_pulse.vpcf",
         "particles/generic_gameplay/generic_sleep.vpcf",
 
+        -- Катька
+        "particles/items_fx/immunity_sphere.vpcf",
+        "particles/units/heroes/hero_axe/axe_beserkers_call_owner.vpcf",
+        "particles/status_fx/status_effect_beserkers_call.vpcf",
+        "particles/units/heroes/hero_windrunner/windrunner_windrun.vpcf",
+        "particles/items2_fx/heavens_halberd_debuff.vpcf",
+
         -- Гильдии: Ветмо, Слюни, Анимешники
         "particles/units/heroes/hero_undying/undying_zombie_spawn.vpcf",
         "particles/units/heroes/hero_bristleback/bristleback_viscous_nasal_goo_debuff.vpcf",
@@ -152,6 +159,8 @@ function Precache(context)
         "soundevents/game_sounds_heroes/game_sounds_sven.vsndevts",
         "soundevents/game_sounds_heroes/game_sounds_invoker.vsndevts",
         "soundevents/game_sounds_heroes/game_sounds_luna.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_beastmaster.vsndevts",
+        "soundevents/game_sounds_heroes/game_sounds_silencer.vsndevts",
         "soundevents/game_sounds_heroes/game_sounds_obsidian_destroyer.vsndevts",
         "soundevents/game_sounds_heroes/game_sounds_medusa.vsndevts",
         "soundevents/game_sounds_heroes/game_sounds_huskar.vsndevts",
@@ -168,6 +177,8 @@ function Precache(context)
     PrecacheUnitByNameSync("npc_alko_guild", context)                 -- Гильдия алкашей
     PrecacheUnitByNameSync("npc_vetmo_guild", context)                -- Гильдия Ветмо
     PrecacheUnitByNameSync("npc_vetmo_nefor", context)                -- Нефор (Ветмо)
+    PrecacheUnitByNameSync("npc_katka_garik", context)                -- Гарик (Катька)
+    PrecacheUnitByNameSync("npc_katka_bonnya", context)               -- Боня (Катька)
     PrecacheResource("model", "models/props_structures/radiant_ranged_barracks001.vmdl", context)
     PrecacheResource("particle", "particles/units/heroes/hero_brewmaster/brewmaster_thunder_clap.vpcf", context)
     PrecacheResource("model", "models/creeps/neutral_creeps/n_creep_worg_small/n_creep_worg_small.vmdl", context)
@@ -185,6 +196,7 @@ function Precache(context)
     PrecacheResource("particle", "particles/generic_gameplay/generic_lifesteal.vpcf", context)
     PrecacheResource("soundfile", "soundevents/game_sounds_heroes/game_sounds_broodmother.vsndevts", context)
     PrecacheResource("soundfile", "soundevents/game_sounds_brudskoe.vsndevts", context)   -- музыка боя
+    PrecacheResource("soundfile", "soundevents/game_sounds_suprunov.vsndevts", context)   -- трек PHONK Супрунова
 
     -- Ульта Супрунова: трек opa (взрыв Шивы)
     PrecacheResource("particle", "particles/items2_fx/shivas_guard_active.vpcf", context)

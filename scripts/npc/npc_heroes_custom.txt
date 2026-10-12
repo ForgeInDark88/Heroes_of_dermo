@@ -478,4 +478,50 @@
         "StatusHealthRegen" "1"
         "StatusManaRegen" "0.4"
     }
+
+    // Катька (ловкость), моделька Windranger
+    "npc_dota_hero_katka"
+    {
+        "override_hero" "npc_dota_hero_windrunner"
+        "Enabled" "1"
+
+        "Ability1" "katka_garik"
+        "Ability2" "katka_bonnya"
+        "Ability3" "katka_insta_block"
+        "Ability4" ""
+        "Ability5" "katka_soy_meat"
+        "Ability6" "katka_color_change"
+        "Ability7" ""
+        "Ability8" ""
+        "Ability9" ""
+
+        "Ability10" "special_bonus_unique_katka_agility"
+        "Ability11" "special_bonus_unique_katka_garik_hp"
+        "Ability12" "special_bonus_unique_katka_bonnya_damage"
+        "Ability13" "special_bonus_unique_katka_soy_meat_cd"
+        "Ability14" "special_bonus_unique_katka_insta_block_damage"
+        "Ability15" "special_bonus_unique_katka_garik_agr"
+        "Ability16" "special_bonus_unique_katka_color_damage"
+        "Ability17" "special_bonus_unique_katka_color_speed"
+
+        "AttributePrimary" "DOTA_ATTRIBUTE_AGILITY"
+        "AttributeBaseStrength" "18"
+        "AttributeStrengthGain" "2.2"
+        "AttributeBaseAgility" "22"
+        "AttributeAgilityGain" "3.0"
+        "AttributeBaseIntelligence" "18"
+        "AttributeIntelligenceGain" "1.9"
+
+        "AttackCapabilities" "DOTA_UNIT_CAP_RANGED_ATTACK"
+        "AttackDamageMin" "18"
+        "AttackDamageMax" "26"
+        "AttackRate" "1.5"
+        "BaseAttackSpeed" "100"
+        "AttackRange" "600"
+
+        "ArmorPhysical" "0"
+        "MovementSpeed" "300"
+        "StatusHealthRegen" "1"
+        "StatusManaRegen" "0.5"
+    }
 }

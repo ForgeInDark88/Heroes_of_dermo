@@ -1,0 +1,12 @@
+<!-- kv3 encoding:text:version{e21c7f3c-8a33-41c5-9977-a76d3a32aa0d} format:generic:version{7412167c-06e9-4698-aff2-e63eb59037e7} -->
+{
+	// Трек PHONK для ульты Супрунова с аганимом (abilities/custom_earthquake_bounce.lua).
+	// Файл трека: content/dota_addons/<аддон>/sounds/music/suprunov_phonk.wav (или .mp3)
+	// volume — громкость: 1.0 = как в файле. Подбирай на слух.
+	suprunov_phonk =
+	{
+		type = "dota_src1_3d"
+		volume = 1.0
+		vsnd_files = "sounds/music/suprunov_phonk.vsnd"
+	}
+}

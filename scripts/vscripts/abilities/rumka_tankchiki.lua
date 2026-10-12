@@ -22,6 +22,21 @@ modifier_rumka_tankchiki = class({})
 
 function modifier_rumka_tankchiki:IsHidden() return true end
 function modifier_rumka_tankchiki:IsPurgable() return false end
+function modifier_rumka_tankchiki:RemoveOnDeath() return false end
+
+-- Уровень врождёнки подтягивается к уровню ульты сам, без атак
+function modifier_rumka_tankchiki:OnCreated()
+    if not IsServer() then return end
+    self:OnIntervalThink()
+    self:StartIntervalThink(0.5)
+end
+
+function modifier_rumka_tankchiki:OnIntervalThink()
+    local ability = self:GetAbility()
+    if ability and not ability:IsNull() then
+        ability:SyncLevelWithUltimate()
+    end
+end
 
 function modifier_rumka_tankchiki:DeclareFunctions()
     return { MODIFIER_EVENT_ON_ATTACK_LANDED }

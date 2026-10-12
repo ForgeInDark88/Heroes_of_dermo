@@ -10,22 +10,32 @@ LinkLuaModifier(
     LUA_MODIFIER_MOTION_NONE
 )
 
+LinkLuaModifier(
+    "modifier_suprunov_phonk_debuff",
+    "abilities/custom_earthquake_bounce",
+    LUA_MODIFIER_MOTION_NONE
+)
+
 --------------------------------------------------------------------------------
 -- ТРЕКИ
--- Без аганима ульта всегда играет chronoshift. С аганимом при касте у игрока
--- открывается меню выбора трека (panorama: suprunov_music.*), и от трека зависит ульта:
---   chronoshift — обычная ульта со станами
---   terra       — без станов и подбрасываний, КД предметов не больше scepter_item_cooldown, герой светится
---   opa         — +opa_spell_amp% к урону от магии и взрыв Шивы вокруг героя (даже без Шивы)
+-- Без аганима ульта всегда играет chronoshift (обычная ульта со станами).
+-- С аганимом при касте у игрока открывается меню выбора трека (panorama: suprunov_music.*),
+-- chronoshift в нём нет — вместо него phonk. От трека зависит ульта:
+--   phonk  — без станов: волны притягивают врагов к Супрунову и снижают их сопротивление магии
+--   terra  — без станов и подбрасываний, КД предметов не больше scepter_item_cooldown, герой светится
+--   opa    — +opa_spell_amp% к урону от магии и взрыв Шивы вокруг героя (даже без Шивы)
 -- sound — имя звукового события (vsndevts), stuns — оглушают ли волны.
+-- Звук phonk: content/soundevents/game_sounds_suprunov.vsndevts.
 --------------------------------------------------------------------------------
 
-SUPRUNOV_MUSIC_MENU_TIME = 5   -- Сколько секунд даётся на выбор трека, потом играет chronoshift
+SUPRUNOV_MUSIC_MENU_TIME = 5   -- Сколько секунд даётся на выбор трека, потом играет SUPRUNOV_SCEPTER_DEFAULT_TRACK
+SUPRUNOV_SCEPTER_DEFAULT_TRACK = "phonk"
 
 SUPRUNOV_TRACKS = {
     chronoshift = { id = 1, sound = "chronoshift", stuns = true },
     terra       = { id = 2, sound = "terra",       stuns = false },
     opa         = { id = 3, sound = "opa",         stuns = true },
+    phonk       = { id = 4, sound = "suprunov_phonk", stuns = false },
 }
 
 local function GetTrackById(id)
@@ -114,7 +124,7 @@ function custom_earthquake_bounce:OnSpellStart()
         return
     end
 
-    -- С аганимом — меню выбора трека. Не выбрал вовремя — chronoshift.
+    -- С аганимом — меню выбора трека. Не выбрал вовремя — phonk.
     self.music_menu = (self.music_menu or 0) + 1
     local menu = self.music_menu
 
@@ -129,13 +139,14 @@ function custom_earthquake_bounce:OnSpellStart()
 
     Timers:CreateTimer(SUPRUNOV_MUSIC_MENU_TIME, function()
         if not self:IsNull() and self.music_menu == menu then
-            self:StartTrack("chronoshift")
+            self:StartTrack(SUPRUNOV_SCEPTER_DEFAULT_TRACK)
         end
     end)
 end
 
 function custom_earthquake_bounce:OnMusicPicked(menu, track)
-    if menu == nil or self.music_menu ~= menu or not SUPRUNOV_TRACKS[track] then
+    -- chronoshift с аганимом не выбирается
+    if menu == nil or self.music_menu ~= menu or not SUPRUNOV_TRACKS[track] or track == "chronoshift" then
         return
     end
 
@@ -225,6 +236,41 @@ function custom_earthquake_bounce:CastShivaBlast()
     end
 end
 
+-- PHONK: волна притягивает врага к Супрунову и вешает стак "минус сопротивление магии"
+function custom_earthquake_bounce:PhonkPull(enemy)
+    local caster = self:GetCaster()
+    local caster_pos = caster:GetAbsOrigin()
+    local enemy_pos = enemy:GetAbsOrigin()
+
+    local offset = enemy_pos - caster_pos
+    offset.z = 0
+    local distance = offset:Length2D()
+
+    -- Не ближе 150 к Супрунову
+    local pull = math.min(self:GetSpecialValueFor("phonk_pull_distance"), distance - 150)
+    if pull > 0 then
+        -- modifier_knockback толкает от центра, поэтому центр — за спиной врага
+        local center = enemy_pos + offset:Normalized() * 100
+        enemy:AddNewModifier(caster, self, "modifier_knockback", {
+            center_x = center.x,
+            center_y = center.y,
+            center_z = center.z,
+            knockback_distance = pull,
+            knockback_height = 0,
+            knockback_duration = 0.25,
+            duration = 0.25,
+            should_stun = 0,
+        })
+    end
+
+    local debuff = enemy:AddNewModifier(caster, self, "modifier_suprunov_phonk_debuff", {
+        duration = self:GetSpecialValueFor("phonk_debuff_duration")
+    })
+    if debuff then
+        debuff:SetStackCount(math.min(debuff:GetStackCount() + 1, self:GetSpecialValueFor("phonk_max_stacks")))
+    end
+end
+
 --------------------------------------------------------------------------------
 
 modifier_custom_earthquake_aura = class({})
@@ -278,6 +324,7 @@ function modifier_custom_earthquake_aura:OnCreated(kv)
     self:SetStackCount(kv.track or SUPRUNOV_TRACKS.chronoshift.id)
 
     local track_name, track = self:GetTrack()
+    self.track_name = track_name
     self.track_sound = track.sound
     self.stuns = track.stuns
 
@@ -439,7 +486,12 @@ function modifier_custom_earthquake_aura:OnIntervalThink()
 
             enemy:EmitSound("Hero_Leshrac.Split_Earth")
 
-            -- Трек terra: только урон, без станов и подбрасываний
+            -- Трек phonk: притягивание к Супрунову и минус сопротивление магии
+            if self.track_name == "phonk" then
+                ability:PhonkPull(enemy)
+            end
+
+            -- Треки terra и phonk: без станов и подбрасываний
             if not self.stuns then
                 return
             end
@@ -550,4 +602,27 @@ end
 
 function modifier_suprunov_opa_frost:GetStatusEffectName()
     return "particles/status_fx/status_effect_frost.vpcf"
+end
+
+--------------------------------------------------------------------------------
+-- PHONK: минус сопротивление магии (стакается)
+--------------------------------------------------------------------------------
+
+modifier_suprunov_phonk_debuff = class({})
+
+function modifier_suprunov_phonk_debuff:IsHidden() return false end
+function modifier_suprunov_phonk_debuff:IsDebuff() return true end
+function modifier_suprunov_phonk_debuff:IsPurgable() return true end
+function modifier_suprunov_phonk_debuff:GetTexture() return "centaur_hoof_stomp" end
+
+function modifier_suprunov_phonk_debuff:DeclareFunctions()
+    return {
+        MODIFIER_PROPERTY_MAGICAL_RESISTANCE_BONUS,
+    }
+end
+
+function modifier_suprunov_phonk_debuff:GetModifierMagicalResistanceBonus()
+    local ability = self:GetAbility()
+    if not ability or ability:IsNull() then return 0 end
+    return -ability:GetSpecialValueFor("phonk_magic_resist") * self:GetStackCount()
 end

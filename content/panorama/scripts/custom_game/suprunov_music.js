@@ -4,7 +4,7 @@
 // Server: scripts/vscripts/abilities/custom_earthquake_bounce.lua
 // Keep this file ASCII-only: texts live in the XML.
 
-var TRACKS = [ "chronoshift", "terra", "opa" ];
+var TRACKS = [ "phonk", "terra", "opa" ];
 
 var current = null; // { ability, menu, deadline }
 
