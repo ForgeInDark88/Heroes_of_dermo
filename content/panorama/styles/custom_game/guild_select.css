@@ -75,9 +75,9 @@
 
 .GuildCard
 {
-	width: 300px;
-	height: 430px;
-	margin: 0px 12px;
+	width: 250px;
+	height: 460px;
+	margin: 0px 8px;
 	padding: 20px;
 	flow-children: down;
 	border-radius: 10px;
@@ -108,10 +108,10 @@
 
 #GuildEmblem
 {
-	width: 128px;
-	height: 128px;
+	width: 112px;
+	height: 112px;
 	horizontal-align: center;
-	border-radius: 64px;
+	border-radius: 56px;
 	border: 3px solid #f2c14e;
 	box-shadow: #000000 0px 0px 12px 0px;
 }
@@ -139,7 +139,7 @@
 	width: 100%;
 	margin-top: 10px;
 	text-align: center;
-	font-size: 16px;
+	font-size: 15px;
 	color: #ffffffcc;
 }
 

@@ -58,11 +58,11 @@ function GameMode:OnNPCSpawnedShared(keys)
     end
 
     ---------------------------------------------------------
-    -- ГИЛЬДИЯ АЛКАШЕЙ (units/alko_guild.lua): значок членам гильдии
+    -- ГИЛЬДИИ (guilds.lua): значки и бонусы членам гильдий
     ---------------------------------------------------------
 
-    if AlkoGuild then
-        AlkoGuild:OnNPCSpawned(npc)
+    if Guilds then
+        Guilds:OnNPCSpawned(npc)
     end
 
     -- Квопа и Stray228 инициализируются в GameMode:OnNPCSpawned (gamemode.lua)
