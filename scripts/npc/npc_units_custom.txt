@@ -850,4 +850,94 @@
     "CanBeDominated"            "1"
     "ConsideredHero"            "0"
   }
+
+  // Гарик: толстый кот Катьки с Агром (abilities/katka_garik.lua). Модель можно заменить на любую
+  "npc_katka_garik"
+  {
+    "BaseClass"                 "npc_dota_creature"
+    "Model"                     "models/creeps/neutral_creeps/n_creep_worg_large/n_creep_worg_large.vmdl"
+    "ModelScale"                "1.4"
+    "SoundSet"                  "n_creep_Melee"
+    "GameSoundsFile"            "soundevents/game_sounds_creeps.vsndevts"
+    "Level"                     "4"
+    "UnitLabel"                 "katka_cat"
+
+    "Ability1"                  "katka_garik_agr"
+
+    "StatusHealth"              "700"
+    "StatusHealthRegen"         "2"
+    "StatusMana"                "0"
+    "ArmorPhysical"             "6"
+    "MagicalResistance"         "0"
+
+    "AttackCapabilities"        "DOTA_UNIT_CAP_MELEE_ATTACK"
+    "AttackDamageMin"           "20"
+    "AttackDamageMax"           "20"
+    "AttackRate"                "1.4"
+    "AttackAnimationPoint"      "0.4"
+    "AttackAcquisitionRange"    "600"
+    "AttackRange"               "100"
+
+    "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
+    "MovementSpeed"             "300"
+    "MovementTurnRate"          "0.6"
+    "BoundsHullName"            "DOTA_HULL_SIZE_REGULAR"
+    "RingRadius"                "60"
+    "HealthBarOffset"           "200"
+
+    "VisionDaytimeRange"        "800"
+    "VisionNighttimeRange"      "600"
+
+    "BountyGoldMin"             "40"
+    "BountyGoldMax"             "50"
+    "BountyXP"                  "60"
+
+    "CanBeDominated"            "0"
+    "ConsideredHero"            "0"
+  }
+
+  // Боня: кот Катьки с Бегом (abilities/katka_bonnya.lua). Модель можно заменить на любую
+  "npc_katka_bonnya"
+  {
+    "BaseClass"                 "npc_dota_creature"
+    "Model"                     "models/creeps/neutral_creeps/n_creep_worg_small/n_creep_worg_small.vmdl"
+    "ModelScale"                "1.0"
+    "SoundSet"                  "n_creep_Melee"
+    "GameSoundsFile"            "soundevents/game_sounds_creeps.vsndevts"
+    "Level"                     "4"
+    "UnitLabel"                 "katka_cat"
+
+    "Ability1"                  "katka_bonnya_run"
+
+    "StatusHealth"              "400"
+    "StatusHealthRegen"         "2"
+    "StatusMana"                "0"
+    "ArmorPhysical"             "2"
+    "MagicalResistance"         "0"
+
+    "AttackCapabilities"        "DOTA_UNIT_CAP_MELEE_ATTACK"
+    "AttackDamageMin"           "35"
+    "AttackDamageMax"           "35"
+    "AttackRate"                "1.0"
+    "AttackAnimationPoint"      "0.4"
+    "AttackAcquisitionRange"    "600"
+    "AttackRange"               "100"
+
+    "MovementCapabilities"      "DOTA_UNIT_CAP_MOVE_GROUND"
+    "MovementSpeed"             "340"
+    "MovementTurnRate"          "0.6"
+    "BoundsHullName"            "DOTA_HULL_SIZE_REGULAR"
+    "RingRadius"                "40"
+    "HealthBarOffset"           "160"
+
+    "VisionDaytimeRange"        "800"
+    "VisionNighttimeRange"      "600"
+
+    "BountyGoldMin"             "40"
+    "BountyGoldMax"             "50"
+    "BountyXP"                  "60"
+
+    "CanBeDominated"            "0"
+    "ConsideredHero"            "0"
+  }
 }

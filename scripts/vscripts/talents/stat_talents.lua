@@ -17,6 +17,7 @@ local STAT_TALENTS = {
     "special_bonus_unique_arnold_hp_regen",
     "special_bonus_unique_rusik_intellect",
     "special_bonus_unique_danil_strength",
+    "special_bonus_unique_katka_agility",
 }
 
 --------------------------------------------------------------------------------
