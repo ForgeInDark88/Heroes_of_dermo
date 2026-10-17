@@ -43,7 +43,7 @@ function GameMode:OnNPCSpawnedShared(keys)
         return
     end
 
-    -- Невидимость в кастомке отключена: всех видно
+    -- Невидимость у героев в кастомке отключена: героев видно (варды остаются невидимыми)
     GameMode:ApplyAlwaysVisible(npc)
 
     -- Временный герой на время выбора героя (hero_selection.lua)

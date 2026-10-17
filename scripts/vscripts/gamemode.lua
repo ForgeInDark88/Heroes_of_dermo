@@ -102,10 +102,11 @@ function GameMode:OnGameInProgress()
     end)
 end
 
--- Невидимость отключена для всех: каждый юнит получает modifier_always_visible
--- (на спавне в OnNPCSpawned + страховочный таймер для героев)
+-- Невидимость отключена для героев: каждый герой (и иллюзии) получает modifier_always_visible
+-- (на спавне в OnNPCSpawned + страховочный таймер для героев).
+-- Варды и прочие юниты остаются невидимыми, иначе их видно и легко снимать.
 function GameMode:ApplyAlwaysVisible(unit)
-    if unit and not unit:IsNull() and unit.HasModifier
+    if unit and not unit:IsNull() and unit.IsHero and unit:IsHero()
         and not unit:HasModifier("modifier_always_visible") then
         unit:AddNewModifier(unit, nil, "modifier_always_visible", {})
     end
